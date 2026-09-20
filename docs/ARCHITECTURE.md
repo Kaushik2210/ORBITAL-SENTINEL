@@ -118,21 +118,28 @@ authentication tag. It is **not** SDLS; the tag is a simulation of link authenti
 ### 6.1 Interface
 
 ```python
-class EventKind(StrEnum): TELEMETRY, PACKET, COMMAND, AUTH, LINK, SPACE_WEATHER
+class EventKind(StrEnum):
+    TELEMETRY, PACKET, COMMAND, AUTH, LINK, SPACE_WEATHER
+
 
 class Detector(Protocol):
     name: str
-    layer: Layer                       # L1..L5
+    layer: Layer  # L1..L5
     consumes: frozenset[EventKind]
+
     def update(self, event: Event) -> list[DetectorOutput]: ...
     def reset(self) -> None: ...
 
+
 class DetectorOutput(BaseModel):
-    detector: str; layer: Layer; ts: float; channel: str | None
-    score: float          # 0..1, monotone in evidence strength
-    fired: bool           # score >= detector threshold
-    evidence: list[Evidence]     # name, observed, expected, unit, note
-    explanation: str             # one sentence, deterministic template
+    detector: str
+    layer: Layer
+    ts: float
+    channel: str | None
+    score: float  # 0..1, monotone in evidence strength
+    fired: bool  # score >= detector threshold
+    evidence: list[Evidence]  # name, observed, expected, unit, note
+    explanation: str  # one sentence, deterministic template
 ```
 
 Detectors are **streaming and stateful** (per channel), deterministic given a seed and input order, and never see
