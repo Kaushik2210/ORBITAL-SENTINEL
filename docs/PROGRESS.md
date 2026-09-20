@@ -2,7 +2,7 @@
 
 Newest entry last. Each phase ends with tests green, lint/typecheck clean, a commit, and an entry here.
 
-**Resume pointer:** last completed phase → **Phase 1**. Next → **Phase 2 (architecture)**.
+**Resume pointer:** last completed phase → **Phase 2**. Next → **Phase 3 (ingestion, packet layer, replay engine)**.
 
 ## Phase roadmap
 
@@ -10,8 +10,8 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 |---|---|---|
 | 0 | Bootstrap | done |
 | 1 | Research NASA datasets and APIs | done |
-| 2 | System architecture and ADRs | next |
-| 3 | Data ingestion, packet layer, replay engine | – |
+| 2 | System architecture and ADRs | done |
+| 3 | Data ingestion, packet layer, replay engine | next |
 | 4 | Database (Timescale schema, migrations) | – |
 | 5 | Detection L1–L5, ML, attribution, scenarios, evaluation | – |
 | 6 | Backend APIs (REST, WebSocket, SSE) | – |
@@ -55,3 +55,12 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 - **Not done yet (Phase 3):** the synthetic-telemetry fallback generator, the bearing/battery loaders, the DONKI client
   and its prefetch. About 6 of the 10 `DEMO_KEY` requests were used during inspection.
 - **Next:** Phase 2, `docs/ARCHITECTURE.md` (Mermaid, DB schema, API contract, detector interfaces, ADRs).
+
+### Phase 2 — Architecture
+- `docs/ARCHITECTURE.md`: context and package diagrams (Mermaid), packet layout, detector interface, layer design,
+  attribution and confusable-pair table, scenario YAML schema, DB schema and ER diagram, API contract, agent,
+  frontend and a verified-where matrix. ADRs 0004-0009.
+- **Design decision driven by Phase 1:** two telemetry families (ADR 0004). SMAP/MSL is real but anonymized (L1/L2 only);
+  a synthetic EPS/wheel bus driven by real PCoE trajectories carries redundancy and physics (L3) and all scenario classes.
+- **Next:** Phase 3. Order: packet codec + tests, side-channel generators, synthetic bus, replay engine,
+  DONKI client, loaders + fallback generator, async ingestion.
