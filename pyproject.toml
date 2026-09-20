@@ -1,0 +1,92 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "orbital-sentinel"
+version = "0.1.0"
+description = "Space-mission cybersecurity and anomaly-detection platform: telling cyberattacks from failures, faults and space weather."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.12,<3.13"
+authors = [{ name = "Kaushik" }]
+keywords = ["spacecraft", "anomaly-detection", "cybersecurity", "telemetry", "ccsds"]
+dependencies = [
+  "numpy>=2.0",
+  "pydantic>=2.8",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+# Added phase by phase so each phase only pulls what it uses.
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "pytest-cov>=5.0",
+  "hypothesis>=6.110",
+  "ruff>=0.6",
+  "mypy>=1.11",
+  "types-PyYAML",
+  "pre-commit>=3.8",
+]
+
+[tool.hatch.build.targets.wheel]
+# Four import packages, one per top-level folder. Dependency direction:
+#   sentinel_core  <-  sentinel_sim, sentinel_ml, sentinel_api   (core never imports the others)
+packages = [
+  "backend/sentinel_core",
+  "backend/sentinel_api",
+  "simulator/sentinel_sim",
+  "ml/sentinel_ml",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["backend", "simulator", "ml", "tests", "scripts"]
+extend-exclude = ["frontend", "data"]
+
+[tool.ruff.lint]
+select = [
+  "E", "F", "W",   # pycodestyle / pyflakes
+  "I",             # isort
+  "B",             # bugbear
+  "UP",            # pyupgrade
+  "SIM",           # simplify
+  "S",             # bandit-style security checks
+  "N",             # naming
+  "RUF",
+  "PT",            # pytest style
+]
+ignore = ["S101"]  # assert is fine in tests and for internal invariants
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S105", "S106", "S311"]  # fixed test secrets, seeded RNG are intentional
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+mypy_path = ["backend", "simulator", "ml"]
+explicit_package_bases = true
+files = ["backend", "simulator", "ml", "tests", "scripts"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers --strict-config"
+markers = [
+  "slow: long-running tests (model training, full scenario suites)",
+  "network: touches the network; skipped in offline runs",
+  "postgres: needs a live PostgreSQL/TimescaleDB (CI only)",
+]
+
+[tool.coverage.run]
+source = ["backend", "simulator", "ml"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+# Threshold is raised as phases land; the enforced value lives in CI (see .github/workflows/ci.yml).
+fail_under = 0

@@ -1,0 +1,22 @@
+name: Feature or scenario idea
+description: A new detector, attack/fault scenario, dataset, or UI improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like to see?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why does it matter?
+      description: For detectors and scenarios, which confusable cases would it help separate?
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: It operates only on local synthetic or replayed data (no real systems)
+          required: true

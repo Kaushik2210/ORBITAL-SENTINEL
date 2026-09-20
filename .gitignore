@@ -1,0 +1,76 @@
+# --- secrets / local env ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# --- data (downloaded, checksummed by `make data`; never committed) ---
+data/raw/
+data/cache/
+data/processed/*
+!data/processed/.gitkeep
+
+# --- ML artifacts (large, reproducible from `make train`) ---
+ml/runs/*
+!ml/runs/.gitkeep
+*.onnx
+*.pt
+*.pth
+*.h5
+!frontend/public/**/*.onnx
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+.python-version.local
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+*.egg-info/
+dist/
+build/
+*.sqlite
+*.sqlite3
+*.db
+
+# --- Node / Next.js ---
+node_modules/
+.next/
+out/
+frontend/coverage/
+*.tsbuildinfo
+next-env.d.ts
+playwright-report/
+test-results/
+blob-report/
+
+# --- editors / OS ---
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- local tooling folders (kept out of the public repo) ---
+.claude/
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+.cursor/
+.aider*
+.continue/
+.copilot/
+.windsurf/
+
+# --- scratch ---
+tmp/
+scratch/
+*.log

@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability in the platform
+    url: https://github.com/Kaushik2210/ORBITAL-SENTINEL/security/advisories/new
+    about: Please report privately, not in a public issue.
