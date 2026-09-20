@@ -1,0 +1,2741 @@
+{
+  "n_channel_arrays": 82,
+  "channels_without_label_row": [
+    "T-10"
+  ],
+  "channels_with_multiple_label_rows": {
+    "P-2": 2
+  },
+  "label_rows": 82,
+  "unique_label_channels": 81,
+  "total_anomaly_sequences": 105,
+  "sequence_length_min_median_max": [
+    11,
+    121.0,
+    4218
+  ],
+  "sequence_class_counts": {
+    "contextual": 43,
+    "point": 62
+  },
+  "nonbinary_command_columns_in": [],
+  "channels_with_nan_or_inf": [],
+  "SMAP": {
+    "channels": 54,
+    "n_features": [
+      25
+    ],
+    "train_points": 138004,
+    "test_points": 435826
+  },
+  "MSL": {
+    "channels": 27,
+    "n_features": [
+      55
+    ],
+    "train_points": 58317,
+    "test_points": 73729
+  },
+  "per_channel": {
+    "A-1": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8640,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": 0.999,
+      "train_f0_max": 0.999,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7102,
+        "rows_with_1_active": 114,
+        "rows_with_gt1_active": 1424,
+        "active_frac": 0.022545331790123458
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 85,
+      "anomalous_frac": 0.009837962962962963,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "A-2": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2648,
+        25
+      ],
+      "test_shape": [
+        7914,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 28,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 6408,
+        "rows_with_1_active": 109,
+        "rows_with_gt1_active": 1397,
+        "active_frac": 0.023381560104456238
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 111,
+      "anomalous_frac": 0.014025777103866566,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "A-3": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2736,
+        25
+      ],
+      "test_shape": [
+        8205,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 43,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 6735,
+        "rows_with_1_active": 109,
+        "rows_with_gt1_active": 1361,
+        "active_frac": 0.022232378630916108
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 186,
+      "anomalous_frac": 0.0226691042047532,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "A-4": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2690,
+        25
+      ],
+      "test_shape": [
+        8080,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 0.9999999999999996,
+      "f0_unique_train": 65,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 6627,
+        "rows_with_1_active": 104,
+        "rows_with_gt1_active": 1349,
+        "active_frac": 0.02245255775577558
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 111,
+      "anomalous_frac": 0.013737623762376238,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "A-5": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        705,
+        25
+      ],
+      "test_shape": [
+        4693,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -0.9990000000000001,
+      "test_f0_min": -0.9999999999999999,
+      "test_f0_max": 0.9999999999999998,
+      "f0_unique_train": 19,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 4693,
+        "rows_with_1_active": 0,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.0
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 51,
+      "anomalous_frac": 0.010867249094395908,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "A-6": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        682,
+        25
+      ],
+      "test_shape": [
+        4453,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 0.9999999999999998,
+      "f0_unique_train": 11,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 4453,
+        "rows_with_1_active": 0,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.0
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 41,
+      "anomalous_frac": 0.009207275993712105,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "A-7": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2879,
+        25
+      ],
+      "test_shape": [
+        8631,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 64,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 8627,
+        "rows_with_1_active": 0,
+        "rows_with_gt1_active": 4,
+        "active_frac": 7.724095315336191e-05
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 2401,
+      "anomalous_frac": 0.2781832927818329,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "A-8": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        762,
+        25
+      ],
+      "test_shape": [
+        8375,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 0.9999999999999996,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0000000000000002,
+      "f0_unique_train": 34,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 8317,
+        "rows_with_1_active": 2,
+        "rows_with_gt1_active": 56,
+        "active_frac": 0.0011990049751243782
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 3806,
+      "anomalous_frac": 0.45444776119402985,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "A-9": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        762,
+        25
+      ],
+      "test_shape": [
+        8434,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 0.9999999999999999,
+      "test_f0_min": -1.0,
+      "test_f0_max": 0.9999999999999999,
+      "f0_unique_train": 289,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 8377,
+        "rows_with_1_active": 3,
+        "rows_with_gt1_active": 54,
+        "active_frac": 0.0011510947751165916
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 3865,
+      "anomalous_frac": 0.4582641688404079,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "B-1": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2435,
+        25
+      ],
+      "test_shape": [
+        8044,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7913,
+        "rows_with_1_active": 7,
+        "rows_with_gt1_active": 124,
+        "active_frac": 0.0015850323222277474
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 71,
+      "anomalous_frac": 0.008826454500248633,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "C-1": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2158,
+        55
+      ],
+      "test_shape": [
+        2264,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 2.1934477379095165,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 630,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1689,
+        "rows_with_1_active": 575,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.004703245648475331
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 312,
+      "anomalous_frac": 0.13780918727915195,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "C-2": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        764,
+        55
+      ],
+      "test_shape": [
+        2051,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 0.9999999999999998,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1578,
+        "rows_with_1_active": 473,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.0042707261137295265
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 137,
+      "anomalous_frac": 0.06679668454412482,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-1": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2849,
+        25
+      ],
+      "test_shape": [
+        8509,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -0.579,
+      "test_f0_min": -0.9999999999999999,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 9,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7474,
+        "rows_with_1_active": 112,
+        "rows_with_gt1_active": 923,
+        "active_frac": 0.014269205155325733
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 3259,
+      "anomalous_frac": 0.38300622869902456,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-11": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2611,
+        25
+      ],
+      "test_shape": [
+        7431,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 0.9999999999999982,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 15,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7305,
+        "rows_with_1_active": 6,
+        "rows_with_gt1_active": 120,
+        "active_frac": 0.0017382137890817745
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 61,
+      "anomalous_frac": 0.008208854797470059,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-12": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        312,
+        25
+      ],
+      "test_shape": [
+        7918,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -0.9999999999999999,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7809,
+        "rows_with_1_active": 6,
+        "rows_with_gt1_active": 103,
+        "active_frac": 0.0012682074597962448
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 2740,
+      "anomalous_frac": 0.3460469815610003,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-13": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        1490,
+        25
+      ],
+      "test_shape": [
+        7663,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7339,
+        "rows_with_1_active": 18,
+        "rows_with_gt1_active": 306,
+        "active_frac": 0.004175910217930314
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 161,
+      "anomalous_frac": 0.021010048283961896,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-14": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        3675,
+        55
+      ],
+      "test_shape": [
+        2625,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1360,
+        "rows_with_1_active": 1265,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.00892416225749559
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 222,
+      "anomalous_frac": 0.08457142857142858,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-15": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2074,
+        55
+      ],
+      "test_shape": [
+        2158,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.1915779731605738,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.3757519666820917,
+      "f0_unique_train": 363,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1537,
+        "rows_with_1_active": 621,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.005329008341056534
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 641,
+      "anomalous_frac": 0.29703429101019463,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-16": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        1451,
+        55
+      ],
+      "test_shape": [
+        2191,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.008879901529805,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 164,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 924,
+        "rows_with_1_active": 1267,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.010708791858951603
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 651,
+      "anomalous_frac": 0.2971246006389776,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-2": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8595,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7072,
+        "rows_with_1_active": 113,
+        "rows_with_gt1_active": 1410,
+        "active_frac": 0.021645336435912352
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 4218,
+      "anomalous_frac": 0.4907504363001745,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-3": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8640,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -0.97,
+      "test_f0_min": -0.9999999999999998,
+      "test_f0_max": 1.0000000000000004,
+      "f0_unique_train": 445,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7096,
+        "rows_with_1_active": 123,
+        "rows_with_gt1_active": 1421,
+        "active_frac": 0.021672453703703704
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 3276,
+      "anomalous_frac": 0.37916666666666665,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-4": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2833,
+        25
+      ],
+      "test_shape": [
+        8473,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -0.97,
+      "test_f0_min": -0.9999999999999998,
+      "test_f0_max": 1.0000000000000004,
+      "f0_unique_train": 8,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 6922,
+        "rows_with_1_active": 118,
+        "rows_with_gt1_active": 1433,
+        "active_frac": 0.022271725874345963
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 3248,
+      "anomalous_frac": 0.38333530036586805,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-5": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2561,
+        25
+      ],
+      "test_shape": [
+        7628,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": 0.999,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 104,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 6151,
+        "rows_with_1_active": 138,
+        "rows_with_gt1_active": 1339,
+        "active_frac": 0.023373317601817864
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 51,
+      "anomalous_frac": 0.006685894074462507,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-6": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2594,
+        25
+      ],
+      "test_shape": [
+        7884,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -0.9999999999999999,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 155,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 6386,
+        "rows_with_1_active": 151,
+        "rows_with_gt1_active": 1347,
+        "active_frac": 0.022614366649754778
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 81,
+      "anomalous_frac": 0.010273972602739725,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-7": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2583,
+        25
+      ],
+      "test_shape": [
+        7642,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 6123,
+        "rows_with_1_active": 120,
+        "rows_with_gt1_active": 1399,
+        "active_frac": 0.0245354619209631
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 2702,
+      "anomalous_frac": 0.35357236325569225,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-8": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2602,
+        25
+      ],
+      "test_shape": [
+        7874,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7795,
+        "rows_with_1_active": 4,
+        "rows_with_gt1_active": 75,
+        "active_frac": 0.0012488358310049953
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 51,
+      "anomalous_frac": 0.006477012954025908,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "D-9": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2583,
+        25
+      ],
+      "test_shape": [
+        7406,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7302,
+        "rows_with_1_active": 10,
+        "rows_with_gt1_active": 94,
+        "active_frac": 0.0017159510306958322
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 1156,
+      "anomalous_frac": 0.15608965703483663,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-1": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8516,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 0.9999999999999998,
+      "test_f0_min": -1.0,
+      "test_f0_max": 0.9999999999999998,
+      "f0_unique_train": 2,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7516,
+        "rows_with_1_active": 86,
+        "rows_with_gt1_active": 914,
+        "active_frac": 0.014110693596367622
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 508,
+      "anomalous_frac": 0.05965241897604509,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-10": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8505,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 3,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7533,
+        "rows_with_1_active": 79,
+        "rows_with_gt1_active": 893,
+        "active_frac": 0.013874191651969429
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 322,
+      "anomalous_frac": 0.03786008230452675,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-11": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8514,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 0.9999999999999991,
+      "f0_unique_train": 5,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7509,
+        "rows_with_1_active": 85,
+        "rows_with_gt1_active": 920,
+        "active_frac": 0.014118902200297549
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 295,
+      "anomalous_frac": 0.03464881371858116,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-12": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8512,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0000000000000002,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0000000000000002,
+      "f0_unique_train": 2,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7520,
+        "rows_with_1_active": 87,
+        "rows_with_gt1_active": 905,
+        "active_frac": 0.01404389880952381
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 583,
+      "anomalous_frac": 0.06849154135338346,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-13": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8640,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0000000000000002,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 336,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7117,
+        "rows_with_1_active": 100,
+        "rows_with_gt1_active": 1423,
+        "active_frac": 0.021870177469135804
+      },
+      "label_rows": 1,
+      "n_sequences": 3,
+      "anomalous_points": 264,
+      "anomalous_frac": 0.030555555555555555,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-2": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8532,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 0.9999999999999996,
+      "test_f0_min": -0.9999999999999998,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 24,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7554,
+        "rows_with_1_active": 76,
+        "rows_with_gt1_active": 902,
+        "active_frac": 0.013791217377715268
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 1398,
+      "anomalous_frac": 0.16385372714486637,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-3": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8307,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0000000000000004,
+      "f0_unique_train": 25,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7327,
+        "rows_with_1_active": 80,
+        "rows_with_gt1_active": 900,
+        "active_frac": 0.014505838449500421
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 3213,
+      "anomalous_frac": 0.38678223185265437,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-4": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8354,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -0.9999999999999998,
+      "train_f0_max": 1.0000000000000004,
+      "test_f0_min": -0.9999999999999999,
+      "test_f0_max": 1.0000000000000004,
+      "f0_unique_train": 197,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7275,
+        "rows_with_1_active": 88,
+        "rows_with_gt1_active": 991,
+        "active_frac": 0.014888077567632272
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 2812,
+      "anomalous_frac": 0.3366052190567393,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-5": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8294,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 2,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7318,
+        "rows_with_1_active": 80,
+        "rows_with_gt1_active": 896,
+        "active_frac": 0.014488385178040351
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 321,
+      "anomalous_frac": 0.03870267663371112,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-6": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8300,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": 0.99,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 0.9999999999999998,
+      "f0_unique_train": 2,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7281,
+        "rows_with_1_active": 71,
+        "rows_with_gt1_active": 948,
+        "active_frac": 0.015060240963855422
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 66,
+      "anomalous_frac": 0.007951807228915662,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-7": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2769,
+        25
+      ],
+      "test_shape": [
+        8310,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -0.827,
+      "test_f0_min": -1.0,
+      "test_f0_max": 0.9999999999999998,
+      "f0_unique_train": 28,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7360,
+        "rows_with_1_active": 70,
+        "rows_with_gt1_active": 880,
+        "active_frac": 0.013918973124749299
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 281,
+      "anomalous_frac": 0.03381468110709988,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-8": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8532,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 0.9999999999999991,
+      "test_f0_min": -0.9999999999999998,
+      "test_f0_max": 1.0000000000000004,
+      "f0_unique_train": 18,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7538,
+        "rows_with_1_active": 78,
+        "rows_with_gt1_active": 916,
+        "active_frac": 0.013937724644475699
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 623,
+      "anomalous_frac": 0.07301922175339896,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "E-9": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8302,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0000000000000018,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 11,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7342,
+        "rows_with_1_active": 78,
+        "rows_with_gt1_active": 882,
+        "active_frac": 0.014268650124468
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 351,
+      "anomalous_frac": 0.04227896892315105,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "F-1": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2869,
+        25
+      ],
+      "test_shape": [
+        8584,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -0.34,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 2864,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 8356,
+        "rows_with_1_active": 23,
+        "rows_with_gt1_active": 205,
+        "active_frac": 0.003184218701460081
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 101,
+      "anomalous_frac": 0.011766076421248835,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "F-2": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2861,
+        25
+      ],
+      "test_shape": [
+        8626,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -0.54,
+      "train_f0_max": 0.5000000000000001,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 2857,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 8560,
+        "rows_with_1_active": 7,
+        "rows_with_gt1_active": 59,
+        "active_frac": 0.0009660715665816524
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 2957,
+      "anomalous_frac": 0.3428008346858335,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "F-3": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2880,
+        25
+      ],
+      "test_shape": [
+        8376,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 2880,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7316,
+        "rows_with_1_active": 90,
+        "rows_with_gt1_active": 970,
+        "active_frac": 0.015132521489971346
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 41,
+      "anomalous_frac": 0.004894937917860554,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "F-4": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2244,
+        55
+      ],
+      "test_shape": [
+        3422,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 0.7545156942037357,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.4654727517812436,
+      "f0_unique_train": 1942,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 3053,
+        "rows_with_1_active": 369,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.001996882914474966
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 71,
+      "anomalous_frac": 0.020748100526008183,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "F-5": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2598,
+        55
+      ],
+      "test_shape": [
+        3922,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.1163775338154294,
+      "train_f0_max": 4.162651279553374,
+      "test_f0_min": -1.076885608303046,
+      "test_f0_max": 6.954363220802578,
+      "f0_unique_train": 2383,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 3542,
+        "rows_with_1_active": 380,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.0017942470772659453
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 151,
+      "anomalous_frac": 0.038500764915859256,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "F-7": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2511,
+        55
+      ],
+      "test_shape": [
+        5054,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -0.9999999999999998,
+      "train_f0_max": 1.0,
+      "test_f0_min": -0.9999999999999998,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 56,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 4575,
+        "rows_with_1_active": 479,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.0017551187911298714
+      },
+      "label_rows": 1,
+      "n_sequences": 3,
+      "anomalous_points": 423,
+      "anomalous_frac": 0.08369608231104075,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "F-8": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        3342,
+        55
+      ],
+      "test_shape": [
+        2487,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.1304347826086958,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.3043478260869565,
+      "f0_unique_train": 50,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 2074,
+        "rows_with_1_active": 413,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.003075250562182609
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 537,
+      "anomalous_frac": 0.21592279855247287,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "G-1": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2820,
+        25
+      ],
+      "test_shape": [
+        8469,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 2773,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7028,
+        "rows_with_1_active": 114,
+        "rows_with_gt1_active": 1327,
+        "active_frac": 0.021258905026173888
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 121,
+      "anomalous_frac": 0.014287401109930334,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "G-2": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2478,
+        25
+      ],
+      "test_shape": [
+        7361,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 5827,
+        "rows_with_1_active": 115,
+        "rows_with_gt1_active": 1419,
+        "active_frac": 0.025534347688266994
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 41,
+      "anomalous_frac": 0.005569895394647467,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "G-3": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2624,
+        25
+      ],
+      "test_shape": [
+        7907,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -0.9999999999999998,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 2,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 6216,
+        "rows_with_1_active": 134,
+        "rows_with_gt1_active": 1557,
+        "active_frac": 0.02564710593988449
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 51,
+      "anomalous_frac": 0.006449981029467561,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "G-4": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2551,
+        25
+      ],
+      "test_shape": [
+        7632,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": 0.98,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 2,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7630,
+        "rows_with_1_active": 0,
+        "rows_with_gt1_active": 2,
+        "active_frac": 2.1837875611460516e-05
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 31,
+      "anomalous_frac": 0.004061844863731656,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "G-6": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2881,
+        25
+      ],
+      "test_shape": [
+        8640,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -0.9999999999999999,
+      "test_f0_max": 1.0000000000000002,
+      "f0_unique_train": 2881,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 8505,
+        "rows_with_1_active": 7,
+        "rows_with_gt1_active": 128,
+        "active_frac": 0.0015046296296296296
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 101,
+      "anomalous_frac": 0.011689814814814814,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "G-7": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2446,
+        25
+      ],
+      "test_shape": [
+        8029,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -0.9999999999999998,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 3,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7901,
+        "rows_with_1_active": 6,
+        "rows_with_gt1_active": 122,
+        "active_frac": 0.00156723543820318
+      },
+      "label_rows": 1,
+      "n_sequences": 3,
+      "anomalous_points": 268,
+      "anomalous_frac": 0.033379001120936606,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "M-1": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2209,
+        55
+      ],
+      "test_shape": [
+        2277,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -0.9160935512741932,
+      "train_f0_max": 2.4922982712327473,
+      "test_f0_min": -1.0764755758631972,
+      "test_f0_max": 2.268853926232979,
+      "f0_unique_train": 1183,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1595,
+        "rows_with_1_active": 682,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.005546609411343711
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 1141,
+      "anomalous_frac": 0.5010979358805446,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "M-2": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2208,
+        55
+      ],
+      "test_shape": [
+        2277,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.210726170949998,
+      "train_f0_max": 0.8863251604600975,
+      "test_f0_min": -1.0846891794252387,
+      "test_f0_max": 1.3352759069885178,
+      "f0_unique_train": 1243,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1595,
+        "rows_with_1_active": 682,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.005546609411343711
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 1141,
+      "anomalous_frac": 0.5010979358805446,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "M-3": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2037,
+        55
+      ],
+      "test_shape": [
+        2127,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.47721668720188,
+      "train_f0_max": 1.000070758018348,
+      "test_f0_min": -1.4241973964125723,
+      "test_f0_max": 1.000070758018348,
+      "f0_unique_train": 396,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1465,
+        "rows_with_1_active": 662,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.0057636385798115935
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 251,
+      "anomalous_frac": 0.11800658204043253,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "M-4": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2076,
+        55
+      ],
+      "test_shape": [
+        2038,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.4654640190905774,
+      "train_f0_max": 1.00000547321409,
+      "test_f0_min": -1.3314414256628067,
+      "test_f0_max": 1.1758926812181187,
+      "f0_unique_train": 400,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1376,
+        "rows_with_1_active": 662,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.006015338203758223
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 251,
+      "anomalous_frac": 0.12315996074582924,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "M-5": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2032,
+        55
+      ],
+      "test_shape": [
+        2303,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.2550059949886205,
+      "train_f0_max": 0.9815878463272607,
+      "test_f0_min": -1.3089860212660558,
+      "test_f0_max": 1.0951874959614576,
+      "f0_unique_train": 728,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1641,
+        "rows_with_1_active": 662,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.005323169456908059
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 301,
+      "anomalous_frac": 0.13069908814589665,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "M-6": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        1565,
+        55
+      ],
+      "test_shape": [
+        2049,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 258.1081081081054,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1002,
+        "rows_with_1_active": 1047,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.009462610487500678
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 181,
+      "anomalous_frac": 0.08833577354807223,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "M-7": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        1587,
+        55
+      ],
+      "test_shape": [
+        2156,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0020241085789672,
+      "train_f0_max": 0.4032494171651668,
+      "test_f0_min": -0.9999999999999999,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 35,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1230,
+        "rows_with_1_active": 926,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.007953686525115097
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 101,
+      "anomalous_frac": 0.046846011131725415,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "P-1": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2872,
+        25
+      ],
+      "test_shape": [
+        8505,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0000000000000004,
+      "f0_unique_train": 2238,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7019,
+        "rows_with_1_active": 105,
+        "rows_with_gt1_active": 1381,
+        "active_frac": 0.02157554379776602
+      },
+      "label_rows": 1,
+      "n_sequences": 3,
+      "anomalous_points": 751,
+      "anomalous_frac": 0.08830099941211052,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "P-10": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        4308,
+        55
+      ],
+      "test_shape": [
+        6100,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": 0.985881688550049,
+      "train_f0_max": 1.001129464915996,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 39,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 5420,
+        "rows_with_1_active": 680,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.002064359441408622
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 131,
+      "anomalous_frac": 0.021475409836065575,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "P-11": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        3969,
+        55
+      ],
+      "test_shape": [
+        3535,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": 0.3225919216957446,
+      "train_f0_max": 0.9977754472939899,
+      "test_f0_min": -1.0,
+      "test_f0_max": 0.9999999999999997,
+      "f0_unique_train": 2412,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 3279,
+        "rows_with_1_active": 256,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.001341086489601341
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 228,
+      "anomalous_frac": 0.0644978783592645,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "P-14": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2880,
+        55
+      ],
+      "test_shape": [
+        6100,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": 0.9990000000000001,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 36,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 5420,
+        "rows_with_1_active": 680,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.002064359441408622
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 181,
+      "anomalous_frac": 0.029672131147540984,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "P-15": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        3682,
+        55
+      ],
+      "test_shape": [
+        2856,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": 0.7308394954327966,
+      "train_f0_max": 1.0052196607220525,
+      "test_f0_min": -1.0000000000000002,
+      "test_f0_max": 0.9999999999999996,
+      "f0_unique_train": 760,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 2648,
+        "rows_with_1_active": 208,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.0013486876231974271
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 21,
+      "anomalous_frac": 0.007352941176470588,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "P-2": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2821,
+        25
+      ],
+      "test_shape": [
+        8209,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -0.8399999999999999,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 33,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7262,
+        "rows_with_1_active": 71,
+        "rows_with_gt1_active": 876,
+        "active_frac": 0.014344012669021805
+      },
+      "label_rows": 2,
+      "n_sequences": 2,
+      "anomalous_points": 1276,
+      "anomalous_frac": 0.15543915215007917,
+      "num_values_matches_test_len": [
+        true,
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "P-3": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2855,
+        25
+      ],
+      "test_shape": [
+        8493,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 34,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7528,
+        "rows_with_1_active": 77,
+        "rows_with_gt1_active": 888,
+        "active_frac": 0.013839828878684407
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 1336,
+      "anomalous_frac": 0.15730601671965147,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "P-4": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2609,
+        25
+      ],
+      "test_shape": [
+        7783,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7598,
+        "rows_with_1_active": 14,
+        "rows_with_gt1_active": 171,
+        "active_frac": 0.0028909160991905437
+      },
+      "label_rows": 1,
+      "n_sequences": 3,
+      "anomalous_points": 443,
+      "anomalous_frac": 0.0569189258640627,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "P-7": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2853,
+        25
+      ],
+      "test_shape": [
+        8071,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 36,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7990,
+        "rows_with_1_active": 13,
+        "rows_with_gt1_active": 68,
+        "active_frac": 0.0008724652046421344
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 1651,
+      "anomalous_frac": 0.20455953413455583,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "R-1": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2874,
+        25
+      ],
+      "test_shape": [
+        7244,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": 0.999,
+      "train_f0_max": 0.999,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 7161,
+        "rows_with_1_active": 9,
+        "rows_with_gt1_active": 74,
+        "active_frac": 0.0010180839315295418
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 81,
+      "anomalous_frac": 0.011181667586968525,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "S-1": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2818,
+        25
+      ],
+      "test_shape": [
+        7331,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -0.4,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 0.9999999999999998,
+      "f0_unique_train": 1089,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 6423,
+        "rows_with_1_active": 67,
+        "rows_with_gt1_active": 841,
+        "active_frac": 0.015061610512435776
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 448,
+      "anomalous_frac": 0.06111035329422998,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "S-2": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        926,
+        55
+      ],
+      "test_shape": [
+        1827,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 481,
+        "rows_with_1_active": 1346,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.013643090271442762
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 11,
+      "anomalous_frac": 0.0060207991242474,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "T-1": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2875,
+        25
+      ],
+      "test_shape": [
+        8612,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 440,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 8528,
+        "rows_with_1_active": 7,
+        "rows_with_gt1_active": 77,
+        "active_frac": 0.0011901997213190896
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 1536,
+      "anomalous_frac": 0.17835578262888993,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "T-10": {
+      "spacecraft": null,
+      "train_shape": [
+        425,
+        55
+      ],
+      "test_shape": [
+        670,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 264,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 540,
+        "rows_with_1_active": 130,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.0035931453841901604
+      },
+      "label_rows": 0
+    },
+    "T-12": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        1145,
+        55
+      ],
+      "test_shape": [
+        2430,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1145,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 2295,
+        "rows_with_1_active": 135,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.00102880658436214
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 121,
+      "anomalous_frac": 0.04979423868312757,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "T-13": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        1145,
+        55
+      ],
+      "test_shape": [
+        2430,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1145,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 2295,
+        "rows_with_1_active": 135,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.00102880658436214
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 252,
+      "anomalous_frac": 0.1037037037037037,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "T-2": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2855,
+        25
+      ],
+      "test_shape": [
+        8625,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 0.9999999999999999,
+      "test_f0_min": -1.0,
+      "test_f0_max": 0.9999999999999998,
+      "f0_unique_train": 452,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 8555,
+        "rows_with_1_active": 7,
+        "rows_with_gt1_active": 63,
+        "active_frac": 0.0009951690821256038
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 1785,
+      "anomalous_frac": 0.20695652173913043,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "T-3": {
+      "spacecraft": "SMAP",
+      "train_shape": [
+        2876,
+        25
+      ],
+      "test_shape": [
+        8579,
+        25
+      ],
+      "dtype": "float64",
+      "train_f0_min": 0.95,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 23,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 8523,
+        "rows_with_1_active": 11,
+        "rows_with_gt1_active": 45,
+        "active_frac": 0.0006071026149123829
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 184,
+      "anomalous_frac": 0.021447721179624665,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "T-4": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2272,
+        55
+      ],
+      "test_shape": [
+        2217,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 0.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 2,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1642,
+        "rows_with_1_active": 575,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.004802953607644631
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 69,
+      "anomalous_frac": 0.03112313937753721,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "T-5": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        2272,
+        55
+      ],
+      "test_shape": [
+        2218,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": -1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 1,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 1644,
+        "rows_with_1_active": 574,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.004792438967371339
+      },
+      "label_rows": 1,
+      "n_sequences": 1,
+      "anomalous_points": 26,
+      "anomalous_frac": 0.011722272317403066,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "T-8": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        748,
+        55
+      ],
+      "test_shape": [
+        1519,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0294117647058822,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0196078431372548,
+      "f0_unique_train": 6,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 671,
+        "rows_with_1_active": 848,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.010338185453392826
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 102,
+      "anomalous_frac": 0.06714944042132982,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    },
+    "T-9": {
+      "spacecraft": "MSL",
+      "train_shape": [
+        439,
+        55
+      ],
+      "test_shape": [
+        1096,
+        55
+      ],
+      "dtype": "float64",
+      "train_f0_min": -1.0,
+      "train_f0_max": 1.0,
+      "test_f0_min": -1.0,
+      "test_f0_max": 1.0,
+      "f0_unique_train": 4,
+      "nan_or_inf": 0,
+      "cmd_test": {
+        "binary": true,
+        "rows_with_0_active": 519,
+        "rows_with_1_active": 577,
+        "rows_with_gt1_active": 0,
+        "active_frac": 0.009749256555825899
+      },
+      "label_rows": 1,
+      "n_sequences": 2,
+      "anomalous_points": 112,
+      "anomalous_frac": 0.10218978102189781,
+      "num_values_matches_test_len": [
+        true
+      ],
+      "intervals_in_bounds": true
+    }
+  }
+}

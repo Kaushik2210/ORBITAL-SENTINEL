@@ -47,6 +47,20 @@ def test() -> None:
     uv("run", "pytest", "--cov", "--cov-report=term-missing:skip-covered")
 
 
+def data() -> None:
+    """Download, checksum and cache the real datasets into data/raw/ (profile via DATA_PROFILE)."""
+    import os
+
+    uv(
+        "run",
+        "python",
+        "-m",
+        "sentinel_sim.datasets",
+        "--profile",
+        os.environ.get("DATA_PROFILE", "lite"),
+    )
+
+
 def check() -> None:
     """Everything CI runs for Python."""
     lint()
@@ -60,6 +74,7 @@ TASKS: dict[str, Callable[[], None]] = {
     "format": format_,
     "typecheck": typecheck,
     "test": test,
+    "data": data,
     "check": check,
 }
 

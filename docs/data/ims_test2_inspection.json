@@ -1,0 +1,43 @@
+{
+  "n_snapshots": 984,
+  "first_file": "2004.02.12.10.32.39",
+  "last_file": "2004.02.19.06.22.39",
+  "snapshot_shapes": [
+    [
+      20480,
+      4
+    ]
+  ],
+  "failing_channel_0based": 0,
+  "rms_early_mean_per_channel": [
+    0.0777,
+    0.0953,
+    0.1051,
+    0.0556
+  ],
+  "rms_late_mean_per_channel": [
+    0.2178,
+    0.1318,
+    0.1356,
+    0.0872
+  ],
+  "kurtosis_early_mean_per_channel": [
+    3.464,
+    3.212,
+    4.58,
+    3.148
+  ],
+  "kurtosis_late_mean_per_channel": [
+    4.674,
+    3.01,
+    3.158,
+    3.226
+  ],
+  "failing_rms_late_over_early": 2.802394886905761,
+  "healthy_rms_late_over_early": [
+    1.3836977017118324,
+    1.2905819295851055,
+    1.5669717654406101
+  ],
+  "failing_rms_max_snapshot_index": 979
+}

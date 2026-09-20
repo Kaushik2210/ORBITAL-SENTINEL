@@ -1,0 +1,617 @@
+{
+  "n_batteries": 34,
+  "ids_in_multiple_archives_identical_bytes": [
+    "B0025",
+    "B0026",
+    "B0027",
+    "B0028"
+  ],
+  "ids_in_multiple_archives_different_bytes": [],
+  "capacity_fade_pct_min_median_max": [
+    -1822.2,
+    5.3,
+    100.0
+  ],
+  "batteries": {
+    "B0007": {
+      "archive": "1. BatteryAgingARC-FY08Q4.zip",
+      "cycles": 616,
+      "cycle_types": {
+        "charge": 170,
+        "discharge": 168,
+        "impedance": 278
+      },
+      "discharge_capacity_first_ah": 1.89105229539079,
+      "discharge_capacity_last_ah": 1.4324552720625434,
+      "capacity_fade_pct": 24.3,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24
+      ],
+      "min_capacity_ah": 1.4004552399066514
+    },
+    "B0018": {
+      "archive": "1. BatteryAgingARC-FY08Q4.zip",
+      "cycles": 319,
+      "cycle_types": {
+        "charge": 134,
+        "impedance": 53,
+        "discharge": 132
+      },
+      "discharge_capacity_first_ah": 1.8550045207910817,
+      "discharge_capacity_last_ah": 1.341051440640485,
+      "capacity_fade_pct": 27.7,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24
+      ],
+      "min_capacity_ah": 1.341051440640485
+    },
+    "B0005": {
+      "archive": "1. BatteryAgingARC-FY08Q4.zip",
+      "cycles": 616,
+      "cycle_types": {
+        "charge": 170,
+        "discharge": 168,
+        "impedance": 278
+      },
+      "discharge_capacity_first_ah": 1.8564874208181574,
+      "discharge_capacity_last_ah": 1.3250793286429356,
+      "capacity_fade_pct": 28.6,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24
+      ],
+      "min_capacity_ah": 1.2874525221379407
+    },
+    "B0006": {
+      "archive": "1. BatteryAgingARC-FY08Q4.zip",
+      "cycles": 616,
+      "cycle_types": {
+        "charge": 170,
+        "discharge": 168,
+        "impedance": 278
+      },
+      "discharge_capacity_first_ah": 2.035337591005598,
+      "discharge_capacity_last_ah": 1.1856752327929356,
+      "capacity_fade_pct": 41.7,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24
+      ],
+      "min_capacity_ah": 1.15381833159625
+    },
+    "B0028": {
+      "archive": "2. BatteryAgingARC_25_26_27_28_P1.zip",
+      "cycles": 80,
+      "cycle_types": {
+        "impedance": 21,
+        "charge": 31,
+        "discharge": 28
+      },
+      "discharge_capacity_first_ah": 1.8046847720100736,
+      "discharge_capacity_last_ah": 1.7172335652295245,
+      "capacity_fade_pct": 4.8,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24
+      ],
+      "min_capacity_ah": 1.7172335652295245
+    },
+    "B0025": {
+      "archive": "2. BatteryAgingARC_25_26_27_28_P1.zip",
+      "cycles": 80,
+      "cycle_types": {
+        "impedance": 21,
+        "charge": 31,
+        "discharge": 28
+      },
+      "discharge_capacity_first_ah": 1.847011162956716,
+      "discharge_capacity_last_ah": 1.7677890780323617,
+      "capacity_fade_pct": 4.3,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24
+      ],
+      "min_capacity_ah": 1.7677890780323617
+    },
+    "B0026": {
+      "archive": "2. BatteryAgingARC_25_26_27_28_P1.zip",
+      "cycles": 80,
+      "cycle_types": {
+        "impedance": 21,
+        "charge": 31,
+        "discharge": 28
+      },
+      "discharge_capacity_first_ah": 1.8132504303869899,
+      "discharge_capacity_last_ah": 1.768754111010884,
+      "capacity_fade_pct": 2.5,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24
+      ],
+      "min_capacity_ah": 1.3863373424430125
+    },
+    "B0027": {
+      "archive": "2. BatteryAgingARC_25_26_27_28_P1.zip",
+      "cycles": 80,
+      "cycle_types": {
+        "impedance": 21,
+        "charge": 31,
+        "discharge": 28
+      },
+      "discharge_capacity_first_ah": 1.8233077742149364,
+      "discharge_capacity_last_ah": 1.7700926253324452,
+      "capacity_fade_pct": 2.9,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24
+      ],
+      "min_capacity_ah": 1.7700926253324452
+    },
+    "B0029": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 97,
+      "cycle_types": {
+        "impedance": 17,
+        "discharge": 40,
+        "charge": 40
+      },
+      "discharge_capacity_first_ah": 1.697507332205763,
+      "discharge_capacity_last_ah": 1.612079811711934,
+      "capacity_fade_pct": 5.0,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        43
+      ],
+      "min_capacity_ah": 1.612079811711934
+    },
+    "B0030": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 97,
+      "cycle_types": {
+        "impedance": 17,
+        "discharge": 40,
+        "charge": 40
+      },
+      "discharge_capacity_first_ah": 1.6560706096175404,
+      "discharge_capacity_last_ah": 1.562780404428482,
+      "capacity_fade_pct": 5.6,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        43
+      ],
+      "min_capacity_ah": 1.562780404428482
+    },
+    "B0031": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 97,
+      "cycle_types": {
+        "impedance": 17,
+        "discharge": 40,
+        "charge": 40
+      },
+      "discharge_capacity_first_ah": 1.6666751942525773,
+      "discharge_capacity_last_ah": 1.6672987794846676,
+      "capacity_fade_pct": -0.0,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        43
+      ],
+      "min_capacity_ah": 1.6666751942525773
+    },
+    "B0032": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 97,
+      "cycle_types": {
+        "impedance": 17,
+        "discharge": 40,
+        "charge": 40
+      },
+      "discharge_capacity_first_ah": 1.7048641073512139,
+      "discharge_capacity_last_ah": 1.6358000873538245,
+      "capacity_fade_pct": 4.1,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        43
+      ],
+      "min_capacity_ah": 1.6358000873538245
+    },
+    "B0033": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 486,
+      "cycle_types": {
+        "discharge": 197,
+        "impedance": 92,
+        "charge": 197
+      },
+      "discharge_capacity_first_ah": 0.06842572240601812,
+      "discharge_capacity_last_ah": 1.3152825503676357,
+      "capacity_fade_pct": -1822.2,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24
+      ],
+      "min_capacity_ah": 0.06842572240601812
+    },
+    "B0034": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 486,
+      "cycle_types": {
+        "discharge": 197,
+        "impedance": 92,
+        "charge": 197
+      },
+      "discharge_capacity_first_ah": 0.7459302957645664,
+      "discharge_capacity_last_ah": 1.2802601605963335,
+      "capacity_fade_pct": -71.6,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24
+      ],
+      "min_capacity_ah": 0.7459302957645664
+    },
+    "B0036": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 486,
+      "cycle_types": {
+        "discharge": 197,
+        "impedance": 92,
+        "charge": 197
+      },
+      "discharge_capacity_first_ah": 1.001982588175331,
+      "discharge_capacity_last_ah": 1.5591129431541175,
+      "capacity_fade_pct": -55.6,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24
+      ],
+      "min_capacity_ah": 1.001982588175331
+    },
+    "B0038": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 122,
+      "cycle_types": {
+        "discharge": 47,
+        "impedance": 28,
+        "charge": 47
+      },
+      "discharge_capacity_first_ah": 0.8980573709676724,
+      "discharge_capacity_last_ah": 1.5301475534434217,
+      "capacity_fade_pct": -70.4,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24,
+        44
+      ],
+      "min_capacity_ah": 0.8980573709676724
+    },
+    "B0039": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 122,
+      "cycle_types": {
+        "discharge": 47,
+        "impedance": 28,
+        "charge": 47
+      },
+      "discharge_capacity_first_ah": 0.11903831859341765,
+      "discharge_capacity_last_ah": 1.3153386221697692,
+      "capacity_fade_pct": -1005.0,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24,
+        44
+      ],
+      "min_capacity_ah": 0.11903831859341765
+    },
+    "B0040": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 122,
+      "cycle_types": {
+        "discharge": 47,
+        "impedance": 28,
+        "charge": 47
+      },
+      "discharge_capacity_first_ah": 0.6734628137095633,
+      "discharge_capacity_last_ah": 0.5569902643736575,
+      "capacity_fade_pct": 17.3,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        24,
+        44
+      ],
+      "min_capacity_ah": 0.425812451177779
+    },
+    "B0041": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 163,
+      "cycle_types": {
+        "discharge": 67,
+        "charge": 67,
+        "impedance": 29
+      },
+      "discharge_capacity_first_ah": 0.055620243768194036,
+      "discharge_capacity_last_ah": 0.8364948433646345,
+      "capacity_fade_pct": -1403.9,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.044092291840801906
+    },
+    "B0042": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 275,
+      "cycle_types": {
+        "charge": 113,
+        "impedance": 50,
+        "discharge": 112
+      },
+      "discharge_capacity_first_ah": 1.7287126633755356,
+      "discharge_capacity_last_ah": 1.3374691704584258,
+      "capacity_fade_pct": 22.6,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        22,
+        24
+      ],
+      "min_capacity_ah": 0.0
+    },
+    "B0043": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 275,
+      "cycle_types": {
+        "charge": 113,
+        "impedance": 50,
+        "discharge": 112
+      },
+      "discharge_capacity_first_ah": 1.713782642126885,
+      "discharge_capacity_last_ah": 1.2767801501201566,
+      "capacity_fade_pct": 25.5,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        22,
+        24
+      ],
+      "min_capacity_ah": 0.0
+    },
+    "B0044": {
+      "archive": "3. BatteryAgingARC_25-44.zip",
+      "cycles": 275,
+      "cycle_types": {
+        "charge": 113,
+        "impedance": 50,
+        "discharge": 112
+      },
+      "discharge_capacity_first_ah": 1.686525555152074,
+      "discharge_capacity_last_ah": 1.2486254509320867,
+      "capacity_fade_pct": 26.0,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        22,
+        24
+      ],
+      "min_capacity_ah": 0.0
+    },
+    "B0045": {
+      "archive": "4. BatteryAgingARC_45_46_47_48.zip",
+      "cycles": 184,
+      "cycle_types": {
+        "discharge": 72,
+        "impedance": 40,
+        "charge": 72
+      },
+      "discharge_capacity_first_ah": 1.0819793880779518,
+      "discharge_capacity_last_ah": 0.6069476168507777,
+      "capacity_fade_pct": 43.9,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.0
+    },
+    "B0046": {
+      "archive": "4. BatteryAgingARC_45_46_47_48.zip",
+      "cycles": 184,
+      "cycle_types": {
+        "discharge": 72,
+        "impedance": 40,
+        "charge": 72
+      },
+      "discharge_capacity_first_ah": 1.7282392323598248,
+      "discharge_capacity_last_ah": 1.1538041170229467,
+      "capacity_fade_pct": 33.2,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.0
+    },
+    "B0047": {
+      "archive": "4. BatteryAgingARC_45_46_47_48.zip",
+      "cycles": 184,
+      "cycle_types": {
+        "discharge": 72,
+        "impedance": 40,
+        "charge": 72
+      },
+      "discharge_capacity_first_ah": 1.6743047446975208,
+      "discharge_capacity_last_ah": 1.1567087516841796,
+      "capacity_fade_pct": 30.9,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.0
+    },
+    "B0048": {
+      "archive": "4. BatteryAgingARC_45_46_47_48.zip",
+      "cycles": 184,
+      "cycle_types": {
+        "discharge": 72,
+        "impedance": 40,
+        "charge": 72
+      },
+      "discharge_capacity_first_ah": 1.6579955793677608,
+      "discharge_capacity_last_ah": 1.2231273969878986,
+      "capacity_fade_pct": 26.2,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.0
+    },
+    "B0049": {
+      "archive": "5. BatteryAgingARC_49_50_51_52.zip",
+      "cycles": 62,
+      "cycle_types": {
+        "discharge": 25,
+        "impedance": 12,
+        "charge": 25
+      },
+      "discharge_capacity_first_ah": 0.8583727215167135,
+      "discharge_capacity_last_ah": 0.6913885231046639,
+      "capacity_fade_pct": 19.5,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.0
+    },
+    "B0050": {
+      "archive": "5. BatteryAgingARC_49_50_51_52.zip",
+      "cycles": 62,
+      "cycle_types": {
+        "discharge": 25,
+        "impedance": 12,
+        "charge": 25
+      },
+      "discharge_capacity_first_ah": 0.8631448527758341,
+      "discharge_capacity_last_ah": 0.27808517709104497,
+      "capacity_fade_pct": 67.8,
+      "discharge_cycles_without_scalar_capacity": 4,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.0
+    },
+    "B0051": {
+      "archive": "5. BatteryAgingARC_49_50_51_52.zip",
+      "cycles": 62,
+      "cycle_types": {
+        "discharge": 25,
+        "impedance": 12,
+        "charge": 25
+      },
+      "discharge_capacity_first_ah": 0.6434735598158292,
+      "discharge_capacity_last_ah": 0.677848893570423,
+      "capacity_fade_pct": -5.3,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.0
+    },
+    "B0052": {
+      "archive": "5. BatteryAgingARC_49_50_51_52.zip",
+      "cycles": 62,
+      "cycle_types": {
+        "discharge": 25,
+        "impedance": 12,
+        "charge": 25
+      },
+      "discharge_capacity_first_ah": 0.8606591508342232,
+      "discharge_capacity_last_ah": 1.3515647352626494,
+      "capacity_fade_pct": -57.0,
+      "discharge_cycles_without_scalar_capacity": 21,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.8606591508342232
+    },
+    "B0053": {
+      "archive": "6. BatteryAgingARC_53_54_55_56.zip",
+      "cycles": 137,
+      "cycle_types": {
+        "discharge": 56,
+        "impedance": 26,
+        "charge": 55
+      },
+      "discharge_capacity_first_ah": 1.0691417886194299,
+      "discharge_capacity_last_ah": 0.0,
+      "capacity_fade_pct": 100.0,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.0
+    },
+    "B0054": {
+      "archive": "6. BatteryAgingARC_53_54_55_56.zip",
+      "cycles": 253,
+      "cycle_types": {
+        "discharge": 103,
+        "impedance": 48,
+        "charge": 102
+      },
+      "discharge_capacity_first_ah": 0.7399351039859233,
+      "discharge_capacity_last_ah": 0.0,
+      "capacity_fade_pct": 100.0,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.0
+    },
+    "B0055": {
+      "archive": "6. BatteryAgingARC_53_54_55_56.zip",
+      "cycles": 252,
+      "cycle_types": {
+        "discharge": 102,
+        "impedance": 48,
+        "charge": 102
+      },
+      "discharge_capacity_first_ah": 0.7989997927037011,
+      "discharge_capacity_last_ah": 0.9907591663373165,
+      "capacity_fade_pct": -24.0,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.7989997927037011
+    },
+    "B0056": {
+      "archive": "6. BatteryAgingARC_53_54_55_56.zip",
+      "cycles": 252,
+      "cycle_types": {
+        "discharge": 102,
+        "impedance": 48,
+        "charge": 102
+      },
+      "discharge_capacity_first_ah": 0.7852781208785192,
+      "discharge_capacity_last_ah": 1.1290590137779504,
+      "capacity_fade_pct": -43.8,
+      "discharge_cycles_without_scalar_capacity": 0,
+      "ambient_temperatures_c": [
+        4,
+        24
+      ],
+      "min_capacity_ah": 0.7852781208785192
+    }
+  }
+}

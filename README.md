@@ -16,7 +16,7 @@ The interesting part is the hard part: telling *confusable* cases apart.
 | Stale data | **Replay** attack | Sequence counters and timestamps vs. content |
 | Radiation bit-flip | Injected **manipulation** | Correlation with real NASA DONKI space-weather events |
 
-> **Status: early development (v0.1, bootstrap).** Nothing here is a finished feature yet. The roadmap is in
+> **Status: early development (v0.1).** Real NASA data is downloaded and inspected; the detectors and UI are still to come. Nothing here is a finished feature yet. The roadmap is in
 > [`docs/PROGRESS.md`](docs/PROGRESS.md). Numbers, screenshots and benchmarks will appear here only once
 > they come from real runs.
 

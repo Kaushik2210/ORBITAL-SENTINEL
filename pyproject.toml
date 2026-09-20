@@ -12,9 +12,12 @@ requires-python = ">=3.12,<3.13"
 authors = [{ name = "Kaushik" }]
 keywords = ["spacecraft", "anomaly-detection", "cybersecurity", "telemetry", "ccsds"]
 dependencies = [
+  "httpx>=0.28.1",
   "numpy>=2.0",
+  "py7zr>=1.1.3",
   "pydantic>=2.8",
   "pyyaml>=6.0",
+  "scipy>=1.18.1",
 ]
 
 [project.optional-dependencies]
@@ -29,6 +32,7 @@ dev = [
   "mypy>=1.11",
   "types-PyYAML",
   "pre-commit>=3.8",
+  "scipy-stubs>=1.18.1.0",
 ]
 
 [tool.hatch.build.targets.wheel]
