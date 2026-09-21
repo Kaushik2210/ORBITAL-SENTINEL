@@ -2,7 +2,7 @@
 
 Newest entry last. Each phase ends with tests green, lint/typecheck clean, a commit, and an entry here.
 
-**Resume pointer:** last completed phase → **Phase 4**. Next → **Phase 5 (detection engine, scenarios, evaluation)**.
+**Resume pointer:** last completed phase → **Phase 5, except L2 (LSTM/ONNX/Isolation Forest)**. Next → finish L2, then **Phase 6 (backend API)**.
 
 ## Phase roadmap
 
@@ -13,8 +13,8 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 | 2 | System architecture and ADRs | done |
 | 3 | Data ingestion, packet layer, replay engine | done |
 | 4 | Database (Timescale schema, migrations) | done |
-| 5 | Detection L1–L5, ML, attribution, scenarios, evaluation | next |
-| 6 | Backend APIs (REST, WebSocket, SSE) | – |
+| 5 | Detection L1–L5, ML, attribution, scenarios, evaluation | done except L2 (ML detectors) |
+| 6 | Backend APIs (REST, WebSocket, SSE) | next |
 | 7 | Mission Control frontend | – |
 | 8 | AI investigation agent | – |
 | 9 | Platform security | – |
@@ -137,3 +137,15 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 - Real-data evaluation added (`sentinel_ml.smap_eval`, ~10 s): L1 alone on the 81 labeled SMAP/MSL channels, event level:
   F1 0.64 overall but only **0.55 on the 65 channels with a varying training signal** (the 16 constant-training channels
   score 1.00 trivially). Rendered into `docs/EVALUATION.md`; raw numbers in `docs/data/smap_msl_l1_v1.json`.
+
+## Resume here (next session)
+
+1. **L2** (`sentinel_ml`): per-channel Telemanom-style LSTM (2x80) with EWMA-smoothed residuals and nonparametric dynamic
+   thresholding, export to ONNX, serve with ONNX Runtime; Isolation Forest baseline. Feed the multi-hot command bitmask as a
+   binary vector. Handle the 16 constant-training channels and `M-6` (test max 258). Evaluate with `sentinel_ml.smap_eval` rules
+   and add the results to `docs/EVALUATION.md`. Needs `torch` (CPU) and `onnxruntime` in the `ml` extra.
+2. **Phase 6 API** (`sentinel_api`): FastAPI app over the existing DB layer per `docs/ARCHITECTURE.md` section 10; run a scenario
+   through `sentinel_ml.pipeline`, persist incidents (features + posterior + model version) and detector outputs; WebSocket
+   telemetry, SSE incidents. Load `models/attribution-v1.json` with `AttributionModel.load`.
+3. Phases 7-12 as planned. Missing docs: `docs/DETECTION.md`, `docs/API.md`, `docs/THREAT_MODEL.md`, demo script.
+4. Known small debts: `make demo` does not exist yet; frontend CI job to add with the frontend; coverage threshold not enforced yet.
