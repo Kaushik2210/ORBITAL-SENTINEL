@@ -37,8 +37,8 @@ AI agent and Docker packaging are not built yet.** Details and next steps: [`doc
 | Database schema, Alembic migrations, TimescaleDB hypertables (verified in CI) | ✅ done |
 | Detectors: L1 statistical, L3 physics/redundancy, L4 protocol/security, L5 environment | ✅ done |
 | 33-scenario library (7 attack families, faults, degradation, SEU) + explainable attribution | ✅ done |
-| L2 machine-learning detectors (LSTM forecaster → ONNX, Isolation Forest) | ⏳ not built |
-| REST / WebSocket / SSE API | ⏳ not built |
+| L2 detectors: per-channel LSTM forecaster → ONNX Runtime with dynamic thresholding, Isolation Forest baseline | ✅ done (weaker than L1 alone on real data; see results) |
+| REST / WebSocket / SSE API with live scenario and real-data replay sessions ([API](docs/API.md)) | ✅ done (unauthenticated: local use only) |
 | Mission Control web UI, AI investigation agent, platform security, Docker | ⏳ not built |
 
 ## Results so far
@@ -56,9 +56,10 @@ All from [`docs/EVALUATION.md`](docs/EVALUATION.md), which is generated from sav
 - **The hard case is not solved.** Slow, in-limits single-sensor drift (spoofing vs drift vs low-and-slow
   manipulation) cannot be separated by the current evidence. The platform abstains (`needs_human`) on
   essentially all of it rather than guessing.
-- **Real data:** on the 81 labeled SMAP/MSL channels, the L1 statistical layer alone reaches event-level F1 0.64
-  overall, but **0.55 on the 65 channels with a varying training signal** (the 16 constant-training channels are
-  trivially perfect). There is no forecaster yet.
+- **Real data (81 labeled SMAP/MSL channels, event level):** the L1 statistical layer reaches F1 0.64 overall, but
+  **0.55 on the 65 channels with a varying training signal** (the 16 constant-training channels are trivially
+  perfect). The LSTM forecaster, trained for only 15 epochs, scores **0.40** on its own, well above an Isolation
+  Forest baseline (0.12) but below L1; combining them is within noise (0.57). Not a clear win yet.
 - **It does not generalize to failure modes it has never seen** (leave-one-scenario-out).
 
 ## Data
@@ -76,9 +77,10 @@ flowchart LR
   A[Telemetry source<br/>SMAP/MSL replay + synthetic bus + side channels] --> B[CCSDS-like packets<br/>APID · seq · time · HMAC]
   B --> C[Async ingestion]
   C --> D[(TimescaleDB / SQLite)]
-  C --> E[Detection engine L1 · L3 · L4 · L5]
+  C --> E[Detection engine L1 · L2 · L3 · L4 · L5]
   E --> F[Attribution<br/>posterior over 5 classes + needs-human]
   F --> G[Incident store]
+  G --> I[FastAPI: REST · WebSocket · SSE]
   G -.->|not built yet| H[AI investigation agent → Mission Control UI]
 ```
 
@@ -104,7 +106,8 @@ uv run python -m sentinel_ml.smap_eval        # real SMAP/MSL, event level
 uv run python -m sentinel_ml.render_eval --metrics ml/runs/attribution-v1/metrics.json
 ```
 
-Seed a local database with a replayed mission: `python scripts/tasks.py seed`.
+Seed a local database with a replayed mission: `python scripts/tasks.py seed`. Run the API locally with
+`python scripts/tasks.py serve` (interactive docs at <http://localhost:8000/docs>).
 
 ## Contributing
 

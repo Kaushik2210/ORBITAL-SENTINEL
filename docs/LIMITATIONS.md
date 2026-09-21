@@ -8,9 +8,8 @@ component that is visibly not built.
 
 | Missing | Consequence |
 |---|---|
-| L2 machine-learning detectors (LSTM forecaster with dynamic thresholding, ONNX serving, Isolation Forest) | No forecasting-based detection; the real-data results are L1 statistics only |
-| Backend API (REST, WebSocket, SSE), the Mission Control frontend, the AI investigation agent, platform security (JWT, roles, rate limits, audit log), Docker images and `docker compose` | The detection and attribution engine runs from the command line and the test suite only; there is no UI or live demo yet |
-| SMAP/MSL evaluation of anything except L1 | See below |
+| The Mission Control frontend, the AI investigation agent, platform security (JWT, roles, rate limiting, audit log), Docker images and `docker compose` | The API exists but is **unauthenticated** and must only be run locally; there is no UI or one-command demo yet |
+| Attribution on real channels | The attribution model was trained on the synthetic bus; the API records real-channel replay incidents as `needs_human` with a note rather than an unvalidated class |
 
 ## What the evaluation can and cannot claim
 
@@ -26,10 +25,12 @@ component that is visibly not built.
 - **The learned model does not generalize to unseen failure modes.** Leave-one-scenario-out evaluation shows
   several scenario types are never classified correctly when they are absent from training. It recognizes
   families it has seen.
-- **Real-data results are modest and L1-only.** On the labeled SMAP/MSL anomalies, the statistical layer reaches
-  F1 0.55 on the 65 channels with a varying training signal. The 16 constant-training channels score 1.00
-  almost trivially and are reported separately. No forecaster, no cross-channel checks (the channels are
-  anonymized) and no tuning on this data.
+- **Real-data results are modest.** On the labeled SMAP/MSL anomalies, the statistical layer (L1) reaches event-level
+  F1 0.55 on the 65 channels with a varying training signal; the LSTM forecaster (L2), trained for only 15 epochs
+  (the paper uses 35), scores lower on its own (0.40), and the L1+L2 union is within noise of L1. The 16
+  constant-training channels score 1.00 (L1) almost trivially and are reported separately. There are no
+  cross-channel checks (the channels are anonymized) and no tuning on this data. A fully trained forecaster
+  might do better; that has not been tested.
 
 ## Known technical weaknesses
 

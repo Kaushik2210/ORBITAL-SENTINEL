@@ -71,6 +71,11 @@ def seed() -> None:
     uv("run", "python", "-m", "sentinel_api.db.seed")
 
 
+def serve() -> None:
+    """Run the API locally (unauthenticated: development only)."""
+    uv("run", "uvicorn", "sentinel_api.main:app", "--host", "127.0.0.1", "--port", "8000")
+
+
 def check() -> None:
     """Everything CI runs for Python."""
     lint()
@@ -87,6 +92,7 @@ TASKS: dict[str, Callable[[], None]] = {
     "data": data,
     "migrate": migrate,
     "seed": seed,
+    "serve": serve,
     "check": check,
 }
 

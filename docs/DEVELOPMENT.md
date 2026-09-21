@@ -15,6 +15,7 @@ Everything goes through `scripts/tasks.py`; the `Makefile` is a thin wrapper (Wi
 | Data | `python scripts/tasks.py data` | download + checksum real datasets (`DATA_PROFILE=full` adds bearings) |
 | Migrate | `python scripts/tasks.py migrate` | Alembic `upgrade head` on `DATABASE_URL` (SQLite by default) |
 | Seed | `python scripts/tasks.py seed` | migrate + ingest a replayed mission session |
+| Serve | `python scripts/tasks.py serve` | run the API on localhost:8000 (unauthenticated: dev only) |
 
 Targets for training and the demo are added when the code behind them exists.
 

@@ -12,4 +12,6 @@ versioning: [SemVer](https://semver.org/).
 - CCSDS-like packet codec with HMAC tag, typed events, async ingestion, mission replay engine with injection hooks.
 - Synthetic physics bus (EPS + reaction wheels, redundant sensors) driven by real PCoE/IMS trajectories.
 - DONKI client with permanent cache; loaders for SMAP/MSL and PCoE with labeled fallbacks.
+- L2 detectors: per-channel LSTM forecaster with ONNX Runtime serving and dynamic thresholding; Isolation Forest baseline.
+- FastAPI service: scenario and real-data replay sessions, incidents with exact evidence, WebSocket and SSE streams.
 - Incident taxonomy (`sentinel_core.taxonomy`): five classes plus an explicit `needs_human` verdict.
