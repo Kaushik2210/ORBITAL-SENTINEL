@@ -136,11 +136,26 @@ Training on every scenario **except** one, then classifying the held-out one: 16
 
 These are mainly the slow, in-limits, single-sensor cases (`manip_*`, `spoof_*`, `sensor_drift_battv`) and slow degradation. Their evidence is one sensor departing gradually from another, and the platform's features cannot tell an attacker's clean synthetic values, a drifting sensor and a low-and-slow manipulation apart. **The correct behavior is to say so**: most such windows end as `needs_human` rather than a confident wrong class. That is a limitation of the evidence, not a solved problem.
 
+## Real data: L1 on SMAP/MSL anomalies (event level)
+
+This is the only part of the report measured on **real spacecraft telemetry**. The L1 statistical detector is calibrated on each channel's train array and scored on its test array against the labeled anomaly sequences (Hundman et al., KDD 2018) with event-level rules: a labeled sequence is detected if any predicted run overlaps it, and a predicted run overlapping no sequence is a false positive. `T-10` (no label row) is excluded and `P-2` uses the union of its two label rows, so there are 104 labeled events. Only L1 applies: channel IDs are anonymized, so the redundancy, protocol and space-weather layers have nothing to work with, and the LSTM forecaster (L2) is **not built yet**.
+
+| subset | channels | events | precision | recall | F1 | TP/FP/FN |
+|---|---|---|---|---|---|---|
+| all labeled channels | 81 | 104 | 0.66 | 0.62 | 0.64 | 64/33/40 |
+| SMAP | 54 | 68 | 0.67 | 0.60 | 0.64 | 41/20/27 |
+| MSL | 27 | 36 | 0.64 | 0.64 | 0.64 | 23/13/13 |
+| channels with a varying training signal | 65 | 84 | 0.57 | 0.52 | 0.55 | 44/33/40 |
+| channels with a constant training signal | 16 | 20 | 1.00 | 1.00 | 1.00 | 20/0/0 |
+
+**Read the varying-signal row as the honest number** (F1 0.55). The 16 constant-training channels score 1.00 almost trivially: any departure from a constant is out of range, so a range check alone finds it. Events found by each statistic (one event can be found by several): cusum: 43, flatline: 12, level_shift: 43, range: 40, rate_of_change: 49, variance: 29, zscore: 41. There is no comparison to published results here: those use different scoring conventions, and this detector was not tuned on this data.
+
 ## Reproduce
 
 ```bash
 python scripts/tasks.py data                 # real datasets (DONKI needs a cached window)
 uv run python -m sentinel_ml.make_dataset    # 462 scenario runs -> data/processed/records.pkl (~7 min)
 uv run python -m sentinel_ml.evaluate --out ml/runs/attribution-v1
+uv run python -m sentinel_ml.smap_eval       # real SMAP/MSL, L1, event level (~10 s)
 uv run python -m sentinel_ml.render_eval --metrics ml/runs/attribution-v1/metrics.json
 ```

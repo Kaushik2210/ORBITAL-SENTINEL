@@ -31,7 +31,61 @@ def table(headers: list[str], rows: list[list[str]]) -> str:
     return "\n".join(out)
 
 
-def render(m: dict[str, Any]) -> str:
+def render_smap(m: dict[str, Any]) -> str:
+    """The real-data section: L1 event-level results on the labeled SMAP/MSL anomalies."""
+    varying, const = m["varying_train_channels"], m["constant_train_channels"]
+
+    def row(name: str, d: dict[str, Any]) -> list[str]:
+        return [
+            name,
+            str(d["channels"]),
+            str(d["true_events"]),
+            f(d["precision"]),
+            f(d["recall"]),
+            f(d["f1"]),
+            f"{d['tp']}/{d['fp']}/{d['fn']}",
+        ]
+
+    stat = ", ".join(
+        f"{k}: {v}" for k, v in sorted(m["all"]["events_detected_by_statistic"].items())
+    )
+    intro = (
+        "This is the only part of the report measured on **real spacecraft telemetry**. The L1 "
+        "statistical detector is calibrated on each channel's train array and scored on its test array "
+        "against the labeled anomaly sequences (Hundman et al., KDD 2018) with event-level rules: a "
+        "labeled sequence is detected if any predicted run overlaps it, and a predicted run overlapping "
+        "no sequence is a false positive. `T-10` (no label row) is excluded and `P-2` uses the union of "
+        f"its two label rows, so there are {m['all']['true_events']} labeled events. Only L1 applies: "
+        "channel IDs are anonymized, so the redundancy, protocol and space-weather layers have nothing "
+        "to work with, and the LSTM forecaster (L2) is **not built yet**.\n"
+    )
+    headers = ["subset", "channels", "events", "precision", "recall", "F1", "TP/FP/FN"]
+    rows = [
+        row("all labeled channels", m["all"]),
+        row("SMAP", m["SMAP"]),
+        row("MSL", m["MSL"]),
+        row("channels with a varying training signal", varying),
+        row("channels with a constant training signal", const),
+    ]
+    note = (
+        f"**Read the varying-signal row as the honest number** (F1 {f(varying['f1'])}). The "
+        f"{const['channels']} constant-training channels score {f(const['f1'])} almost trivially: any "
+        "departure from a constant is out of range, so a range check alone finds it. Events found by "
+        f"each statistic (one event can be found by several): {stat}. There is no comparison to "
+        "published results here: those use different scoring conventions, and this detector was not "
+        "tuned on this data.\n"
+    )
+    return "\n".join(
+        [
+            "## Real data: L1 on SMAP/MSL anomalies (event level)\n",
+            intro,
+            table(headers, rows) + "\n",
+            note,
+        ]
+    )
+
+
+def render(m: dict[str, Any], smap: dict[str, Any] | None = None) -> str:
     meta, w = m["meta"], m["windows"]
     lines: list[str] = []
     add = lines.append
@@ -225,12 +279,16 @@ def render(m: dict[str, Any]) -> str:
         "problem.\n"
     )
 
+    if smap is not None:
+        add(render_smap(smap))
+
     add("## Reproduce\n")
     add(
         "```bash\n"
         "python scripts/tasks.py data                 # real datasets (DONKI needs a cached window)\n"
         "uv run python -m sentinel_ml.make_dataset    # 462 scenario runs -> data/processed/records.pkl (~7 min)\n"
         "uv run python -m sentinel_ml.evaluate --out ml/runs/attribution-v1\n"
+        "uv run python -m sentinel_ml.smap_eval       # real SMAP/MSL, L1, event level (~10 s)\n"
         "uv run python -m sentinel_ml.render_eval --metrics ml/runs/attribution-v1/metrics.json\n"
         "```\n"
     )
@@ -240,10 +298,12 @@ def render(m: dict[str, Any]) -> str:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--metrics", type=Path, default=Path("ml/runs/attribution-v1/metrics.json"))
+    ap.add_argument("--smap", type=Path, default=Path("docs/data/smap_msl_l1_v1.json"))
     ap.add_argument("--out", type=Path, default=Path("docs/EVALUATION.md"))
     args = ap.parse_args()
+    smap = json.loads(args.smap.read_text(encoding="utf-8")) if args.smap.is_file() else None
     args.out.write_text(
-        render(json.loads(args.metrics.read_text(encoding="utf-8"))), encoding="utf-8"
+        render(json.loads(args.metrics.read_text(encoding="utf-8")), smap), encoding="utf-8"
     )
     print("wrote", args.out)
 

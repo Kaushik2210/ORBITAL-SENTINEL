@@ -134,3 +134,6 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 - **Not done in Phase 5:** L2 (LSTM forecaster -> ONNX, Isolation Forest) and SMAP/MSL event-level evaluation of any
   detector on the real anomalies. Without them the platform makes no claim about real operational anomalies yet.
 - CI now installs the `ml` extra (scikit-learn).
+- Real-data evaluation added (`sentinel_ml.smap_eval`, ~10 s): L1 alone on the 81 labeled SMAP/MSL channels, event level:
+  F1 0.64 overall but only **0.55 on the 65 channels with a varying training signal** (the 16 constant-training channels
+  score 1.00 trivially). Rendered into `docs/EVALUATION.md`; raw numbers in `docs/data/smap_msl_l1_v1.json`.
