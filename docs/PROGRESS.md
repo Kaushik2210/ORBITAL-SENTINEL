@@ -2,7 +2,7 @@
 
 Newest entry last. Each phase ends with tests green, lint/typecheck clean, a commit, and an entry here.
 
-**Resume pointer:** last completed phase → **Phase 2**. Next → **Phase 3 (ingestion, packet layer, replay engine)**.
+**Resume pointer:** last completed phase → **Phase 3**. Next → **Phase 4 (database)**.
 
 ## Phase roadmap
 
@@ -11,8 +11,8 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 | 0 | Bootstrap | done |
 | 1 | Research NASA datasets and APIs | done |
 | 2 | System architecture and ADRs | done |
-| 3 | Data ingestion, packet layer, replay engine | next |
-| 4 | Database (Timescale schema, migrations) | – |
+| 3 | Data ingestion, packet layer, replay engine | done |
+| 4 | Database (Timescale schema, migrations) | next |
 | 5 | Detection L1–L5, ML, attribution, scenarios, evaluation | – |
 | 6 | Backend APIs (REST, WebSocket, SSE) | – |
 | 7 | Mission Control frontend | – |
@@ -64,3 +64,21 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
   a synthetic EPS/wheel bus driven by real PCoE trajectories carries redundancy and physics (L3) and all scenario classes.
 - **Next:** Phase 3. Order: packet codec + tests, side-channel generators, synthetic bus, replay engine,
   DONKI client, loaders + fallback generator, async ingestion.
+
+### Phase 3 — Ingestion, packet layer, replay engine
+- `sentinel_core`: `packets` (CCSDS-like codec, HMAC tag, 14-bit wrap arithmetic), `events`, `timebase`
+  (60 s/step is a *simulation convention*), `ingest` (forgiving decoder + bounded-queue async fan-out that
+  surfaces producer/sink failures).
+- `sentinel_sim`: `smap_msl` and `pcoe` loaders (real data with labeled `synthetic-parametric` fallbacks),
+  `donki` (permanent cache, 30-day windows, typed 429), `bus` (EPS + wheels driven by real PCoE/IMS trajectories,
+  redundant sensors, exact power balance), `sidechannels` (commands/auth/link, synthetic), `mission` (packetizer
+  with three injection hooks: sensor / link / ground), `replay` (play/pause/speed/seek).
+- Measured while building: real B0005 resistance grows x1.22 (not the x1.6 first assumed; fallback corrected);
+  the IMS loader reproduces the Phase 1 RMS ratio 2.80 from the real archive; a corrupted timestamp field makes a
+  frame *malformed* while a payload flip makes it *unauthenticated* (both are detectable, differently).
+- **Fallback behavior:** if SMAP/MSL is missing the mission runs bus-only (all synthetic, labeled); if PCoE/IMS is
+  missing the bus uses `synthetic-parametric` trajectories. No separate SMAP-like generator is built: it would add
+  synthetic data that could be confused with the real set.
+- **Not done:** DONKI prefetch is deferred to Phase 5 (needs ~2 requests for the May 2024 SEU scenario; the DEMO_KEY
+  budget was mostly spent in Phase 1). DB writer sink comes in Phase 4.
+- **Next:** Phase 4: SQLAlchemy 2 models, Alembic migrations (Timescale-guarded), seed/backfill, DB sink for `AsyncIngest`.
