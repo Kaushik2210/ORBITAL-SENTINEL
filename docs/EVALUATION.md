@@ -138,7 +138,7 @@ These are mainly the slow, in-limits, single-sensor cases (`manip_*`, `spoof_*`,
 
 ## Real data: L1 on SMAP/MSL anomalies (event level)
 
-This is the only part of the report measured on **real spacecraft telemetry**. The L1 statistical detector is calibrated on each channel's train array and scored on its test array against the labeled anomaly sequences (Hundman et al., KDD 2018) with event-level rules: a labeled sequence is detected if any predicted run overlaps it, and a predicted run overlapping no sequence is a false positive. `T-10` (no label row) is excluded and `P-2` uses the union of its two label rows, so there are 104 labeled events. Only L1 applies: channel IDs are anonymized, so the redundancy, protocol and space-weather layers have nothing to work with, and the LSTM forecaster (L2) is **not built yet**.
+This is the only part of the report measured on **real spacecraft telemetry**. The L1 statistical detector is calibrated on each channel's train array and scored on its test array against the labeled anomaly sequences (Hundman et al., KDD 2018) with event-level rules: a labeled sequence is detected if any predicted run overlaps it, and a predicted run overlapping no sequence is a false positive. `T-10` (no label row) is excluded and `P-2` uses the union of its two label rows, so there are 104 labeled events. Only L1 applies: channel IDs are anonymized, so the redundancy, protocol and space-weather layers have nothing to work with. The LSTM forecaster (L2) is evaluated in the next section.
 
 | subset | channels | events | precision | recall | F1 | TP/FP/FN |
 |---|---|---|---|---|---|---|
@@ -149,6 +149,20 @@ This is the only part of the report measured on **real spacecraft telemetry**. T
 | channels with a constant training signal | 16 | 20 | 1.00 | 1.00 | 1.00 | 20/0/0 |
 
 **Read the varying-signal row as the honest number** (F1 0.55). The 16 constant-training channels score 1.00 almost trivially: any departure from a constant is out of range, so a range check alone finds it. Events found by each statistic (one event can be found by several): cusum: 43, flatline: 12, level_shift: 43, range: 40, rate_of_change: 49, variance: 29, zscore: 41. There is no comparison to published results here: those use different scoring conventions, and this detector was not tuned on this data.
+
+## Real data: L2 forecaster and baselines (event level)
+
+The L2 forecaster is a Telemanom-style two-layer LSTM (80 units) per channel: it predicts the next value from the previous 48 steps plus the (multi-hot) commands, errors are EWMA-smoothed (span 30), and the alarm threshold comes from Hundman et al.'s nonparametric dynamic thresholding with pruning. All methods learn only from the train array and are scored with the same event-level rules as above. **Deviation from the paper:** training is capped at 15 epochs (35 in the paper) for CPU time (median 50 s per channel), so this under-trains the forecaster.
+
+| subset | events | L1 statistics (P / R / F1) | L2 LSTM forecaster (P / R / F1) | Isolation Forest (P / R / F1) | L1 + L2 union (P / R / F1) |
+|---|---|---|---|---|---|
+| all labeled channels | 104 | 0.66 / 0.62 / **0.64** | 0.55 / 0.36 / **0.43** | 0.07 / 0.59 / **0.12** | 0.59 / 0.71 / **0.64** |
+| SMAP | 68 | 0.67 / 0.60 / **0.64** | 0.51 / 0.40 / **0.45** | 0.05 / 0.53 / **0.09** | 0.57 / 0.72 / **0.64** |
+| MSL | 36 | 0.64 / 0.64 / **0.64** | 0.71 / 0.28 / **0.40** | 0.14 / 0.69 / **0.23** | 0.62 / 0.69 / **0.66** |
+| varying training signal | 84 | 0.57 / 0.52 / **0.55** | 0.58 / 0.31 / **0.40** | 0.07 / 0.73 / **0.12** | 0.52 / 0.64 / **0.57** |
+| constant training signal | 20 | 1.00 / 1.00 / **1.00** | 0.50 / 0.55 / **0.52** | n/a / 0.00 / **0.00** | 0.91 / 1.00 / **0.95** |
+
+On the channels with a varying training signal the best single method is **L1 statistics** (F1 0.55); the forecaster alone scores 0.40 against L1's 0.55, and the Isolation Forest baseline 0.12. The union of L1 and L2 changes F1 by +0.03 (recall 0.52 -> 0.64, precision 0.57 -> 0.52): more events are found at the cost of more false positives, and a difference this small is within noise. The forecaster is not a clear win in this configuration. All 81 models were exported to ONNX; the largest ONNX-vs-PyTorch difference on 64 test windows was 8.3e-07.
 
 ## Reproduce
 

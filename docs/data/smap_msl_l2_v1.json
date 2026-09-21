@@ -1,0 +1,2873 @@
+{
+  "meta": {
+    "methods": [
+      "L1",
+      "L2",
+      "IF",
+      "L1+L2"
+    ],
+    "window": 48,
+    "hidden": 80,
+    "layers": 2,
+    "smooth_span": 30,
+    "max_epochs": 15,
+    "note": "Telemanom trains up to 35 epochs; capped at 15 for CPU time.",
+    "wall_seconds": 700.2043828964233,
+    "max_onnx_parity_diff": 8.344650268554688e-07
+  },
+  "all": {
+    "channels": 81,
+    "true_events": 104,
+    "L1": {
+      "precision": 0.6597938144329897,
+      "recall": 0.6153846153846154,
+      "f1": 0.63681592039801,
+      "tp": 64,
+      "fp": 33,
+      "fn": 40
+    },
+    "L2": {
+      "precision": 0.5522388059701493,
+      "recall": 0.3557692307692308,
+      "f1": 0.43274853801169594,
+      "tp": 37,
+      "fp": 30,
+      "fn": 67
+    },
+    "IF": {
+      "precision": 0.06566200215285253,
+      "recall": 0.5865384615384616,
+      "f1": 0.1181026137463698,
+      "tp": 61,
+      "fp": 868,
+      "fn": 43
+    },
+    "L1+L2": {
+      "precision": 0.5873015873015873,
+      "recall": 0.7115384615384616,
+      "f1": 0.6434782608695652,
+      "tp": 74,
+      "fp": 52,
+      "fn": 30
+    }
+  },
+  "SMAP": {
+    "channels": 54,
+    "true_events": 68,
+    "L1": {
+      "precision": 0.6721311475409836,
+      "recall": 0.6029411764705882,
+      "f1": 0.6356589147286822,
+      "tp": 41,
+      "fp": 20,
+      "fn": 27
+    },
+    "L2": {
+      "precision": 0.5094339622641509,
+      "recall": 0.39705882352941174,
+      "f1": 0.44628099173553715,
+      "tp": 27,
+      "fp": 26,
+      "fn": 41
+    },
+    "IF": {
+      "precision": 0.04819277108433735,
+      "recall": 0.5294117647058824,
+      "f1": 0.08834355828220859,
+      "tp": 36,
+      "fp": 711,
+      "fn": 32
+    },
+    "L1+L2": {
+      "precision": 0.5697674418604651,
+      "recall": 0.7205882352941176,
+      "f1": 0.6363636363636364,
+      "tp": 49,
+      "fp": 37,
+      "fn": 19
+    }
+  },
+  "MSL": {
+    "channels": 27,
+    "true_events": 36,
+    "L1": {
+      "precision": 0.6388888888888888,
+      "recall": 0.6388888888888888,
+      "f1": 0.6388888888888888,
+      "tp": 23,
+      "fp": 13,
+      "fn": 13
+    },
+    "L2": {
+      "precision": 0.7142857142857143,
+      "recall": 0.2777777777777778,
+      "f1": 0.4,
+      "tp": 10,
+      "fp": 4,
+      "fn": 26
+    },
+    "IF": {
+      "precision": 0.13736263736263737,
+      "recall": 0.6944444444444444,
+      "f1": 0.22935779816513766,
+      "tp": 25,
+      "fp": 157,
+      "fn": 11
+    },
+    "L1+L2": {
+      "precision": 0.625,
+      "recall": 0.6944444444444444,
+      "f1": 0.6578947368421053,
+      "tp": 25,
+      "fp": 15,
+      "fn": 11
+    }
+  },
+  "varying_train_channels": {
+    "channels": 65,
+    "true_events": 84,
+    "L1": {
+      "precision": 0.5714285714285714,
+      "recall": 0.5238095238095238,
+      "f1": 0.5465838509316769,
+      "tp": 44,
+      "fp": 33,
+      "fn": 40
+    },
+    "L2": {
+      "precision": 0.5777777777777777,
+      "recall": 0.30952380952380953,
+      "f1": 0.40310077519379844,
+      "tp": 26,
+      "fp": 19,
+      "fn": 58
+    },
+    "IF": {
+      "precision": 0.06566200215285253,
+      "recall": 0.7261904761904762,
+      "f1": 0.12043435340572557,
+      "tp": 61,
+      "fp": 868,
+      "fn": 23
+    },
+    "L1+L2": {
+      "precision": 0.5192307692307693,
+      "recall": 0.6428571428571429,
+      "f1": 0.574468085106383,
+      "tp": 54,
+      "fp": 50,
+      "fn": 30
+    }
+  },
+  "constant_train_channels": {
+    "channels": 16,
+    "true_events": 20,
+    "L1": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 20,
+      "fp": 0,
+      "fn": 0
+    },
+    "L2": {
+      "precision": 0.5,
+      "recall": 0.55,
+      "f1": 0.5238095238095238,
+      "tp": 11,
+      "fp": 11,
+      "fn": 9
+    },
+    "IF": {
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 20
+    },
+    "L1+L2": {
+      "precision": 0.9090909090909091,
+      "recall": 1.0,
+      "f1": 0.9523809523809523,
+      "tp": 20,
+      "fp": 2,
+      "fn": 0
+    }
+  },
+  "channels": [
+    {
+      "channel": "A-1",
+      "spacecraft": "SMAP",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 61.11002564430237,
+      "epochs": 13,
+      "train_mse": 1.4039953839528607e-06,
+      "val_mse": 1.3130533034200198e-06,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 2,
+          "runs": 3
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "A-2",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 65.29566884040833,
+      "epochs": 15,
+      "train_mse": 0.02722764201462269,
+      "val_mse": 0.024581456556916237,
+      "onnx_parity_max_abs_diff": 3.8743019104003906e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 2,
+          "runs": 4
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "A-3",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 32.98019981384277,
+      "epochs": 8,
+      "train_mse": 0.016820071265101433,
+      "val_mse": 0.017109429463744164,
+      "onnx_parity_max_abs_diff": 3.2782554626464844e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 12,
+          "runs": 14
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "A-4",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 66.44225835800171,
+      "epochs": 15,
+      "train_mse": 0.020120756700634956,
+      "val_mse": 0.022901039570569992,
+      "onnx_parity_max_abs_diff": 2.980232238769531e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 3,
+          "runs": 5
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "A-5",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 16.2616069316864,
+      "epochs": 15,
+      "train_mse": 1.3728433259529993e-05,
+      "val_mse": 1.4300722796178889e-05,
+      "onnx_parity_max_abs_diff": 2.384185791015625e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 117,
+          "runs": 118
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "A-6",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 15.336696863174438,
+      "epochs": 15,
+      "train_mse": 0.009987011551856995,
+      "val_mse": 0.006433957256376743,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "A-7",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 70.2573676109314,
+      "epochs": 15,
+      "train_mse": 0.006320728454738855,
+      "val_mse": 0.005624148529022932,
+      "onnx_parity_max_abs_diff": 2.980232238769531e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 8,
+          "runs": 8
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "A-8",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 17.629799604415894,
+      "epochs": 15,
+      "train_mse": 0.013120310381054878,
+      "val_mse": 0.041999757289886475,
+      "onnx_parity_max_abs_diff": 6.556510925292969e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "A-9",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 19.664660453796387,
+      "epochs": 15,
+      "train_mse": 0.014874954707920551,
+      "val_mse": 0.02820400707423687,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "B-1",
+      "spacecraft": "SMAP",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 46.63049626350403,
+      "epochs": 12,
+      "train_mse": 4.999425868845719e-07,
+      "val_mse": 4.864336347054632e-07,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "C-1",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 2,
+      "train_seconds": 48.71798062324524,
+      "epochs": 15,
+      "train_mse": 0.004625492263585329,
+      "val_mse": 0.004616838879883289,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 2,
+          "fp": 0,
+          "runs": 2
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 3
+        },
+        "L1+L2": {
+          "tp": 2,
+          "fp": 0,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "C-2",
+      "spacecraft": "MSL",
+      "constant_train": true,
+      "true_events": 2,
+      "train_seconds": 16.257056713104248,
+      "epochs": 15,
+      "train_mse": 4.369466842035763e-05,
+      "val_mse": 3.3810869354056194e-05,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 2,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 2,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "D-1",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 50.14515566825867,
+      "epochs": 12,
+      "train_mse": 0.0018507494824007154,
+      "val_mse": 0.0016062352806329727,
+      "onnx_parity_max_abs_diff": 4.172325134277344e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 4,
+          "runs": 7
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 17,
+          "runs": 42
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 4,
+          "runs": 7
+        }
+      }
+    },
+    {
+      "channel": "D-11",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 37.777552366256714,
+      "epochs": 10,
+      "train_mse": 0.0009216924663633108,
+      "val_mse": 0.00028222653781995177,
+      "onnx_parity_max_abs_diff": 8.344650268554688e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "D-12",
+      "spacecraft": "SMAP",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 2.5267231464385986,
+      "epochs": 6,
+      "train_mse": 0.00015050839283503592,
+      "val_mse": 0.00015050839283503592,
+      "onnx_parity_max_abs_diff": 5.960464477539062e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "D-13",
+      "spacecraft": "SMAP",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 19.703986167907715,
+      "epochs": 9,
+      "train_mse": 2.8802563178942364e-07,
+      "val_mse": 2.8802563178942364e-07,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "D-14",
+      "spacecraft": "MSL",
+      "constant_train": true,
+      "true_events": 2,
+      "train_seconds": 46.526275873184204,
+      "epochs": 8,
+      "train_mse": 2.2006802282703575e-06,
+      "val_mse": 2.7097571546619292e-06,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 2,
+          "fp": 0,
+          "runs": 2
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 2,
+          "fp": 0,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "D-15",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 49.10051703453064,
+      "epochs": 15,
+      "train_mse": 0.023555371910333633,
+      "val_mse": 0.02625158242881298,
+      "onnx_parity_max_abs_diff": 5.960464477539062e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 4,
+          "runs": 23
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "D-16",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 34.98119401931763,
+      "epochs": 15,
+      "train_mse": 0.15036870539188385,
+      "val_mse": 0.1406460553407669,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 24,
+          "runs": 31
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "D-2",
+      "spacecraft": "SMAP",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 45.6112699508667,
+      "epochs": 10,
+      "train_mse": 3.921634743164759e-06,
+      "val_mse": 4.341806288721273e-06,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "D-3",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 54.739781856536865,
+      "epochs": 12,
+      "train_mse": 5.55834558326751e-05,
+      "val_mse": 5.6193865020759404e-05,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 3,
+          "runs": 12
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "D-4",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 59.5345995426178,
+      "epochs": 13,
+      "train_mse": 6.698649667669088e-05,
+      "val_mse": 6.813572690589353e-05,
+      "onnx_parity_max_abs_diff": 4.172325134277344e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 67
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "D-5",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 29.37662124633789,
+      "epochs": 7,
+      "train_mse": 1.253941809409298e-05,
+      "val_mse": 1.0662858585419599e-05,
+      "onnx_parity_max_abs_diff": 4.172325134277344e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 108,
+          "runs": 110
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "D-6",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 60.22841668128967,
+      "epochs": 15,
+      "train_mse": 0.004629139788448811,
+      "val_mse": 0.0051798345521092415,
+      "onnx_parity_max_abs_diff": 6.556510925292969e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "D-7",
+      "spacecraft": "SMAP",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 41.64578294754028,
+      "epochs": 10,
+      "train_mse": 1.5030083204692346e-06,
+      "val_mse": 1.6336282442352967e-06,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "D-8",
+      "spacecraft": "SMAP",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 25.87905740737915,
+      "epochs": 6,
+      "train_mse": 2.5273445771745173e-06,
+      "val_mse": 1.9554920527298236e-06,
+      "onnx_parity_max_abs_diff": 5.364418029785156e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "D-9",
+      "spacecraft": "SMAP",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 23.659228324890137,
+      "epochs": 6,
+      "train_mse": 1.8109420807377319e-06,
+      "val_mse": 1.6986117543638102e-06,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "E-1",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 2,
+      "train_seconds": 65.37771844863892,
+      "epochs": 15,
+      "train_mse": 0.0043558394536376,
+      "val_mse": 0.007991834543645382,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "E-10",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 2,
+      "train_seconds": 64.19010138511658,
+      "epochs": 15,
+      "train_mse": 0.007189486175775528,
+      "val_mse": 0.00533122755587101,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "E-11",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 2,
+      "train_seconds": 64.12538075447083,
+      "epochs": 15,
+      "train_mse": 0.004060852341353893,
+      "val_mse": 0.0012633113656193018,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 2,
+          "fp": 134,
+          "runs": 136
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "E-12",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 2,
+      "train_seconds": 64.65233707427979,
+      "epochs": 15,
+      "train_mse": 0.002114215400069952,
+      "val_mse": 0.0030628021340817213,
+      "onnx_parity_max_abs_diff": 2.980232238769531e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 4,
+          "runs": 9
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 4,
+          "runs": 9
+        }
+      }
+    },
+    {
+      "channel": "E-13",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 3,
+      "train_seconds": 64.95895957946777,
+      "epochs": 15,
+      "train_mse": 0.018654897809028625,
+      "val_mse": 0.015536198392510414,
+      "onnx_parity_max_abs_diff": 4.172325134277344e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 2,
+          "runs": 3
+        },
+        "IF": {
+          "tp": 2,
+          "fp": 71,
+          "runs": 74
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 3,
+          "runs": 4
+        }
+      }
+    },
+    {
+      "channel": "E-2",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 65.4425756931305,
+      "epochs": 15,
+      "train_mse": 0.004338996950536966,
+      "val_mse": 0.005500979255884886,
+      "onnx_parity_max_abs_diff": 4.172325134277344e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "E-3",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 50.212817907333374,
+      "epochs": 12,
+      "train_mse": 0.001240565674379468,
+      "val_mse": 0.0012510797241702676,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 7
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "E-4",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 61.36817717552185,
+      "epochs": 15,
+      "train_mse": 0.0017904016422107816,
+      "val_mse": 0.002093871124088764,
+      "onnx_parity_max_abs_diff": 2.682209014892578e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "E-5",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 61.454198360443115,
+      "epochs": 15,
+      "train_mse": 0.002435716101899743,
+      "val_mse": 0.0012940072920173407,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "E-6",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 28.94812273979187,
+      "epochs": 7,
+      "train_mse": 6.591944838874042e-06,
+      "val_mse": 6.620236945309443e-06,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "E-7",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 46.9721474647522,
+      "epochs": 12,
+      "train_mse": 0.0008445623097941279,
+      "val_mse": 0.0008263232302851975,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 6,
+          "runs": 7
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 3
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 34,
+          "runs": 40
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 6,
+          "runs": 7
+        }
+      }
+    },
+    {
+      "channel": "E-8",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 62.70682978630066,
+      "epochs": 15,
+      "train_mse": 0.0021111106034368277,
+      "val_mse": 0.002309283707290888,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "E-9",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 69.05415916442871,
+      "epochs": 15,
+      "train_mse": 0.00441401731222868,
+      "val_mse": 0.004896384663879871,
+      "onnx_parity_max_abs_diff": 4.172325134277344e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "F-1",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 69.10283970832825,
+      "epochs": 15,
+      "train_mse": 0.02885366976261139,
+      "val_mse": 0.032353609800338745,
+      "onnx_parity_max_abs_diff": 1.7881393432617188e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 11,
+          "runs": 11
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "F-2",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 59.10972547531128,
+      "epochs": 12,
+      "train_mse": 0.026709729805588722,
+      "val_mse": 0.0314192920923233,
+      "onnx_parity_max_abs_diff": 2.980232238769531e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 3
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "F-3",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 55.00705623626709,
+      "epochs": 11,
+      "train_mse": 4.792118488694541e-05,
+      "val_mse": 4.657138924812898e-05,
+      "onnx_parity_max_abs_diff": 8.344650268554688e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 6,
+          "runs": 8
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "F-4",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 61.269264698028564,
+      "epochs": 15,
+      "train_mse": 0.006391510833054781,
+      "val_mse": 0.008049016818404198,
+      "onnx_parity_max_abs_diff": 4.172325134277344e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 16,
+          "runs": 17
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "F-5",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 39.09894585609436,
+      "epochs": 8,
+      "train_mse": 0.04117300733923912,
+      "val_mse": 0.01096836756914854,
+      "onnx_parity_max_abs_diff": 1.1920928955078125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 3
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "F-7",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 3,
+      "train_seconds": 68.01625752449036,
+      "epochs": 15,
+      "train_mse": 0.17312975227832794,
+      "val_mse": 0.16151514649391174,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 3,
+          "fp": 8,
+          "runs": 18
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "F-8",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 91.51460671424866,
+      "epochs": 15,
+      "train_mse": 0.06839976459741592,
+      "val_mse": 0.0710049420595169,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 5,
+          "runs": 7
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "G-1",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 39.340282917022705,
+      "epochs": 8,
+      "train_mse": 0.024973666295409203,
+      "val_mse": 0.02170068398118019,
+      "onnx_parity_max_abs_diff": 5.960464477539062e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 12,
+          "runs": 12
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "G-2",
+      "spacecraft": "SMAP",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 34.55972909927368,
+      "epochs": 8,
+      "train_mse": 6.9281536525522824e-06,
+      "val_mse": 6.641565960308071e-06,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "G-3",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 68.71581387519836,
+      "epochs": 15,
+      "train_mse": 0.006994707975536585,
+      "val_mse": 0.0009451084188185632,
+      "onnx_parity_max_abs_diff": 4.172325134277344e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "G-4",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 35.39257550239563,
+      "epochs": 8,
+      "train_mse": 6.303801637841389e-05,
+      "val_mse": 6.528577068820596e-05,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 40,
+          "runs": 41
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "G-6",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 56.11030197143555,
+      "epochs": 11,
+      "train_mse": 3.118248423561454e-05,
+      "val_mse": 4.13804518757388e-05,
+      "onnx_parity_max_abs_diff": 5.364418029785156e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "G-7",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 3,
+      "train_seconds": 30.63377285003662,
+      "epochs": 7,
+      "train_mse": 0.03512362390756607,
+      "val_mse": 0.01715577207505703,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 3,
+          "fp": 0,
+          "runs": 3
+        },
+        "L2": {
+          "tp": 2,
+          "fp": 1,
+          "runs": 3
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L1+L2": {
+          "tp": 3,
+          "fp": 1,
+          "runs": 4
+        }
+      }
+    },
+    {
+      "channel": "M-1",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 59.59234571456909,
+      "epochs": 15,
+      "train_mse": 0.03242659568786621,
+      "val_mse": 0.05647461488842964,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 23,
+          "runs": 24
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "M-2",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 56.68761730194092,
+      "epochs": 15,
+      "train_mse": 0.012808284722268581,
+      "val_mse": 0.012473070994019508,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 13,
+          "runs": 62
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "M-3",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 49.978355407714844,
+      "epochs": 15,
+      "train_mse": 0.019063273444771767,
+      "val_mse": 0.02216973342001438,
+      "onnx_parity_max_abs_diff": 5.364418029785156e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 8,
+          "runs": 9
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "M-4",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 51.40295624732971,
+      "epochs": 15,
+      "train_mse": 0.03159092366695404,
+      "val_mse": 0.03085377812385559,
+      "onnx_parity_max_abs_diff": 5.960464477539062e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 3,
+          "runs": 5
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "M-5",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 50.08090567588806,
+      "epochs": 15,
+      "train_mse": 0.04305405542254448,
+      "val_mse": 0.04584755003452301,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 8,
+          "runs": 8
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "M-6",
+      "spacecraft": "MSL",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 36.90722680091858,
+      "epochs": 15,
+      "train_mse": 1.2651112228923012e-05,
+      "val_mse": 1.328647522313986e-05,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "M-7",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 27.36664056777954,
+      "epochs": 11,
+      "train_mse": 0.010310095734894276,
+      "val_mse": 0.023949235677719116,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 3
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "P-1",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 3,
+      "train_seconds": 63.81595230102539,
+      "epochs": 15,
+      "train_mse": 0.028723478317260742,
+      "val_mse": 0.026218704879283905,
+      "onnx_parity_max_abs_diff": 3.8743019104003906e-07,
+      "results": {
+        "L1": {
+          "tp": 3,
+          "fp": 0,
+          "runs": 4
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 2,
+          "fp": 34,
+          "runs": 37
+        },
+        "L1+L2": {
+          "tp": 3,
+          "fp": 0,
+          "runs": 4
+        }
+      }
+    },
+    {
+      "channel": "P-10",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 72.15478467941284,
+      "epochs": 11,
+      "train_mse": 3.1606423362973146e-06,
+      "val_mse": 3.3411383810744155e-06,
+      "onnx_parity_max_abs_diff": 4.172325134277344e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 3,
+          "runs": 4
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "P-11",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 2,
+      "train_seconds": 53.538501501083374,
+      "epochs": 9,
+      "train_mse": 0.003962119109928608,
+      "val_mse": 0.003955482970923185,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 2,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 2,
+          "fp": 7,
+          "runs": 10
+        },
+        "L1+L2": {
+          "tp": 2,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "P-14",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 51.3442702293396,
+      "epochs": 12,
+      "train_mse": 5.4214970077737235e-06,
+      "val_mse": 5.607771527138539e-06,
+      "onnx_parity_max_abs_diff": 4.172325134277344e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "P-15",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 82.95444178581238,
+      "epochs": 15,
+      "train_mse": 0.00023378475452773273,
+      "val_mse": 0.00020388097618706524,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 8,
+          "runs": 9
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "P-2",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 24.60715651512146,
+      "epochs": 6,
+      "train_mse": 0.000729195075109601,
+      "val_mse": 0.0006846267497166991,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 2
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 26,
+          "runs": 27
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "P-3",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 59.41816830635071,
+      "epochs": 14,
+      "train_mse": 0.00771773885935545,
+      "val_mse": 0.007843384519219398,
+      "onnx_parity_max_abs_diff": 1.1920928955078125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 25
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 23
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 25
+        }
+      }
+    },
+    {
+      "channel": "P-4",
+      "spacecraft": "SMAP",
+      "constant_train": true,
+      "true_events": 3,
+      "train_seconds": 27.531785249710083,
+      "epochs": 7,
+      "train_mse": 2.8646884402405703e-06,
+      "val_mse": 2.835983877957915e-06,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 3,
+          "fp": 0,
+          "runs": 5
+        },
+        "L2": {
+          "tp": 3,
+          "fp": 0,
+          "runs": 3
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 3,
+          "fp": 0,
+          "runs": 5
+        }
+      }
+    },
+    {
+      "channel": "P-7",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 50.629600286483765,
+      "epochs": 12,
+      "train_mse": 0.004413256421685219,
+      "val_mse": 0.004875435959547758,
+      "onnx_parity_max_abs_diff": 2.086162567138672e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 1,
+          "runs": 2
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 12,
+          "runs": 41
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 2,
+          "runs": 3
+        }
+      }
+    },
+    {
+      "channel": "R-1",
+      "spacecraft": "SMAP",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 38.781490325927734,
+      "epochs": 9,
+      "train_mse": 5.074417458672542e-06,
+      "val_mse": 5.535261607292341e-06,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 7,
+          "runs": 8
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "S-1",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 62.23489952087402,
+      "epochs": 15,
+      "train_mse": 0.16027973592281342,
+      "val_mse": 0.17361176013946533,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 5,
+          "runs": 7
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 25,
+          "runs": 29
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 5,
+          "runs": 6
+        }
+      }
+    },
+    {
+      "channel": "S-2",
+      "spacecraft": "MSL",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 20.383525609970093,
+      "epochs": 15,
+      "train_mse": 0.00010935084719676524,
+      "val_mse": 0.00010708378977142274,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "T-1",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 2,
+      "train_seconds": 52.09083414077759,
+      "epochs": 12,
+      "train_mse": 0.004589058458805084,
+      "val_mse": 0.0032040767837315798,
+      "onnx_parity_max_abs_diff": 3.5762786865234375e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 2,
+          "runs": 3
+        },
+        "IF": {
+          "tp": 2,
+          "fp": 17,
+          "runs": 30
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 2,
+          "runs": 3
+        }
+      }
+    },
+    {
+      "channel": "T-12",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 17.184274673461914,
+      "epochs": 10,
+      "train_mse": 0.012362997978925705,
+      "val_mse": 0.0034078797325491905,
+      "onnx_parity_max_abs_diff": 5.960464477539062e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 4,
+          "runs": 6
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "T-13",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 2,
+      "train_seconds": 25.027750968933105,
+      "epochs": 15,
+      "train_mse": 0.00044555042404681444,
+      "val_mse": 0.0007021360215730965,
+      "onnx_parity_max_abs_diff": 6.556510925292969e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 2,
+          "fp": 4,
+          "runs": 8
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "T-2",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 61.29691505432129,
+      "epochs": 15,
+      "train_mse": 0.003325150115415454,
+      "val_mse": 0.0024182761553674936,
+      "onnx_parity_max_abs_diff": 8.344650268554688e-07,
+      "results": {
+        "L1": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 12,
+          "runs": 37
+        },
+        "L1+L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        }
+      }
+    },
+    {
+      "channel": "T-3",
+      "spacecraft": "SMAP",
+      "constant_train": false,
+      "true_events": 2,
+      "train_seconds": 39.600640296936035,
+      "epochs": 9,
+      "train_mse": 0.00018035164976026863,
+      "val_mse": 0.0001809483946999535,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 2,
+          "fp": 0,
+          "runs": 2
+        },
+        "L2": {
+          "tp": 2,
+          "fp": 0,
+          "runs": 2
+        },
+        "IF": {
+          "tp": 2,
+          "fp": 6,
+          "runs": 8
+        },
+        "L1+L2": {
+          "tp": 2,
+          "fp": 0,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "T-4",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 1,
+      "train_seconds": 48.33600354194641,
+      "epochs": 15,
+      "train_mse": 0.04917401075363159,
+      "val_mse": 0.05448346585035324,
+      "onnx_parity_max_abs_diff": 5.960464477539062e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 2
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 4,
+          "runs": 4
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 2
+        }
+      }
+    },
+    {
+      "channel": "T-5",
+      "spacecraft": "MSL",
+      "constant_train": true,
+      "true_events": 1,
+      "train_seconds": 45.85920715332031,
+      "epochs": 15,
+      "train_mse": 4.83231588077615e-06,
+      "val_mse": 4.995957624487346e-06,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "L1+L2": {
+          "tp": 1,
+          "fp": 0,
+          "runs": 1
+        }
+      }
+    },
+    {
+      "channel": "T-8",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 2,
+      "train_seconds": 12.103495121002197,
+      "epochs": 10,
+      "train_mse": 0.047233738005161285,
+      "val_mse": 0.00031705712899565697,
+      "onnx_parity_max_abs_diff": 4.76837158203125e-07,
+      "results": {
+        "L1": {
+          "tp": 2,
+          "fp": 10,
+          "runs": 14
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 1,
+          "runs": 1
+        },
+        "IF": {
+          "tp": 1,
+          "fp": 10,
+          "runs": 13
+        },
+        "L1+L2": {
+          "tp": 2,
+          "fp": 10,
+          "runs": 14
+        }
+      }
+    },
+    {
+      "channel": "T-9",
+      "spacecraft": "MSL",
+      "constant_train": false,
+      "true_events": 2,
+      "train_seconds": 8.436802864074707,
+      "epochs": 12,
+      "train_mse": 0.007049686275422573,
+      "val_mse": 0.0055374871008098125,
+      "onnx_parity_max_abs_diff": 1.4901161193847656e-07,
+      "results": {
+        "L1": {
+          "tp": 2,
+          "fp": 1,
+          "runs": 3
+        },
+        "L2": {
+          "tp": 0,
+          "fp": 0,
+          "runs": 0
+        },
+        "IF": {
+          "tp": 2,
+          "fp": 2,
+          "runs": 5
+        },
+        "L1+L2": {
+          "tp": 2,
+          "fp": 1,
+          "runs": 3
+        }
+      }
+    }
+  ]
+}

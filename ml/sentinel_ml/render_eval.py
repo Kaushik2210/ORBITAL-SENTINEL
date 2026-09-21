@@ -57,7 +57,7 @@ def render_smap(m: dict[str, Any]) -> str:
         "no sequence is a false positive. `T-10` (no label row) is excluded and `P-2` uses the union of "
         f"its two label rows, so there are {m['all']['true_events']} labeled events. Only L1 applies: "
         "channel IDs are anonymized, so the redundancy, protocol and space-weather layers have nothing "
-        "to work with, and the LSTM forecaster (L2) is **not built yet**.\n"
+        "to work with. The LSTM forecaster (L2) is evaluated in the next section.\n"
     )
     headers = ["subset", "channels", "events", "precision", "recall", "F1", "TP/FP/FN"]
     rows = [
@@ -85,7 +85,68 @@ def render_smap(m: dict[str, Any]) -> str:
     )
 
 
-def render(m: dict[str, Any], smap: dict[str, Any] | None = None) -> str:
+def render_l2(m: dict[str, Any]) -> str:
+    """L2 (LSTM forecaster) versus L1, an Isolation Forest baseline, and L1+L2, on real SMAP/MSL."""
+    methods = m["meta"]["methods"]
+    names = {
+        "L1": "L1 statistics",
+        "L2": "L2 LSTM forecaster",
+        "IF": "Isolation Forest",
+        "L1+L2": "L1 + L2 union",
+    }
+    subsets = [
+        ("all labeled channels", "all"),
+        ("SMAP", "SMAP"),
+        ("MSL", "MSL"),
+        ("varying training signal", "varying_train_channels"),
+        ("constant training signal", "constant_train_channels"),
+    ]
+    rows = []
+    for label, key in subsets:
+        d = m[key]
+        rows.append(
+            [label, str(d["true_events"])]
+            + [
+                f"{f(d[x]['precision'])} / {f(d[x]['recall'])} / **{f(d[x]['f1'])}**"
+                for x in methods
+            ]
+        )
+    headers = ["subset", "events", *[f"{names[x]} (P / R / F1)" for x in methods]]
+    v = m["varying_train_channels"]
+    best = max(("L1", "L2", "IF"), key=lambda x: v[x]["f1"] or 0)
+    union_gain = (v["L1+L2"]["f1"] or 0) - (v["L1"]["f1"] or 0)
+    ch = m["channels"]
+    med_train = sorted(r["train_seconds"] for r in ch)[len(ch) // 2]
+    intro = (
+        "The L2 forecaster is a Telemanom-style two-layer LSTM (80 units) per channel: it predicts the next "
+        "value from the previous "
+        f"{m['meta']['window']} steps plus the (multi-hot) commands, errors are EWMA-smoothed "
+        f"(span {m['meta']['smooth_span']}), and the alarm threshold comes from Hundman et al.'s "
+        "nonparametric dynamic thresholding with pruning. All methods learn only from the train array and "
+        "are scored with the same event-level rules as above. "
+        f"**Deviation from the paper:** training is capped at {m['meta']['max_epochs']} epochs (35 in the "
+        f"paper) for CPU time (median {med_train:.0f} s per channel), so this under-trains the forecaster.\n"
+    )
+    body = table(headers, rows) + "\n"
+    finding = (
+        f"On the channels with a varying training signal the best single method is **{names[best]}** "
+        f"(F1 {f(v[best]['f1'])}); the forecaster alone scores {f(v['L2']['f1'])} against L1's "
+        f"{f(v['L1']['f1'])}, and the Isolation Forest baseline {f(v['IF']['f1'])}. The union of L1 and L2 "
+        f"changes F1 by {union_gain:+.2f} (recall {f(v['L1']['recall'])} -> {f(v['L1+L2']['recall'])}, "
+        f"precision {f(v['L1']['precision'])} -> {f(v['L1+L2']['precision'])}): more events are found at "
+        "the cost of more false positives, and a difference this small is within noise. The forecaster "
+        "is not a clear win in this configuration. All "
+        f"{len(ch)} models were exported to ONNX; the largest ONNX-vs-PyTorch difference on 64 test windows "
+        f"was {m['meta']['max_onnx_parity_diff']:.1e}.\n"
+    )
+    return "\n".join(
+        ["## Real data: L2 forecaster and baselines (event level)\n", intro, body, finding]
+    )
+
+
+def render(
+    m: dict[str, Any], smap: dict[str, Any] | None = None, l2: dict[str, Any] | None = None
+) -> str:
     meta, w = m["meta"], m["windows"]
     lines: list[str] = []
     add = lines.append
@@ -281,6 +342,8 @@ def render(m: dict[str, Any], smap: dict[str, Any] | None = None) -> str:
 
     if smap is not None:
         add(render_smap(smap))
+    if l2 is not None:
+        add(render_l2(l2))
 
     add("## Reproduce\n")
     add(
@@ -299,11 +362,13 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--metrics", type=Path, default=Path("ml/runs/attribution-v1/metrics.json"))
     ap.add_argument("--smap", type=Path, default=Path("docs/data/smap_msl_l1_v1.json"))
+    ap.add_argument("--l2", type=Path, default=Path("docs/data/smap_msl_l2_v1.json"))
     ap.add_argument("--out", type=Path, default=Path("docs/EVALUATION.md"))
     args = ap.parse_args()
     smap = json.loads(args.smap.read_text(encoding="utf-8")) if args.smap.is_file() else None
+    l2 = json.loads(args.l2.read_text(encoding="utf-8")) if args.l2.is_file() else None
     args.out.write_text(
-        render(json.loads(args.metrics.read_text(encoding="utf-8")), smap), encoding="utf-8"
+        render(json.loads(args.metrics.read_text(encoding="utf-8")), smap, l2), encoding="utf-8"
     )
     print("wrote", args.out)
 

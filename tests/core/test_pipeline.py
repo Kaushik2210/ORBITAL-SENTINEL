@@ -5,8 +5,8 @@ from pathlib import Path
 import pytest
 
 from sentinel_core.detection.engine import DetectionEngine
-from sentinel_ml.pipeline import calibrated_engine, run_scenario
 from sentinel_sim import pcoe
+from sentinel_sim.pipeline import calibrated_engine, run_scenario
 from sentinel_sim.scenarios.build import build_scenario
 from sentinel_sim.scenarios.spec import ScenarioSpec, load_all
 

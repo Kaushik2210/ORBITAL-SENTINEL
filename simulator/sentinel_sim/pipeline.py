@@ -11,11 +11,12 @@ from sentinel_core.detection.engine import DetectionEngine, IncidentBuilder, Inc
 from sentinel_core.detection.factory import standard_engine
 from sentinel_core.ingest import Ingestor
 from sentinel_core.timebase import STEP_SECONDS
-from sentinel_sim import bus, pcoe, smap_msl
-from sentinel_sim.knowledge import mission_knowledge
-from sentinel_sim.mission import DEFAULT_FRAME_KEY, Mission, MissionConfig
-from sentinel_sim.scenarios.build import BuiltScenario
-from sentinel_sim.scenarios.spec import QUIET_START
+
+from . import bus, pcoe, smap_msl
+from .knowledge import mission_knowledge
+from .mission import DEFAULT_FRAME_KEY, Mission, MissionConfig
+from .scenarios.build import BuiltScenario
+from .scenarios.spec import QUIET_START
 
 CALIBRATION_SEED = 900_001  # never used by any scenario
 CALIBRATION_STEPS = 1800

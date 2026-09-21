@@ -12,9 +12,8 @@ from sentinel_core.attribution.features import FeatureContext, extract
 from sentinel_core.detection.engine import IncidentWindow
 from sentinel_core.taxonomy import IncidentClass
 from sentinel_core.timebase import STEP_SECONDS
+from sentinel_sim.pipeline import RunResult
 from sentinel_sim.scenarios.spec import GroundTruth, ScenarioSpec
-
-from .pipeline import RunResult
 
 TAIL_STEPS = 120  # a window that starts this long after the truth interval still counts as it
 

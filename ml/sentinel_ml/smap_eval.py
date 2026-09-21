@@ -48,6 +48,29 @@ def _overlap(a: tuple[int, int], b: tuple[int, int]) -> bool:
     return a[0] <= b[1] and b[0] <= a[1]
 
 
+def event_counts(truth: list[tuple[int, int]], pred: list[tuple[int, int]]) -> tuple[int, int]:
+    """(detected labeled events, false-positive predicted runs) under the event-level rules."""
+    tp = sum(1 for t in truth if any(_overlap(t, p) for p in pred))
+    fp = sum(1 for p in pred if not any(_overlap(t, p) for t in truth))
+    return tp, fp
+
+
+def l1_fired_steps(root: Path, channel: str) -> list[int]:
+    """Test-array steps at which the calibrated L1 detector fires (used to combine with L2)."""
+    labels = smap_msl.load_labels(root)
+    series = smap_msl.load_channel(root, channel, labels)
+    det = StatisticalDetector()
+    for k, v in enumerate(series.train):
+        det.learn(TelemetryEvent(k * STEP_SECONDS, channel, float(v), ts_rx=k * STEP_SECONDS))
+    det.freeze()
+    fired: list[int] = []
+    for k, v in enumerate(series.test):
+        ts = k * STEP_SECONDS
+        if any(o.fired for o in det.update(TelemetryEvent(ts, channel, float(v), ts_rx=ts))):
+            fired.append(k)
+    return fired
+
+
 def score_channel(root: Path, channel: str) -> dict[str, Any]:
     labels = smap_msl.load_labels(root)
     series = smap_msl.load_channel(root, channel, labels)

@@ -7,11 +7,11 @@ from pathlib import Path
 
 from sentinel_core.detection.engine import DetectionEngine
 from sentinel_sim import pcoe
+from sentinel_sim.pipeline import calibrated_engine, run_scenario
 from sentinel_sim.scenarios.build import build_scenario
 from sentinel_sim.scenarios.spec import ScenarioSpec, instantiate
 
 from .dataset import RunRecord, make_record
-from .pipeline import calibrated_engine, run_scenario
 
 _ENGINE: DetectionEngine | None = None
 _DATA_ROOT = Path("data/raw")
