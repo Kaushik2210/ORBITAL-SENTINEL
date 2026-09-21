@@ -29,6 +29,7 @@ from .statistical import (
     MIN_CAL_SAMPLES,
     SHORT,
     WINDOW,
+    Z_CLIP,
     _score,
     step_of,
 )
@@ -96,7 +97,7 @@ class _Stationary:
         lo, hi = np.percentile(v, [0.5, 99.5])
         mean = float(np.mean(np.clip(v, lo, hi)))
         sigma = max(float(np.std(np.clip(v, lo, hi))), 1e-9 * max(abs(mean), 1.0), 1e-12)
-        z = (v - mean) / sigma
+        z = np.clip((v - mean) / sigma, -Z_CLIP, Z_CLIP)
         ma = np.convolve(z, np.ones(SHORT) / SHORT, mode="valid")
         s_hi = s_lo = cus = 0.0
         for zi in z:
@@ -107,8 +108,9 @@ class _Stationary:
     def update(self, x: float) -> tuple[float, float, float]:
         z = (x - self.mean) / self.sigma
         self.recent.append(z)
-        self.s_hi = max(0.0, self.s_hi + z - 0.5)
-        self.s_lo = max(0.0, self.s_lo - z - 0.5)
+        zc = max(-Z_CLIP, min(Z_CLIP, z))
+        self.s_hi = max(0.0, self.s_hi + zc - 0.5)
+        self.s_lo = max(0.0, self.s_lo - zc - 0.5)
         zma = float(np.mean(list(self.recent)[-SHORT:]))
         return z, zma, max(self.s_hi, self.s_lo)
 

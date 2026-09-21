@@ -1,0 +1,17 @@
+id: sensor_stuck_battv
+title: A stuck sensor
+narrative: A battery-voltage sensor freezes at one value; frames and counters are perfectly normal.
+class: sensor_malfunction
+subtype: sensor_stuck
+seed: 3001
+confusable_with:
+- replay_replace
+- replay_append
+hard: true
+effects:
+- type: freeze
+  start: 800
+  end: 1400
+  params:
+    targets:
+    - batt_v_a

@@ -1,0 +1,19 @@
+id: cmd_unknown_source
+title: Command from nowhere
+narrative: A valid opcode arrives from a station that is not registered.
+class: cyberattack
+subtype: command_injection
+seed: 2103
+attacker:
+  position: ground
+sparta:
+- IA-0007/02
+attack:
+- T1078
+effects:
+- type: command_injection
+  start: 800
+  end: 1400
+  params:
+    variant: unknown_source
+    prob: 0.5

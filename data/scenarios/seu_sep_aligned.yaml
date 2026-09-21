@@ -1,0 +1,31 @@
+id: seu_sep_aligned
+title: A solar particle event
+narrative: Bit flips hit several unrelated channels at once during a real solar energetic particle event.
+class: environmental
+subtype: single_event_upset
+seed: 5001
+weather:
+  kind: SEP
+  date_from: '2024-05-01'
+  date_to: '2024-05-30'
+  align_step: 895
+sparta:
+- EX-0007
+confusable_with:
+- seu_lookalike_attack
+hard: true
+effects:
+- type: seu
+  start: 890
+  end: 921
+  params:
+    targets:
+    - batt_v_a
+    - bus_v
+    - rw1_speed
+    - rw2_temp
+    - solar_i
+    steps:
+    - 900
+    - 905
+    - 912

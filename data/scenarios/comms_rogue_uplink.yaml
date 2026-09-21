@@ -1,0 +1,27 @@
+id: comms_rogue_uplink
+title: A rogue uplink
+narrative: Commands arrive from an unregistered transmitter and the link quality dips.
+class: cyberattack
+subtype: rogue_uplink
+seed: 2402
+attacker:
+  position: ground
+sparta:
+- EX-0016/01
+- IA-0007/02
+attack:
+- T1078
+effects:
+- type: command_injection
+  start: 800
+  end: 1400
+  params:
+    variant: unknown_source
+    prob: 0.5
+- type: jamming
+  start: 800
+  end: 1400
+  params:
+    snr_drop_db: 4.5
+    ber_decades: 1.5
+    loss_pct: 1.0

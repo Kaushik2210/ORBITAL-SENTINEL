@@ -1,0 +1,24 @@
+id: comms_jamming
+title: The link is jammed
+narrative: SNR collapses, bit errors and loss rise, and about a third of frames vanish.
+class: cyberattack
+subtype: jamming
+seed: 2401
+attacker:
+  position: link
+sparta:
+- EX-0016/02
+attack:
+- T1498
+confusable_with:
+- dos_dropout
+hard: true
+effects:
+- type: jamming
+  start: 800
+  end: 1400
+  params:
+    snr_drop_db: 11.0
+    ber_decades: 4.0
+    loss_pct: 10.0
+    frame_loss: 0.35

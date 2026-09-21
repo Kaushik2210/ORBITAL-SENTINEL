@@ -1,0 +1,7 @@
+id: nominal_b
+title: Another quiet day
+narrative: Nothing is wrong (different seed).
+class: nominal
+subtype: nominal
+seed: 1002
+effects: []

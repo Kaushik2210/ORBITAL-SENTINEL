@@ -1,0 +1,21 @@
+id: cmd_whitelisted_anomalous
+title: Legitimate opcode, wrong behavior
+narrative: A whitelisted, authenticated opcode is sent in a burst.
+class: cyberattack
+subtype: command_injection
+seed: 2105
+attacker:
+  position: ground
+sparta:
+- EX-0013/01
+- IA-0007/02
+attack:
+- T1078
+hard: true
+effects:
+- type: command_injection
+  start: 800
+  end: 880
+  params:
+    variant: whitelisted_anomalous
+    prob: 0.7

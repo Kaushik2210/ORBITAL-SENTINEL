@@ -1,0 +1,18 @@
+id: bearing_wear
+title: A bearing is wearing out
+narrative: Wheel vibration rises along the real IMS run-to-failure trajectory; both accelerometers and
+  the temperature agree.
+class: mechanical_failure
+subtype: bearing_wear
+seed: 4002
+aging:
+  wheel:
+  - 400
+  - 1700
+  - 0.05
+  - 1.0
+confusable_with:
+- spoof_vib_hide
+- sensor_noise_vib
+hard: true
+effects: []

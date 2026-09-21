@@ -1,0 +1,7 @@
+id: nominal_a
+title: A quiet day
+narrative: Nothing is wrong. Used to measure false alarms.
+class: nominal
+subtype: nominal
+seed: 1001
+effects: []

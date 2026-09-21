@@ -1,0 +1,22 @@
+id: replay_append
+title: Old frames, again
+narrative: Recorded valid frames are re-sent alongside live traffic.
+class: cyberattack
+subtype: replay
+seed: 2201
+attacker:
+  position: link
+sparta:
+- EX-0001/02
+attack:
+- T1557
+confusable_with:
+- sensor_stuck_battv
+hard: true
+effects:
+- type: replay
+  start: 900
+  end: 1100
+  params:
+    source_start: 300
+    mode: append

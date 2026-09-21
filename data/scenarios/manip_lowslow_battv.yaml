@@ -1,0 +1,26 @@
+id: manip_lowslow_battv
+title: Low and slow
+narrative: A tiny drift, well inside limits, engineered not to trip single-channel checks.
+class: cyberattack
+subtype: low_and_slow_drift
+seed: 2003
+attacker:
+  has_key: true
+  position: link
+sparta:
+- EX-0014/02
+attack:
+- T1565
+- T1557
+confusable_with:
+- sensor_drift_battv
+hard: true
+effects:
+- type: rewrite
+  start: 400
+  end: 1700
+  params:
+    apid: 512
+    channel_index: 0
+    magnitude: 0.45
+    ramp: true

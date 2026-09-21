@@ -1,0 +1,16 @@
+id: auth_offwindow
+title: Login at the wrong time
+narrative: A known operator logs in outside any pass.
+class: cyberattack
+subtype: abnormal_authentication
+seed: 2302
+attacker:
+  position: ground
+attack:
+- T1078
+effects:
+- type: auth_abuse
+  start: 860
+  end: 861
+  params:
+    variant: offwindow

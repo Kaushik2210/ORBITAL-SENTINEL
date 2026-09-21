@@ -173,7 +173,7 @@ class CommandPolicy(Detector):
     consumes = frozenset({EventKind.COMMAND})
 
     def __init__(
-        self, knowledge: MissionKnowledge, max_per_window: int = 3, window_s: float = 300.0
+        self, knowledge: MissionKnowledge, max_per_window: int = 5, window_s: float = 300.0
     ) -> None:
         self.k = knowledge
         self.max_per_window = max_per_window

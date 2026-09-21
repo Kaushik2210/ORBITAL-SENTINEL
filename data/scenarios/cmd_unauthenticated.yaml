@@ -1,0 +1,19 @@
+id: cmd_unauthenticated
+title: Command without authentication
+narrative: A command fails its authentication check.
+class: cyberattack
+subtype: command_injection
+seed: 2104
+attacker:
+  position: ground
+sparta:
+- IA-0007/02
+attack:
+- T1078
+effects:
+- type: command_injection
+  start: 800
+  end: 1400
+  params:
+    variant: unauthenticated
+    prob: 0.5

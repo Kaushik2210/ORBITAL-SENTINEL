@@ -1,0 +1,22 @@
+id: replay_replace
+title: Only old frames
+narrative: The live feed is suppressed and only recorded frames reach the ground.
+class: cyberattack
+subtype: replay
+seed: 2202
+attacker:
+  position: link
+sparta:
+- EX-0001/02
+attack:
+- T1557
+confusable_with:
+- sensor_stuck_battv
+hard: true
+effects:
+- type: replay
+  start: 900
+  end: 1100
+  params:
+    source_start: 300
+    mode: replace

@@ -1,0 +1,19 @@
+id: dos_malformed
+title: Garbage frames
+narrative: Malformed frames are injected among the real ones.
+class: cyberattack
+subtype: denial_of_service
+seed: 2602
+attacker:
+  position: link
+sparta:
+- EX-0013/02
+attack:
+- T1499
+effects:
+- type: flood
+  start: 800
+  end: 1000
+  params:
+    copies: 1
+    malformed: 15

@@ -1,0 +1,18 @@
+id: auth_bruteforce
+title: Password guessing
+narrative: A burst of failed logins from an unknown address.
+class: cyberattack
+subtype: abnormal_authentication
+seed: 2301
+attacker:
+  position: ground
+attack:
+- T1110
+hard: true
+effects:
+- type: auth_abuse
+  start: 800
+  end: 820
+  params:
+    variant: bruteforce
+    attempts: 4

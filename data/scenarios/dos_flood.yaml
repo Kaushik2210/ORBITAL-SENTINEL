@@ -1,0 +1,19 @@
+id: dos_flood
+title: Frame flood
+narrative: Each frame is repeated twenty times.
+class: cyberattack
+subtype: denial_of_service
+seed: 2601
+attacker:
+  position: link
+sparta:
+- EX-0013/01
+attack:
+- T1498
+- T1499
+effects:
+- type: flood
+  start: 800
+  end: 1000
+  params:
+    copies: 20

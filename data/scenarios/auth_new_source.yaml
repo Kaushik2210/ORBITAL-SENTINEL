@@ -1,0 +1,16 @@
+id: auth_new_source
+title: Login from a new account
+narrative: A successful login from an account that is not on the roster.
+class: cyberattack
+subtype: abnormal_authentication
+seed: 2303
+attacker:
+  position: ground
+attack:
+- T1078
+effects:
+- type: auth_abuse
+  start: 830
+  end: 831
+  params:
+    variant: new_source

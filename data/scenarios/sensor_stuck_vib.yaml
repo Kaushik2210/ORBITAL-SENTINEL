@@ -1,0 +1,16 @@
+id: sensor_stuck_vib
+title: A stuck vibration sensor
+narrative: A wheel accelerometer freezes.
+class: sensor_malfunction
+subtype: sensor_stuck
+seed: 3002
+confusable_with:
+- manip_freeze_intrusion
+hard: true
+effects:
+- type: freeze
+  start: 800
+  end: 1400
+  params:
+    targets:
+    - rw1_vib_a

@@ -1,0 +1,28 @@
+id: manip_ramp_battv
+title: The slow bias
+narrative: A man-in-the-middle with the link key slowly raises one battery-voltage reading; every frame
+  is validly signed.
+class: cyberattack
+subtype: telemetry_manipulation
+seed: 2001
+attacker:
+  has_key: true
+  position: link
+sparta:
+- EX-0014/02
+attack:
+- T1565
+- T1557
+confusable_with:
+- sensor_drift_battv
+- battery_degradation
+hard: true
+effects:
+- type: rewrite
+  start: 700
+  end: 1500
+  params:
+    apid: 512
+    channel_index: 0
+    magnitude: 1.5
+    ramp: true

@@ -1,0 +1,81 @@
+id: seu_lookalike_attack
+title: Glitches that look like radiation
+narrative: An attacker with the link key injects abrupt jumps on several channels at once, at a time with
+  no space weather.
+class: cyberattack
+subtype: glitch_injection
+seed: 2701
+attacker:
+  has_key: true
+  position: sensor
+sparta:
+- EX-0014/03
+attack:
+- T1565
+confusable_with:
+- seu_sep_aligned
+hard: true
+effects:
+- type: bias
+  start: 900
+  end: 901
+  params:
+    targets:
+    - batt_v_a
+    magnitude: 6.0
+- type: bias
+  start: 905
+  end: 906
+  params:
+    targets:
+    - batt_v_a
+    magnitude: 6.0
+- type: bias
+  start: 912
+  end: 913
+  params:
+    targets:
+    - batt_v_a
+    magnitude: 6.0
+- type: bias
+  start: 900
+  end: 901
+  params:
+    targets:
+    - bus_v
+    magnitude: -4.0
+- type: bias
+  start: 905
+  end: 906
+  params:
+    targets:
+    - bus_v
+    magnitude: -4.0
+- type: bias
+  start: 912
+  end: 913
+  params:
+    targets:
+    - bus_v
+    magnitude: -4.0
+- type: bias
+  start: 900
+  end: 901
+  params:
+    targets:
+    - rw2_temp
+    magnitude: 25.0
+- type: bias
+  start: 905
+  end: 906
+  params:
+    targets:
+    - rw2_temp
+    magnitude: 25.0
+- type: bias
+  start: 912
+  end: 913
+  params:
+    targets:
+    - rw2_temp
+    magnitude: 25.0

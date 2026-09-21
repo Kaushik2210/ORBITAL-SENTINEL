@@ -1,0 +1,18 @@
+id: battery_degradation
+title: The battery is aging
+narrative: Capacity fades and resistance rises along a real cell's aging trajectory; both voltage sensors
+  agree.
+class: mechanical_failure
+subtype: battery_degradation
+seed: 4001
+aging:
+  battery:
+  - 500
+  - 1700
+  - 0.05
+  - 1.0
+confusable_with:
+- sensor_drift_battv
+- manip_ramp_battv
+hard: true
+effects: []

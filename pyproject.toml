@@ -72,6 +72,7 @@ ignore = ["S101"]  # assert is fine in tests and for internal invariants
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S105", "S106", "S311"]  # fixed test secrets, seeded RNG are intentional
+"scripts/gen_scenarios.py" = ["E501"]  # a data table: long lines are the readable form
 
 [tool.mypy]
 python_version = "3.12"

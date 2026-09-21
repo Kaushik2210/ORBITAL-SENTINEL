@@ -1,0 +1,14 @@
+id: sensor_noise_vib
+title: A noisy sensor
+narrative: A wheel accelerometer gets ten times noisier.
+class: sensor_malfunction
+subtype: sensor_noise
+seed: 3003
+effects:
+- type: noise
+  start: 800
+  end: 1400
+  params:
+    targets:
+    - rw1_vib_b
+    sigma: 0.03

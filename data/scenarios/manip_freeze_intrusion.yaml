@@ -1,0 +1,29 @@
+id: manip_freeze_intrusion
+title: Frozen after a strange login
+narrative: A wheel vibration reading is frozen right after a login from an unknown account.
+class: cyberattack
+subtype: telemetry_freeze
+seed: 2004
+attacker:
+  position: ground
+sparta:
+- EX-0014/03
+- IA-0007/02
+attack:
+- T1078
+- T1565
+confusable_with:
+- sensor_stuck_vib
+hard: true
+effects:
+- type: auth_abuse
+  start: 780
+  end: 781
+  params:
+    variant: new_source
+- type: freeze
+  start: 800
+  end: 1400
+  params:
+    targets:
+    - rw1_vib_a

@@ -59,6 +59,13 @@ def _windows(start: date, end: date) -> Iterator[tuple[date, date]]:
         cur = nxt + timedelta(days=1)
 
 
+def _within(win: CachedWindow, start: date, end: date) -> CachedWindow:
+    """Restrict a cached window to events whose time falls inside [start, end] (UTC dates)."""
+    tf = _TIME_FIELDS[win.kind]
+    keep = [e for e in win.events if e.get(tf) and start <= parse_time(e[tf]).date() <= end]
+    return CachedWindow(win.kind, start, end, win.fetched_at, win.key_kind, keep)
+
+
 def parse_time(text: str) -> datetime:
     """DONKI times look like ``2024-05-01T06:57Z``."""
     return datetime.fromisoformat(text.replace("Z", "+00:00")).astimezone(UTC)
@@ -89,8 +96,23 @@ class DonkiClient:
     def _path(self, kind: str, start: date, end: date) -> Path:
         return self.cache_dir / f"{kind}_{start.isoformat()}_{end.isoformat()}.json"
 
+    def _covering(self, kind: str, start: date, end: date) -> CachedWindow | None:
+        """A cached window that fully contains [start, end], if any (any cached span works)."""
+        for path in sorted(self.cache_dir.glob(f"{kind}_*.json")):
+            try:
+                _, a, b = path.stem.split("_")
+                wa, wb = date.fromisoformat(a), date.fromisoformat(b)
+            except ValueError:
+                continue
+            if wa <= start and end <= wb:
+                raw = json.loads(path.read_text(encoding="utf-8"))
+                return CachedWindow(kind, wa, wb, raw["fetched_at"], raw["key_kind"], raw["events"])
+        return None
+
     def has_coverage(self, kind: str, start: date, end: date) -> bool:
-        """True if every 30-day window covering [start, end] is already cached."""
+        """True if [start, end] is cached: as exact 30-day windows or inside a cached span."""
+        if self._covering(kind, start, end) is not None:
+            return True
         return all(self._path(kind, a, b).is_file() for a, b in _windows(start, end))
 
     def _fetch(self, kind: str, start: date, end: date) -> CachedWindow:
@@ -117,6 +139,8 @@ class DonkiClient:
     ) -> CachedWindow | None:
         """Events for one <=30-day window from cache or network; None if uncached and offline."""
         path = self._path(kind, start, end)
+        if not path.is_file() and (cover := self._covering(kind, start, end)) is not None:
+            return _within(cover, start, end)
         if path.is_file():
             raw = json.loads(path.read_text(encoding="utf-8"))
             return CachedWindow(kind, start, end, raw["fetched_at"], raw["key_kind"], raw["events"])

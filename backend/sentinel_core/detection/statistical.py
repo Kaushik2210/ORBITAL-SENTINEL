@@ -32,6 +32,7 @@ GATE_Z = 3.0  # the reference does not adapt to samples further than this from i
 MARGIN = 1.25  # alarm at this multiple of the largest calibration value
 CUSUM_MARGIN = 1.5  # CUSUM excursions are random-walk-like: leave more headroom
 CUSUM_FLOOR = 10.0  # decision interval h in sigma units (k = 0.5)
+Z_CLIP = 8.0  # CUSUM inputs are winsorised: one absurd value (bit flip) must not saturate it
 SHORT = 5  # samples in the short moving mean
 WINDOW = 20  # samples in the variance window
 FLAT_MIN_RUN = 8  # identical consecutive samples that count as "stuck"
@@ -117,7 +118,7 @@ def fit_channel(
     d = detrend(r, sigma_guess=sigma)
     dq_lo, dq_hi = np.percentile(d, [0.5, 99.5])
     sigma_d = max(float(np.std(np.clip(d, dq_lo, dq_hi))), 1e-9)
-    zd = d / sigma_d
+    zd = np.clip(d / sigma_d, -Z_CLIP, Z_CLIP)
     roc_max = float(np.abs(np.diff(zd)).max()) if len(zd) > 1 else 0.0
     s_hi = s_lo = cusum_max = 0.0
     for zi in zd:
@@ -162,6 +163,7 @@ class _Runtime:
     last_r: float | None = None
     ref: float = 0.0
     last_v: float | None = None
+    last_step: int | None = None
     flat_run: int = 1
 
 
@@ -207,6 +209,10 @@ class StatisticalDetector(Detector):
         v = event.value
         rt = self._rt.setdefault(event.channel, _Runtime())
         ch = event.channel
+        step = step_of(ts)
+        if rt.last_step == step:
+            return []  # a repeat within one step (flood/duplicate) is not a new measurement
+        rt.last_step = step
         out: list[DetectorOutput] = []
 
         if not math.isfinite(v):
@@ -224,7 +230,7 @@ class StatisticalDetector(Detector):
         rt.resid.append(r)
 
         # 1. range against the calibrated envelope (plus a margin proportional to the span)
-        pad = 0.1 * m.span + 1e-9
+        pad = 0.1 * m.span + 2.0 * m.sigma + 1e-9  # a little beyond the envelope, in noise units
         excess = max(m.lo - pad - v, v - (m.hi + pad), 0.0)
         if excess > 0:
             score = min(1.0, 0.5 + excess / (2 * max(m.span, 1e-9)))
@@ -258,8 +264,9 @@ class StatisticalDetector(Detector):
         if abs(dev) < GATE_Z * m.sigma:
             rt.ref += REF_ALPHA * (r - rt.ref)
         zd = dev / m.sigma_d
-        rt.s_hi = max(0.0, rt.s_hi + zd - 0.5)
-        rt.s_lo = max(0.0, rt.s_lo - zd - 0.5)
+        zc = max(-Z_CLIP, min(Z_CLIP, zd))
+        rt.s_hi = max(0.0, rt.s_hi + zc - 0.5)
+        rt.s_lo = max(0.0, rt.s_lo - zc - 0.5)
         cus = max(rt.s_hi, rt.s_lo)
         out += self._stat_out(
             ts, ch, "cusum", cus, max(m.cusum_max * CUSUM_MARGIN, CUSUM_FLOOR), "cusum", cus

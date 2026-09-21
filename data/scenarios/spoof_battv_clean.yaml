@@ -1,0 +1,25 @@
+id: spoof_battv_clean
+title: The too-clean sensor
+narrative: One battery-voltage sensor reports the true value plus a growing offset, but without any sensor
+  noise.
+class: cyberattack
+subtype: sensor_spoofing
+seed: 2501
+attacker:
+  position: sensor
+sparta:
+- EX-0014/03
+attack:
+- T1565
+confusable_with:
+- sensor_drift_battv
+hard: true
+effects:
+- type: spoof_clean
+  start: 700
+  end: 1500
+  params:
+    targets:
+    - batt_v_a
+    magnitude: 0.5
+    truth_key: batt_v

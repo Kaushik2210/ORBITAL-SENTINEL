@@ -1,0 +1,20 @@
+id: manip_bias_load
+title: Load current scaled
+narrative: The load-current sensor is scaled by 40%, breaking the power balance while staying plausible.
+class: cyberattack
+subtype: telemetry_manipulation
+seed: 2002
+attacker:
+  position: sensor
+sparta:
+- EX-0014/03
+attack:
+- T1565
+effects:
+- type: scale
+  start: 800
+  end: 1400
+  params:
+    targets:
+    - load_i
+    gain: 0.4

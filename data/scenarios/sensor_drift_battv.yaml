@@ -1,0 +1,20 @@
+id: sensor_drift_battv
+title: A drifting sensor
+narrative: One battery-voltage sensor drifts and gets noisier as it ages; the other is fine.
+class: sensor_malfunction
+subtype: sensor_drift
+seed: 3005
+confusable_with:
+- spoof_battv_clean
+- manip_lowslow_battv
+- battery_degradation
+hard: true
+effects:
+- type: drift
+  start: 700
+  end: 1500
+  params:
+    targets:
+    - batt_v_a
+    magnitude: 0.5
+    noise_growth: 0.06

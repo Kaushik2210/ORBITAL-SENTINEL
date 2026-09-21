@@ -1,0 +1,30 @@
+id: spoof_vib_hide
+title: Hiding the wear
+narrative: One vibration sensor is made to keep reporting a healthy level while the wheel really wears.
+class: cyberattack
+subtype: sensor_spoofing
+seed: 2502
+aging:
+  wheel:
+  - 700
+  - 1500
+  - 0.05
+  - 0.85
+attacker:
+  position: sensor
+sparta:
+- EX-0014/03
+attack:
+- T1565
+confusable_with:
+- bearing_wear
+hard: true
+effects:
+- type: spoof_baseline
+  start: 700
+  end: 1500
+  params:
+    targets:
+    - rw1_vib_a
+    level: 0.078
+    noise: 0.03

@@ -1,0 +1,14 @@
+id: sensor_dropout_battt
+title: A sensor drops out
+narrative: The battery temperature sensor intermittently reports nothing.
+class: sensor_malfunction
+subtype: sensor_dropout
+seed: 3004
+effects:
+- type: dropout
+  start: 800
+  end: 1400
+  params:
+    targets:
+    - batt_t
+    prob: 0.6

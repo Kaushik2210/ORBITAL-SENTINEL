@@ -1,0 +1,21 @@
+id: dos_dropout
+title: Traffic disappears
+narrative: Frames from one subsystem are dropped at the link.
+class: cyberattack
+subtype: denial_of_service
+seed: 2603
+attacker:
+  position: link
+sparta:
+- EX-0013/01
+attack:
+- T1498
+confusable_with:
+- comms_jamming
+hard: true
+effects:
+- type: frame_drop
+  start: 800
+  end: 1100
+  params:
+    prob: 0.9

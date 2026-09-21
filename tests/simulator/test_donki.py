@@ -147,3 +147,15 @@ def test_gst_uses_max_kp_and_one_hour_extent() -> None:
     (e,) = donki.to_weather_events("GST", gst, epoch)
     assert e.magnitude == 9.0
     assert e.end_ts - e.begin_ts == pytest.approx(3600)
+
+
+def test_a_range_inside_a_cached_span_is_served_from_that_span(tmp_path: Path) -> None:
+    client, seen = make_client()
+    d = donki.DonkiClient(tmp_path, client=client)
+    d.get_events("FLR", date(2024, 5, 1), date(2024, 5, 30))
+    assert len(seen) == 1
+    assert d.has_coverage("FLR", date(2024, 5, 14), date(2024, 5, 14))
+    got = d.get_events("FLR", date(2024, 5, 14), date(2024, 5, 14), allow_network=False)
+    assert [e["flrID"] for e in got] == ["a"]  # only the 05-14 flare; the 05-01 one is filtered out
+    assert len(seen) == 1
+    assert not d.has_coverage("FLR", date(2024, 6, 1), date(2024, 6, 2))
