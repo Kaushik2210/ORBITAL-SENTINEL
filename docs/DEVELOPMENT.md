@@ -13,7 +13,13 @@ Everything goes through `scripts/tasks.py`; the `Makefile` is a thin wrapper (Wi
 | Test | `python scripts/tasks.py test` | `pytest` with coverage |
 | All | `python scripts/tasks.py check` | what CI runs for Python |
 
-Targets for data download, training, and the demo are added when the code behind them exists.
+| Data | `python scripts/tasks.py data` | download + checksum real datasets (`DATA_PROFILE=full` adds bearings) |
+| Migrate | `python scripts/tasks.py migrate` | Alembic `upgrade head` on `DATABASE_URL` (SQLite by default) |
+| Seed | `python scripts/tasks.py seed` | migrate + ingest a replayed mission session |
+
+Targets for training and the demo are added when the code behind them exists.
+
+PostgreSQL/TimescaleDB tests (`-m postgres`) need `POSTGRES_URL` and run in CI only.
 
 ## Layout and dependency direction
 

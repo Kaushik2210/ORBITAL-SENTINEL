@@ -34,6 +34,7 @@ class TelemetryEvent:
     cmd_mask: int = 0
     synthetic: bool = False
     auth_ok: bool = True  # False if the carrying frame failed authentication
+    ts_rx: float | None = None  # receive time; ``ts`` is the (attacker-influenceable) packet time
     kind: EventKind = EventKind.TELEMETRY
 
 

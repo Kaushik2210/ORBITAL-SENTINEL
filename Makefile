@@ -2,7 +2,7 @@
 # Targets are added only when the thing they run exists.
 PY ?= python
 
-.PHONY: setup lint format typecheck test check data
+.PHONY: setup lint format typecheck test check data migrate seed
 
-setup lint format typecheck test check data:
+setup lint format typecheck test check data migrate seed:
 	$(PY) scripts/tasks.py $@

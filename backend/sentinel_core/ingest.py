@@ -123,6 +123,7 @@ class Ingestor:
                     cmd_mask=int(fields[1]) if spec.with_cmd else 0,
                     synthetic=spec.synthetic,
                     auth_ok=decoded.auth_ok,
+                    ts_rx=frame.ts_rx,
                 )
             )
         return events

@@ -61,6 +61,16 @@ def data() -> None:
     )
 
 
+def migrate() -> None:
+    """Apply database migrations (DATABASE_URL; SQLite by default)."""
+    uv("run", "alembic", "upgrade", "head")
+
+
+def seed() -> None:
+    """Migrate, then ingest a replayed mission session into the database."""
+    uv("run", "python", "-m", "sentinel_api.db.seed")
+
+
 def check() -> None:
     """Everything CI runs for Python."""
     lint()
@@ -75,6 +85,8 @@ TASKS: dict[str, Callable[[], None]] = {
     "typecheck": typecheck,
     "test": test,
     "data": data,
+    "migrate": migrate,
+    "seed": seed,
     "check": check,
 }
 
