@@ -96,3 +96,16 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 - **Not verified locally:** Timescale hypertables/policies (`tests/api/test_postgres.py`, CI `postgres` job only).
 - **Next:** Phase 5. Order: detector interface + L4 protocol (cheapest, most deterministic), L1, L3, L5, scenario engine +
   YAML scenarios, then feature builder + attribution, then L2 forecaster (PyTorch->ONNX), then evaluation runs.
+
+### Phase 5 (in progress) — detection engine
+- Done: detector framework (`sentinel_core.detection`: `Detector` with calibrate/learn/freeze, `DetectorOutput`+`Evidence`,
+  `DetectionEngine` with flush and stage-2 observers, `IncidentBuilder`); **L4** protocol/security (sequence with wrap,
+  timestamp freshness, auth tag/malformed, command policy, auth anomaly, link shift, rate anomaly); **L1** statistical
+  (range, residual z, level shift, detrended CUSUM, rate-of-change, flatline, variance, dropout); **L3** redundant
+  sensors with shape/side evidence, and power balance. 84 core tests.
+- Findings while building (all fixed, all in tests): CUSUM on non-stationary voltage produced 871 false alarms per
+  3,000 steps -> detrended CUSUM (ADR 0010); live detrending reference started at one noisy sample -> start-up
+  false alarm; mission start-up transient -> `inhibit_s`; CUSUM threshold too tight -> h >= 10 sigma.
+- Not done yet: L5 environmental, scenario engine (+ SPARTA/ATT&CK tags, which must be verified from the source, not
+  recalled), feature builder + attribution, L2 forecaster (PyTorch -> ONNX) + Isolation Forest, evaluation runs
+  and `docs/EVALUATION.md`.

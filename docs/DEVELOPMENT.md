@@ -12,7 +12,6 @@ Everything goes through `scripts/tasks.py`; the `Makefile` is a thin wrapper (Wi
 | Types | `python scripts/tasks.py typecheck` | `mypy` in strict mode |
 | Test | `python scripts/tasks.py test` | `pytest` with coverage |
 | All | `python scripts/tasks.py check` | what CI runs for Python |
-
 | Data | `python scripts/tasks.py data` | download + checksum real datasets (`DATA_PROFILE=full` adds bearings) |
 | Migrate | `python scripts/tasks.py migrate` | Alembic `upgrade head` on `DATABASE_URL` (SQLite by default) |
 | Seed | `python scripts/tasks.py seed` | migrate + ingest a replayed mission session |
