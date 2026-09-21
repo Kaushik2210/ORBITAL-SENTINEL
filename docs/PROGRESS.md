@@ -122,3 +122,15 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
   span -> fixed; my off-window login landed inside a pass; the "hide the wear" spoof did not hide anything.
 - Not done yet: feature builder + attribution model (ADR 0006), L2 forecaster/Isolation Forest, evaluation runs and
   `docs/EVALUATION.md` (all numbers must come from those runs).
+- Attribution done (ADR 0006): 32 evidence features (`sentinel_core.attribution.features`), exact-contribution logistic
+  regression with temperature scaling and validation-tuned abstention (`model.py`, pure NumPy at inference), variants
+  (`instantiate`), dataset builder, training, and a held-out evaluation. 462 runs -> 646 incident windows. The test split
+  (variants 10-13) was scored once after iterating on validation only. Results are in `docs/EVALUATION.md`
+  (auto-rendered from `docs/data/evaluation_v1.json`); the trained model is `models/attribution-v1.json`.
+- Headline (see the report for CIs and caveats): forced-choice 86.4%; 95.1% on answered windows at 61.8% coverage; hand
+  rules 51.8%. Hard pairs: replay vs stuck, jamming vs dropout and SEU vs injected glitches are separated; the slow
+  single-sensor drift family (spoof / drift / low-and-slow / ramp) is never separated and always ends `needs_human`.
+  Leave-one-scenario-out shows the model does not generalize to unseen failure modes.
+- **Not done in Phase 5:** L2 (LSTM forecaster -> ONNX, Isolation Forest) and SMAP/MSL event-level evaluation of any
+  detector on the real anomalies. Without them the platform makes no claim about real operational anomalies yet.
+- CI now installs the `ml` extra (scikit-learn).

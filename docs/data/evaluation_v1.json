@@ -1,0 +1,2196 @@
+{
+  "meta": {
+    "git_sha": "3a1013d4c1664fb616f9906ffd079443b658b4f1",
+    "created_at": "2026-09-21T15:19:49.350817+00:00",
+    "profile": "full",
+    "splits": {
+      "train": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "val": [
+        8,
+        9
+      ],
+      "test": [
+        10,
+        11,
+        12,
+        13
+      ]
+    },
+    "n_runs": 462,
+    "n_windows": {
+      "train": 357,
+      "val": 90,
+      "test": 199
+    },
+    "model_version": "dcb0100109c4",
+    "model": {
+      "c": 0.3,
+      "temperature": 1.038881925107139,
+      "tau": 0.3,
+      "delta": 0.45
+    },
+    "synthetic": true,
+    "note": "Train and test scenarios come from the same simulator: this measures separability inside the simulator, not accuracy on real spacecraft.",
+    "data_sources": [
+      "pcoe"
+    ],
+    "weather_context": {
+      "quiet-verified": 448,
+      "aligned": 14
+    }
+  },
+  "windows": {
+    "n": 199,
+    "strict_accuracy": {
+      "k": 117,
+      "n": 199,
+      "rate": 0.5879396984924623,
+      "ci95": [
+        0.5185169966241849,
+        0.6540314352556662
+      ]
+    },
+    "answered_accuracy": {
+      "k": 117,
+      "n": 123,
+      "rate": 0.9512195121951219,
+      "ci95": [
+        0.8976526872286598,
+        0.9774545331154544
+      ]
+    },
+    "coverage": {
+      "k": 123,
+      "n": 199,
+      "rate": 0.6180904522613065,
+      "ci95": [
+        0.5489538647402142,
+        0.682754029498443
+      ]
+    },
+    "abstain_when_it_would_have_been_wrong": {
+      "k": 21,
+      "n": 27,
+      "rate": 0.7777777777777778,
+      "ci95": [
+        0.5924270453692919,
+        0.8939290451059105
+      ]
+    },
+    "confusion": {
+      "nominal": {
+        "nominal": 17,
+        "mechanical_failure": 0,
+        "environmental": 0,
+        "sensor_malfunction": 0,
+        "cyberattack": 0,
+        "needs_human": 39
+      },
+      "mechanical_failure": {
+        "nominal": 2,
+        "mechanical_failure": 9,
+        "environmental": 0,
+        "sensor_malfunction": 0,
+        "cyberattack": 0,
+        "needs_human": 7
+      },
+      "environmental": {
+        "nominal": 1,
+        "mechanical_failure": 0,
+        "environmental": 4,
+        "sensor_malfunction": 0,
+        "cyberattack": 0,
+        "needs_human": 0
+      },
+      "sensor_malfunction": {
+        "nominal": 0,
+        "mechanical_failure": 0,
+        "environmental": 0,
+        "sensor_malfunction": 15,
+        "cyberattack": 0,
+        "needs_human": 5
+      },
+      "cyberattack": {
+        "nominal": 1,
+        "mechanical_failure": 0,
+        "environmental": 0,
+        "sensor_malfunction": 2,
+        "cyberattack": 72,
+        "needs_human": 25
+      }
+    },
+    "per_class": {
+      "nominal": {
+        "precision": 0.8095238095238095,
+        "recall": 0.30357142857142855,
+        "f1": 0.44155844155844154,
+        "support": 56,
+        "tp": 17,
+        "fp": 4
+      },
+      "mechanical_failure": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6666666666666666,
+        "support": 18,
+        "tp": 9,
+        "fp": 0
+      },
+      "environmental": {
+        "precision": 1.0,
+        "recall": 0.8,
+        "f1": 0.888888888888889,
+        "support": 5,
+        "tp": 4,
+        "fp": 0
+      },
+      "sensor_malfunction": {
+        "precision": 0.8823529411764706,
+        "recall": 0.75,
+        "f1": 0.8108108108108107,
+        "support": 20,
+        "tp": 15,
+        "fp": 2
+      },
+      "cyberattack": {
+        "precision": 1.0,
+        "recall": 0.72,
+        "f1": 0.8372093023255813,
+        "support": 100,
+        "tp": 72,
+        "fp": 0
+      }
+    },
+    "forced_choice_accuracy": {
+      "k": 172,
+      "n": 199,
+      "rate": 0.864321608040201,
+      "ci95": [
+        0.809792241475359,
+        0.9050512620268812
+      ]
+    }
+  },
+  "baselines": {
+    "majority_class": {
+      "class": "cyberattack",
+      "accuracy": {
+        "k": 100,
+        "n": 199,
+        "rate": 0.5025125628140703,
+        "ci95": [
+          0.43365646305035727,
+          0.5712734921462099
+        ]
+      }
+    },
+    "hand_rules": {
+      "n": 199,
+      "strict_accuracy": {
+        "k": 103,
+        "n": 199,
+        "rate": 0.5175879396984925,
+        "ci95": [
+          0.4484872531274933,
+          0.5860224332484768
+        ]
+      },
+      "answered_accuracy": {
+        "k": 103,
+        "n": 199,
+        "rate": 0.5175879396984925,
+        "ci95": [
+          0.4484872531274933,
+          0.5860224332484768
+        ]
+      },
+      "coverage": {
+        "k": 199,
+        "n": 199,
+        "rate": 1.0,
+        "ci95": [
+          0.9810610841168677,
+          1.0
+        ]
+      },
+      "abstain_when_it_would_have_been_wrong": null,
+      "confusion": {
+        "nominal": {
+          "nominal": 0,
+          "mechanical_failure": 51,
+          "environmental": 3,
+          "sensor_malfunction": 2,
+          "cyberattack": 0,
+          "needs_human": 0
+        },
+        "mechanical_failure": {
+          "nominal": 0,
+          "mechanical_failure": 14,
+          "environmental": 0,
+          "sensor_malfunction": 4,
+          "cyberattack": 0,
+          "needs_human": 0
+        },
+        "environmental": {
+          "nominal": 0,
+          "mechanical_failure": 0,
+          "environmental": 5,
+          "sensor_malfunction": 0,
+          "cyberattack": 0,
+          "needs_human": 0
+        },
+        "sensor_malfunction": {
+          "nominal": 0,
+          "mechanical_failure": 0,
+          "environmental": 0,
+          "sensor_malfunction": 20,
+          "cyberattack": 0,
+          "needs_human": 0
+        },
+        "cyberattack": {
+          "nominal": 0,
+          "mechanical_failure": 7,
+          "environmental": 4,
+          "sensor_malfunction": 25,
+          "cyberattack": 64,
+          "needs_human": 0
+        }
+      },
+      "per_class": {
+        "nominal": {
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 56,
+          "tp": 0,
+          "fp": 0
+        },
+        "mechanical_failure": {
+          "precision": 0.19444444444444445,
+          "recall": 0.7777777777777778,
+          "f1": 0.3111111111111111,
+          "support": 18,
+          "tp": 14,
+          "fp": 58
+        },
+        "environmental": {
+          "precision": 0.4166666666666667,
+          "recall": 1.0,
+          "f1": 0.5882352941176471,
+          "support": 5,
+          "tp": 5,
+          "fp": 7
+        },
+        "sensor_malfunction": {
+          "precision": 0.39215686274509803,
+          "recall": 1.0,
+          "f1": 0.5633802816901409,
+          "support": 20,
+          "tp": 20,
+          "fp": 31
+        },
+        "cyberattack": {
+          "precision": 1.0,
+          "recall": 0.64,
+          "f1": 0.7804878048780487,
+          "support": 100,
+          "tp": 64,
+          "fp": 0
+        }
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "scenario": "auth_bruteforce",
+      "truth": "cyberattack",
+      "subtype": "abnormal_authentication",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 1
+    },
+    {
+      "scenario": "auth_new_source",
+      "truth": "cyberattack",
+      "subtype": "abnormal_authentication",
+      "hard": false,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 5,
+      "verdicts": {
+        "cyberattack": 4,
+        "nominal": 1
+      },
+      "window_accuracy": 0.8,
+      "false_windows": 1
+    },
+    {
+      "scenario": "auth_offwindow",
+      "truth": "cyberattack",
+      "subtype": "abnormal_authentication",
+      "hard": false,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 2
+    },
+    {
+      "scenario": "battery_degradation",
+      "truth": "mechanical_failure",
+      "subtype": "battery_degradation",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 3,
+        "n": 4,
+        "rate": 0.75,
+        "ci95": [
+          0.3006360524426366,
+          0.9544139373553637
+        ]
+      },
+      "median_time_to_detect_min": 469,
+      "windows": 11,
+      "verdicts": {
+        "nominal": 1,
+        "mechanical_failure": 5,
+        "needs_human": 5
+      },
+      "window_accuracy": 0.45454545454545453,
+      "false_windows": 0
+    },
+    {
+      "scenario": "bearing_wear",
+      "truth": "mechanical_failure",
+      "subtype": "bearing_wear",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 566.0,
+      "windows": 7,
+      "verdicts": {
+        "nominal": 1,
+        "needs_human": 2,
+        "mechanical_failure": 4
+      },
+      "window_accuracy": 0.5714285714285714,
+      "false_windows": 0
+    },
+    {
+      "scenario": "cmd_out_of_window",
+      "truth": "cyberattack",
+      "subtype": "command_injection",
+      "hard": false,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 1.5,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 1
+    },
+    {
+      "scenario": "cmd_unauthenticated",
+      "truth": "cyberattack",
+      "subtype": "command_injection",
+      "hard": false,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.5,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 0
+    },
+    {
+      "scenario": "cmd_unauthorized",
+      "truth": "cyberattack",
+      "subtype": "command_injection",
+      "hard": false,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 5,
+      "verdicts": {
+        "cyberattack": 4,
+        "needs_human": 1
+      },
+      "window_accuracy": 0.8,
+      "false_windows": 4
+    },
+    {
+      "scenario": "cmd_unknown_source",
+      "truth": "cyberattack",
+      "subtype": "command_injection",
+      "hard": false,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 0
+    },
+    {
+      "scenario": "cmd_whitelisted_anomalous",
+      "truth": "cyberattack",
+      "subtype": "command_injection",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 3
+    },
+    {
+      "scenario": "comms_jamming",
+      "truth": "cyberattack",
+      "subtype": "jamming",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 1
+    },
+    {
+      "scenario": "comms_rogue_uplink",
+      "truth": "cyberattack",
+      "subtype": "rogue_uplink",
+      "hard": false,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 1
+    },
+    {
+      "scenario": "dos_dropout",
+      "truth": "cyberattack",
+      "subtype": "denial_of_service",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 5,
+      "verdicts": {
+        "cyberattack": 4,
+        "needs_human": 1
+      },
+      "window_accuracy": 0.8,
+      "false_windows": 5
+    },
+    {
+      "scenario": "dos_flood",
+      "truth": "cyberattack",
+      "subtype": "denial_of_service",
+      "hard": false,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 5
+    },
+    {
+      "scenario": "dos_malformed",
+      "truth": "cyberattack",
+      "subtype": "denial_of_service",
+      "hard": false,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 3
+    },
+    {
+      "scenario": "manip_bias_load",
+      "truth": "cyberattack",
+      "subtype": "telemetry_manipulation",
+      "hard": false,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 2
+    },
+    {
+      "scenario": "manip_freeze_intrusion",
+      "truth": "cyberattack",
+      "subtype": "telemetry_freeze",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 8,
+      "verdicts": {
+        "cyberattack": 4,
+        "sensor_malfunction": 1,
+        "needs_human": 3
+      },
+      "window_accuracy": 0.5,
+      "false_windows": 0
+    },
+    {
+      "scenario": "manip_lowslow_battv",
+      "truth": "cyberattack",
+      "subtype": "low_and_slow_drift",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 68.0,
+      "windows": 4,
+      "verdicts": {
+        "needs_human": 4
+      },
+      "window_accuracy": 0.0,
+      "false_windows": 0
+    },
+    {
+      "scenario": "manip_ramp_battv",
+      "truth": "cyberattack",
+      "subtype": "telemetry_manipulation",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 24.0,
+      "windows": 4,
+      "verdicts": {
+        "needs_human": 4
+      },
+      "window_accuracy": 0.0,
+      "false_windows": 1
+    },
+    {
+      "scenario": "nominal_a",
+      "truth": "nominal",
+      "subtype": "nominal",
+      "hard": false,
+      "runs": 4,
+      "detected": null,
+      "median_time_to_detect_min": null,
+      "windows": 0,
+      "verdicts": {},
+      "window_accuracy": null,
+      "false_windows": 4
+    },
+    {
+      "scenario": "nominal_b",
+      "truth": "nominal",
+      "subtype": "nominal",
+      "hard": false,
+      "runs": 4,
+      "detected": null,
+      "median_time_to_detect_min": null,
+      "windows": 0,
+      "verdicts": {},
+      "window_accuracy": null,
+      "false_windows": 3
+    },
+    {
+      "scenario": "nominal_c",
+      "truth": "nominal",
+      "subtype": "nominal",
+      "hard": false,
+      "runs": 4,
+      "detected": null,
+      "median_time_to_detect_min": null,
+      "windows": 0,
+      "verdicts": {},
+      "window_accuracy": null,
+      "false_windows": 3
+    },
+    {
+      "scenario": "replay_append",
+      "truth": "cyberattack",
+      "subtype": "replay",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 1
+    },
+    {
+      "scenario": "replay_replace",
+      "truth": "cyberattack",
+      "subtype": "replay",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 2
+    },
+    {
+      "scenario": "sensor_drift_battv",
+      "truth": "sensor_malfunction",
+      "subtype": "sensor_drift",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 51.0,
+      "windows": 4,
+      "verdicts": {
+        "needs_human": 4
+      },
+      "window_accuracy": 0.0,
+      "false_windows": 1
+    },
+    {
+      "scenario": "sensor_dropout_battt",
+      "truth": "sensor_malfunction",
+      "subtype": "sensor_dropout",
+      "hard": false,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 1.5,
+      "windows": 4,
+      "verdicts": {
+        "sensor_malfunction": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 1
+    },
+    {
+      "scenario": "sensor_noise_vib",
+      "truth": "sensor_malfunction",
+      "subtype": "sensor_noise",
+      "hard": false,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "sensor_malfunction": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 1
+    },
+    {
+      "scenario": "sensor_stuck_battv",
+      "truth": "sensor_malfunction",
+      "subtype": "sensor_stuck",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 5.5,
+      "windows": 4,
+      "verdicts": {
+        "sensor_malfunction": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 2
+    },
+    {
+      "scenario": "sensor_stuck_vib",
+      "truth": "sensor_malfunction",
+      "subtype": "sensor_stuck",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 7.0,
+      "windows": 4,
+      "verdicts": {
+        "sensor_malfunction": 3,
+        "needs_human": 1
+      },
+      "window_accuracy": 0.75,
+      "false_windows": 2
+    },
+    {
+      "scenario": "seu_lookalike_attack",
+      "truth": "cyberattack",
+      "subtype": "glitch_injection",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 0.0,
+      "windows": 4,
+      "verdicts": {
+        "cyberattack": 4
+      },
+      "window_accuracy": 1.0,
+      "false_windows": 3
+    },
+    {
+      "scenario": "seu_sep_aligned",
+      "truth": "environmental",
+      "subtype": "single_event_upset",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 10.0,
+      "windows": 5,
+      "verdicts": {
+        "environmental": 4,
+        "nominal": 1
+      },
+      "window_accuracy": 0.8,
+      "false_windows": 3
+    },
+    {
+      "scenario": "spoof_battv_clean",
+      "truth": "cyberattack",
+      "subtype": "sensor_spoofing",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 50.5,
+      "windows": 4,
+      "verdicts": {
+        "sensor_malfunction": 1,
+        "needs_human": 3
+      },
+      "window_accuracy": 0.0,
+      "false_windows": 0
+    },
+    {
+      "scenario": "spoof_vib_hide",
+      "truth": "cyberattack",
+      "subtype": "sensor_spoofing",
+      "hard": true,
+      "runs": 4,
+      "detected": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "median_time_to_detect_min": 212.5,
+      "windows": 9,
+      "verdicts": {
+        "needs_human": 9
+      },
+      "window_accuracy": 0.0,
+      "false_windows": 0
+    }
+  ],
+  "hard_pairs": [
+    {
+      "pair": [
+        "battery_degradation",
+        "sensor_drift_battv"
+      ],
+      "classes": [
+        "mechanical_failure",
+        "sensor_malfunction"
+      ],
+      "battery_degradation": {
+        "windows": 11,
+        "correct": {
+          "k": 5,
+          "n": 11,
+          "rate": 0.45454545454545453,
+          "ci95": [
+            0.21270957543988045,
+            0.7199122443100118
+          ]
+        },
+        "abstained": 5,
+        "confused_as_partner_class": 0
+      },
+      "sensor_drift_battv": {
+        "windows": 4,
+        "correct": {
+          "k": 0,
+          "n": 4,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.48990002040399916
+          ]
+        },
+        "abstained": 4,
+        "confused_as_partner_class": 0
+      }
+    },
+    {
+      "pair": [
+        "battery_degradation",
+        "manip_ramp_battv"
+      ],
+      "classes": [
+        "mechanical_failure",
+        "cyberattack"
+      ],
+      "battery_degradation": {
+        "windows": 11,
+        "correct": {
+          "k": 5,
+          "n": 11,
+          "rate": 0.45454545454545453,
+          "ci95": [
+            0.21270957543988045,
+            0.7199122443100118
+          ]
+        },
+        "abstained": 5,
+        "confused_as_partner_class": 0
+      },
+      "manip_ramp_battv": {
+        "windows": 4,
+        "correct": {
+          "k": 0,
+          "n": 4,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.48990002040399916
+          ]
+        },
+        "abstained": 4,
+        "confused_as_partner_class": 0
+      }
+    },
+    {
+      "pair": [
+        "bearing_wear",
+        "spoof_vib_hide"
+      ],
+      "classes": [
+        "mechanical_failure",
+        "cyberattack"
+      ],
+      "bearing_wear": {
+        "windows": 7,
+        "correct": {
+          "k": 4,
+          "n": 7,
+          "rate": 0.5714285714285714,
+          "ci95": [
+            0.2504542304090258,
+            0.8417830777373732
+          ]
+        },
+        "abstained": 2,
+        "confused_as_partner_class": 0
+      },
+      "spoof_vib_hide": {
+        "windows": 9,
+        "correct": {
+          "k": 0,
+          "n": 9,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.2991527535509594
+          ]
+        },
+        "abstained": 9,
+        "confused_as_partner_class": 0
+      }
+    },
+    {
+      "pair": [
+        "bearing_wear",
+        "sensor_noise_vib"
+      ],
+      "classes": [
+        "mechanical_failure",
+        "sensor_malfunction"
+      ],
+      "bearing_wear": {
+        "windows": 7,
+        "correct": {
+          "k": 4,
+          "n": 7,
+          "rate": 0.5714285714285714,
+          "ci95": [
+            0.2504542304090258,
+            0.8417830777373732
+          ]
+        },
+        "abstained": 2,
+        "confused_as_partner_class": 0
+      },
+      "sensor_noise_vib": {
+        "windows": 4,
+        "correct": {
+          "k": 4,
+          "n": 4,
+          "rate": 1.0,
+          "ci95": [
+            0.5100999795960008,
+            1.0
+          ]
+        },
+        "abstained": 0,
+        "confused_as_partner_class": 0
+      }
+    },
+    {
+      "pair": [
+        "comms_jamming",
+        "dos_dropout"
+      ],
+      "classes": [
+        "cyberattack",
+        "cyberattack"
+      ],
+      "comms_jamming": {
+        "windows": 4,
+        "correct": {
+          "k": 4,
+          "n": 4,
+          "rate": 1.0,
+          "ci95": [
+            0.5100999795960008,
+            1.0
+          ]
+        },
+        "abstained": 0,
+        "confused_as_partner_class": 0
+      },
+      "dos_dropout": {
+        "windows": 5,
+        "correct": {
+          "k": 4,
+          "n": 5,
+          "rate": 0.8,
+          "ci95": [
+            0.3755282641185388,
+            0.9637768390302125
+          ]
+        },
+        "abstained": 1,
+        "confused_as_partner_class": 0
+      }
+    },
+    {
+      "pair": [
+        "manip_freeze_intrusion",
+        "sensor_stuck_vib"
+      ],
+      "classes": [
+        "cyberattack",
+        "sensor_malfunction"
+      ],
+      "manip_freeze_intrusion": {
+        "windows": 8,
+        "correct": {
+          "k": 4,
+          "n": 8,
+          "rate": 0.5,
+          "ci95": [
+            0.21521252682444186,
+            0.7847874731755582
+          ]
+        },
+        "abstained": 3,
+        "confused_as_partner_class": 1
+      },
+      "sensor_stuck_vib": {
+        "windows": 4,
+        "correct": {
+          "k": 3,
+          "n": 4,
+          "rate": 0.75,
+          "ci95": [
+            0.3006360524426366,
+            0.9544139373553637
+          ]
+        },
+        "abstained": 1,
+        "confused_as_partner_class": 0
+      }
+    },
+    {
+      "pair": [
+        "manip_lowslow_battv",
+        "sensor_drift_battv"
+      ],
+      "classes": [
+        "cyberattack",
+        "sensor_malfunction"
+      ],
+      "manip_lowslow_battv": {
+        "windows": 4,
+        "correct": {
+          "k": 0,
+          "n": 4,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.48990002040399916
+          ]
+        },
+        "abstained": 4,
+        "confused_as_partner_class": 0
+      },
+      "sensor_drift_battv": {
+        "windows": 4,
+        "correct": {
+          "k": 0,
+          "n": 4,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.48990002040399916
+          ]
+        },
+        "abstained": 4,
+        "confused_as_partner_class": 0
+      }
+    },
+    {
+      "pair": [
+        "manip_ramp_battv",
+        "sensor_drift_battv"
+      ],
+      "classes": [
+        "cyberattack",
+        "sensor_malfunction"
+      ],
+      "manip_ramp_battv": {
+        "windows": 4,
+        "correct": {
+          "k": 0,
+          "n": 4,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.48990002040399916
+          ]
+        },
+        "abstained": 4,
+        "confused_as_partner_class": 0
+      },
+      "sensor_drift_battv": {
+        "windows": 4,
+        "correct": {
+          "k": 0,
+          "n": 4,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.48990002040399916
+          ]
+        },
+        "abstained": 4,
+        "confused_as_partner_class": 0
+      }
+    },
+    {
+      "pair": [
+        "replay_append",
+        "sensor_stuck_battv"
+      ],
+      "classes": [
+        "cyberattack",
+        "sensor_malfunction"
+      ],
+      "replay_append": {
+        "windows": 4,
+        "correct": {
+          "k": 4,
+          "n": 4,
+          "rate": 1.0,
+          "ci95": [
+            0.5100999795960008,
+            1.0
+          ]
+        },
+        "abstained": 0,
+        "confused_as_partner_class": 0
+      },
+      "sensor_stuck_battv": {
+        "windows": 4,
+        "correct": {
+          "k": 4,
+          "n": 4,
+          "rate": 1.0,
+          "ci95": [
+            0.5100999795960008,
+            1.0
+          ]
+        },
+        "abstained": 0,
+        "confused_as_partner_class": 0
+      }
+    },
+    {
+      "pair": [
+        "replay_replace",
+        "sensor_stuck_battv"
+      ],
+      "classes": [
+        "cyberattack",
+        "sensor_malfunction"
+      ],
+      "replay_replace": {
+        "windows": 4,
+        "correct": {
+          "k": 4,
+          "n": 4,
+          "rate": 1.0,
+          "ci95": [
+            0.5100999795960008,
+            1.0
+          ]
+        },
+        "abstained": 0,
+        "confused_as_partner_class": 0
+      },
+      "sensor_stuck_battv": {
+        "windows": 4,
+        "correct": {
+          "k": 4,
+          "n": 4,
+          "rate": 1.0,
+          "ci95": [
+            0.5100999795960008,
+            1.0
+          ]
+        },
+        "abstained": 0,
+        "confused_as_partner_class": 0
+      }
+    },
+    {
+      "pair": [
+        "sensor_drift_battv",
+        "spoof_battv_clean"
+      ],
+      "classes": [
+        "sensor_malfunction",
+        "cyberattack"
+      ],
+      "sensor_drift_battv": {
+        "windows": 4,
+        "correct": {
+          "k": 0,
+          "n": 4,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.48990002040399916
+          ]
+        },
+        "abstained": 4,
+        "confused_as_partner_class": 0
+      },
+      "spoof_battv_clean": {
+        "windows": 4,
+        "correct": {
+          "k": 0,
+          "n": 4,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.48990002040399916
+          ]
+        },
+        "abstained": 3,
+        "confused_as_partner_class": 1
+      }
+    },
+    {
+      "pair": [
+        "seu_lookalike_attack",
+        "seu_sep_aligned"
+      ],
+      "classes": [
+        "cyberattack",
+        "environmental"
+      ],
+      "seu_lookalike_attack": {
+        "windows": 4,
+        "correct": {
+          "k": 4,
+          "n": 4,
+          "rate": 1.0,
+          "ci95": [
+            0.5100999795960008,
+            1.0
+          ]
+        },
+        "abstained": 0,
+        "confused_as_partner_class": 0
+      },
+      "seu_sep_aligned": {
+        "windows": 5,
+        "correct": {
+          "k": 4,
+          "n": 5,
+          "rate": 0.8,
+          "ci95": [
+            0.3755282641185388,
+            0.9637768390302125
+          ]
+        },
+        "abstained": 0,
+        "confused_as_partner_class": 0
+      }
+    }
+  ],
+  "false_alarms": {
+    "nominal_runs": 12,
+    "simulated_days": 15.0,
+    "false_incident_windows": 10,
+    "false_windows_per_day": 0.6666666666666666,
+    "false_windows_classified_nominal_by_attribution": {
+      "k": 4,
+      "n": 10,
+      "rate": 0.4,
+      "ci95": [
+        0.16817758120350967,
+        0.6873304525498135
+      ]
+    },
+    "false_windows_that_reach_operators": 6,
+    "windows_outside_the_fault_in_fault_runs": 46
+  },
+  "ablations": [
+    {
+      "config": "all layers",
+      "strict_accuracy": {
+        "k": 117,
+        "n": 199,
+        "rate": 0.5879396984924623,
+        "ci95": [
+          0.5185169966241849,
+          0.6540314352556662
+        ]
+      },
+      "forced_choice_accuracy": {
+        "k": 172,
+        "n": 199,
+        "rate": 0.864321608040201,
+        "ci95": [
+          0.809792241475359,
+          0.9050512620268812
+        ]
+      }
+    },
+    {
+      "config": "without L4 protocol/security",
+      "strict_accuracy": {
+        "k": 115,
+        "n": 199,
+        "rate": 0.5778894472361809,
+        "ci95": [
+          0.50842896122167,
+          0.6443996498719123
+        ]
+      },
+      "forced_choice_accuracy": {
+        "k": 169,
+        "n": 199,
+        "rate": 0.8492462311557789,
+        "ci95": [
+          0.7929484536145112,
+          0.892315318708326
+        ]
+      }
+    },
+    {
+      "config": "without L1 statistical",
+      "strict_accuracy": {
+        "k": 116,
+        "n": 199,
+        "rate": 0.5829145728643216,
+        "ci95": [
+          0.5134694267312812,
+          0.6492190947554355
+        ]
+      },
+      "forced_choice_accuracy": {
+        "k": 166,
+        "n": 199,
+        "rate": 0.8341708542713567,
+        "ci95": [
+          0.7762680800316453,
+          0.8794159611117887
+        ]
+      }
+    },
+    {
+      "config": "without L3 physics/redundancy",
+      "strict_accuracy": {
+        "k": 107,
+        "n": 199,
+        "rate": 0.5376884422110553,
+        "ci95": [
+          0.4683573391916215,
+          0.605591988756886
+        ]
+      },
+      "forced_choice_accuracy": {
+        "k": 165,
+        "n": 199,
+        "rate": 0.8291457286432161,
+        "ci95": [
+          0.7707411549936103,
+          0.8750829757566896
+        ]
+      }
+    },
+    {
+      "config": "without L5 environment",
+      "strict_accuracy": {
+        "k": 112,
+        "n": 199,
+        "rate": 0.5628140703517588,
+        "ci95": [
+          0.49334985710259177,
+          0.6298990228115876
+        ]
+      },
+      "forced_choice_accuracy": {
+        "k": 168,
+        "n": 199,
+        "rate": 0.8442211055276382,
+        "ci95": [
+          0.7873711140369188,
+          0.8880327478927841
+        ]
+      }
+    }
+  ],
+  "leave_one_scenario_out": [
+    {
+      "scenario": "auth_bruteforce",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "auth_new_source",
+      "truth": "cyberattack",
+      "windows": 5,
+      "correct": {
+        "k": 4,
+        "n": 5,
+        "rate": 0.8,
+        "ci95": [
+          0.3755282641185388,
+          0.9637768390302125
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4,
+        "nominal": 1
+      }
+    },
+    {
+      "scenario": "auth_offwindow",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "battery_degradation",
+      "truth": "mechanical_failure",
+      "windows": 11,
+      "correct": {
+        "k": 5,
+        "n": 11,
+        "rate": 0.45454545454545453,
+        "ci95": [
+          0.21270957543988045,
+          0.7199122443100118
+        ]
+      },
+      "predicted": {
+        "nominal": 6,
+        "mechanical_failure": 5
+      }
+    },
+    {
+      "scenario": "bearing_wear",
+      "truth": "mechanical_failure",
+      "windows": 7,
+      "correct": {
+        "k": 0,
+        "n": 7,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.35433884297520657
+        ]
+      },
+      "predicted": {
+        "nominal": 3,
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "cmd_out_of_window",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "cmd_unauthenticated",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "cmd_unauthorized",
+      "truth": "cyberattack",
+      "windows": 5,
+      "correct": {
+        "k": 4,
+        "n": 5,
+        "rate": 0.8,
+        "ci95": [
+          0.3755282641185388,
+          0.9637768390302125
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4,
+        "nominal": 1
+      }
+    },
+    {
+      "scenario": "cmd_unknown_source",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "cmd_whitelisted_anomalous",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "comms_jamming",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "comms_rogue_uplink",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "dos_dropout",
+      "truth": "cyberattack",
+      "windows": 5,
+      "correct": {
+        "k": 4,
+        "n": 5,
+        "rate": 0.8,
+        "ci95": [
+          0.3755282641185388,
+          0.9637768390302125
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4,
+        "mechanical_failure": 1
+      }
+    },
+    {
+      "scenario": "dos_flood",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "dos_malformed",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "manip_bias_load",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.48990002040399916
+        ]
+      },
+      "predicted": {
+        "mechanical_failure": 4
+      }
+    },
+    {
+      "scenario": "manip_freeze_intrusion",
+      "truth": "cyberattack",
+      "windows": 8,
+      "correct": {
+        "k": 4,
+        "n": 8,
+        "rate": 0.5,
+        "ci95": [
+          0.21521252682444186,
+          0.7847874731755582
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4,
+        "sensor_malfunction": 4
+      }
+    },
+    {
+      "scenario": "manip_lowslow_battv",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.48990002040399916
+        ]
+      },
+      "predicted": {
+        "sensor_malfunction": 4
+      }
+    },
+    {
+      "scenario": "manip_ramp_battv",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.48990002040399916
+        ]
+      },
+      "predicted": {
+        "sensor_malfunction": 4
+      }
+    },
+    {
+      "scenario": "replay_append",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "replay_replace",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "sensor_drift_battv",
+      "truth": "sensor_malfunction",
+      "windows": 4,
+      "correct": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.48990002040399916
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "sensor_dropout_battt",
+      "truth": "sensor_malfunction",
+      "windows": 4,
+      "correct": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.48990002040399916
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "sensor_noise_vib",
+      "truth": "sensor_malfunction",
+      "windows": 4,
+      "correct": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.48990002040399916
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4
+      }
+    },
+    {
+      "scenario": "sensor_stuck_battv",
+      "truth": "sensor_malfunction",
+      "windows": 4,
+      "correct": {
+        "k": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.5100999795960008,
+          1.0
+        ]
+      },
+      "predicted": {
+        "sensor_malfunction": 4
+      }
+    },
+    {
+      "scenario": "sensor_stuck_vib",
+      "truth": "sensor_malfunction",
+      "windows": 4,
+      "correct": {
+        "k": 2,
+        "n": 4,
+        "rate": 0.5,
+        "ci95": [
+          0.15003570882017148,
+          0.8499642911798285
+        ]
+      },
+      "predicted": {
+        "sensor_malfunction": 2,
+        "cyberattack": 2
+      }
+    },
+    {
+      "scenario": "seu_lookalike_attack",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 2,
+        "n": 4,
+        "rate": 0.5,
+        "ci95": [
+          0.15003570882017148,
+          0.8499642911798285
+        ]
+      },
+      "predicted": {
+        "cyberattack": 2,
+        "sensor_malfunction": 2
+      }
+    },
+    {
+      "scenario": "seu_sep_aligned",
+      "truth": "environmental",
+      "windows": 5,
+      "correct": {
+        "k": 0,
+        "n": 5,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.43449149475208104
+        ]
+      },
+      "predicted": {
+        "cyberattack": 4,
+        "nominal": 1
+      }
+    },
+    {
+      "scenario": "spoof_battv_clean",
+      "truth": "cyberattack",
+      "windows": 4,
+      "correct": {
+        "k": 0,
+        "n": 4,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.48990002040399916
+        ]
+      },
+      "predicted": {
+        "sensor_malfunction": 4
+      }
+    },
+    {
+      "scenario": "spoof_vib_hide",
+      "truth": "cyberattack",
+      "windows": 9,
+      "correct": {
+        "k": 0,
+        "n": 9,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.2991527535509594
+        ]
+      },
+      "predicted": {
+        "nominal": 5,
+        "sensor_malfunction": 4
+      }
+    }
+  ],
+  "feature_names": [
+    "seq_regression",
+    "seq_gap",
+    "stale_timestamp",
+    "auth_tag_failed",
+    "malformed_frames",
+    "command_policy",
+    "auth_anomaly",
+    "link_shift",
+    "rate_flood",
+    "rate_drop",
+    "l1_range",
+    "l1_zscore",
+    "l1_level_shift",
+    "l1_cusum",
+    "l1_rate_of_change",
+    "l1_flatline",
+    "l1_variance",
+    "l1_dropout",
+    "l1_channels",
+    "l1_spike_like",
+    "l3_redundancy",
+    "l3_sidedness",
+    "l3_jump",
+    "l3_slope",
+    "l3_power_balance",
+    "simultaneous_channels",
+    "weather_overlap",
+    "weather_particle",
+    "weather_covered",
+    "duration",
+    "fired_count",
+    "peak_score",
+    "distinct_detectors",
+    "layers_fired",
+    "l1_steps"
+  ]
+}

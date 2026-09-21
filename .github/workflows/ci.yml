@@ -22,7 +22,7 @@ jobs:
         with:
           enable-cache: true
       - name: Install
-        run: uv sync --all-groups
+        run: uv sync --all-groups --extra ml
       - name: Lint
         run: |
           uv run ruff check .
@@ -55,6 +55,6 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-      - run: uv sync --all-groups
+      - run: uv sync --all-groups --extra ml
       - name: Migrations, hypertables, compression and retention policies
         run: uv run pytest tests/api -m postgres -q

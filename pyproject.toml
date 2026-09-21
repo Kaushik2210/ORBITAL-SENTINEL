@@ -25,6 +25,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+ml = [
+    "scikit-learn>=1.9.1",
+]
 # Added phase by phase so each phase only pulls what it uses.
 
 [dependency-groups]
@@ -73,6 +76,7 @@ ignore = ["S101"]  # assert is fine in tests and for internal invariants
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S105", "S106", "S311"]  # fixed test secrets, seeded RNG are intentional
 "scripts/gen_scenarios.py" = ["E501"]  # a data table: long lines are the readable form
+"ml/sentinel_ml/render_eval.py" = ["E501"]  # report prose templates
 
 [tool.mypy]
 python_version = "3.12"
@@ -81,6 +85,10 @@ plugins = ["pydantic.mypy"]
 mypy_path = ["backend", "simulator", "ml"]
 explicit_package_bases = true
 files = ["backend", "simulator", "ml", "tests", "scripts"]
+
+[[tool.mypy.overrides]]
+module = ["sklearn.*"]
+ignore_missing_imports = true  # scikit-learn ships no type stubs
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

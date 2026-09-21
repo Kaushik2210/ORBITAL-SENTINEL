@@ -10,6 +10,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
+import numpy as np
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -171,3 +172,60 @@ def load_all(directory: Path) -> list[ScenarioSpec]:
         if unknown:
             raise ValueError(f"{s.id}: confusable_with references unknown scenarios {unknown}")
     return specs
+
+
+_SCALED = ("magnitude", "gain", "sigma", "noise_growth", "snr_drop_db", "loss_pct", "ber_decades")
+
+
+def instantiate(spec: ScenarioSpec, variant: int) -> ScenarioSpec:
+    """Seeded variant of a scenario: shifted timing, scaled magnitudes, independent noise.
+
+    Variant 0 is the scenario exactly as written. Variants exist so attribution is trained and
+    tested on many instances of each family rather than one hand-tuned example.
+    """
+    if variant == 0:
+        return spec
+    rng = np.random.default_rng([spec.seed, variant])
+    scale = float(rng.uniform(0.8, 1.25))
+    starts = [e.start for e in spec.effects] + [
+        p[0] for p in (spec.aging.battery, spec.aging.wheel) if p
+    ]
+    ends = [e.end for e in spec.effects] + [
+        p[1] for p in (spec.aging.battery, spec.aging.wheel) if p
+    ]
+    lo = WARMUP_STEPS - min(starts) if starts else 0
+    hi = spec.steps - max(ends) if ends else 0
+    shift = int(np.clip(rng.integers(-60, 61), lo, hi)) if starts else 0
+
+    effects = []
+    for e in spec.effects:
+        params = dict(e.params)
+        for k in _SCALED:
+            if k in params and isinstance(params[k], int | float):
+                params[k] = params[k] * scale
+        if "source_start" in params:
+            params["source_start"] = params["source_start"] + shift
+        if "steps" in params:
+            params["steps"] = [t + shift for t in params["steps"]]
+        effects.append(
+            e.model_copy(update={"start": e.start + shift, "end": e.end + shift, "params": params})
+        )
+    aging = spec.aging.model_copy(
+        update={
+            k: (v[0] + shift, v[1] + shift, v[2], v[3]) if (v := getattr(spec.aging, k)) else None
+            for k in ("battery", "wheel")
+        }
+    )
+    weather = (
+        spec.weather.model_copy(update={"align_step": spec.weather.align_step + shift})
+        if spec.weather
+        else None
+    )
+    return spec.model_copy(
+        update={
+            "seed": spec.seed + 1000 * variant,
+            "effects": effects,
+            "aging": aging,
+            "weather": weather,
+        }
+    )
