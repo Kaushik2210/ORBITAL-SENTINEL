@@ -3,6 +3,8 @@
 ## Commands
 
 Everything goes through `scripts/tasks.py`; the `Makefile` is a thin wrapper (Windows has no `make` by default).
+The frontend (`frontend/`) is a separate Node project — see [`frontend/README.md`](../frontend/README.md) for
+`npm install` / `npm run dev` / `npm run lint` / `npm run build`.
 
 | Task | Command | What it does |
 |---|---|---|
@@ -30,7 +32,7 @@ backend/sentinel_agent  AI investigation agent, read-only tools      (imports co
 backend/sentinel_api    FastAPI app, DB, auth                        (imports core, sim, agent)
 simulator/sentinel_sim  replay engine, side channels, scenarios      (imports core)
 ml/sentinel_ml          training, evaluation, ONNX export            (imports core, sim)
-frontend/               Next.js app (added in the frontend phase)
+frontend/               Next.js app (see frontend/README.md); talks only to the public API
 tests/                  mirrors the packages; fixed seeds everywhere
 docs/                   architecture, ADRs, datasets, evaluation, progress
 ```

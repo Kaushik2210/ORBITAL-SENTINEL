@@ -26,8 +26,8 @@ The interesting part is the hard part: telling *confusable* cases apart.
 
 ## Where the project stands
 
-This is an honest snapshot. **The detection engine, API, AI investigation agent and platform security are
-built and evaluated; the web UI and Docker packaging are not built yet.** Details and next steps:
+This is an honest snapshot. **The detection engine, API, AI investigation agent, platform security and a
+Mission Control web UI are built and evaluated; Docker packaging is not built yet.** Details and next steps:
 [`docs/PROGRESS.md`](docs/PROGRESS.md).
 
 | Area | State |
@@ -42,7 +42,8 @@ built and evaluated; the web UI and Docker packaging are not built yet.** Detail
 | REST / WebSocket / SSE API with live scenario and real-data replay sessions ([API](docs/API.md)) | ✅ done |
 | AI investigation agent: Claude tool-use loop over read-only evidence tools, offline fallback ([API](docs/API.md#ai-investigation-agent)) | ✅ done (offline path tested end-to-end; live path tested against a stub client only) |
 | Platform security: JWT + roles, rate limiting, hash-chained audit log, security headers ([THREAT_MODEL](docs/THREAT_MODEL.md)) | ✅ done (single-process rate limiter/audit log — see the doc for the honest limits) |
-| Mission Control web UI, Docker | ⏳ not built |
+| Mission Control web UI: live telemetry, scenario launcher, incident/evidence viewer, agent reports ([frontend](frontend/README.md)) | ✅ done (no 3D globe or animation library — scope cut to ship a working app) |
+| Docker images, `docker compose` | ⏳ not built |
 
 ## Results so far
 
@@ -85,14 +86,15 @@ flowchart LR
   F --> G[Incident store]
   G --> I[FastAPI: REST · WebSocket · SSE]
   G --> J[AI investigation agent<br/>read-only tools + offline fallback]
-  I -.->|not built yet| H[Mission Control UI]
+  I --> H[Mission Control UI<br/>Next.js]
 ```
 
 Design: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) and the decision records in [`docs/adr/`](docs/adr/).
 
 ## Try it
 
-Requirements: Python 3.12, [`uv`](https://docs.astral.sh/uv/). (`make` is optional; `scripts/tasks.py` is the real runner.)
+Requirements: Python 3.12, [`uv`](https://docs.astral.sh/uv/), Node.js 22 for the frontend. (`make` is
+optional; `scripts/tasks.py` is the real runner.)
 
 ```bash
 python scripts/tasks.py setup                 # install dependencies
@@ -113,7 +115,13 @@ uv run python -m sentinel_ml.render_eval --metrics ml/runs/attribution-v1/metric
 Seed a local database with a replayed mission: `python scripts/tasks.py seed`. Run the API locally with
 `python scripts/tasks.py serve` (interactive docs at <http://localhost:8000/docs>). With `PUBLIC_DEMO_MODE=true`
 (the default) you can browse read-only right away; to start a session, create an account first:
-`USER_EMAIL=you@example.com USER_PASSWORD=... python scripts/tasks.py create-user`, then `POST /auth/login`.
+`USER_EMAIL=you@example.com USER_PASSWORD=... python scripts/tasks.py create-user`, then sign in.
+
+Run [Mission Control](frontend/README.md) against it:
+
+```bash
+cd frontend && npm install && cp .env.example .env.local && npm run dev   # http://localhost:3000
+```
 
 ## Contributing
 

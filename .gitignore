@@ -38,6 +38,8 @@ dist/
 build/
 *.sqlite
 *.sqlite3
+*.sqlite-shm
+*.sqlite-wal
 *.db
 
 # --- Node / Next.js ---

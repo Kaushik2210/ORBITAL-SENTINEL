@@ -21,3 +21,6 @@ versioning: [SemVer](https://semver.org/).
   response headers, and a hash-chained audit log with tamper detection (`GET /audit/verify`). See
   `docs/THREAT_MODEL.md`.
 - Incident taxonomy (`sentinel_core.taxonomy`): five classes plus an explicit `needs_human` verdict.
+- Mission Control frontend (`frontend/`, Next.js + TypeScript strict + Tailwind): live scenario launcher,
+  streaming telemetry (uPlot over the session WebSocket), incident/evidence browser, and the AI investigation
+  agent's report with its offline-vs-live badge and tool-use trace. Verified end-to-end against a running API.

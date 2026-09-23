@@ -2,7 +2,7 @@
 
 Newest entry last. Each phase ends with tests green, lint/typecheck clean, a commit, and an entry here.
 
-**Resume pointer:** last completed phase → **Phase 9 (platform security)**. Next → **Phase 7 (frontend)**, then 10-12.
+**Resume pointer:** last completed phase → **Phase 7 (frontend)**. Next → **Phase 10 (test suites, coverage gates)**, then 11-12.
 
 ## Phase roadmap
 
@@ -15,7 +15,7 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 | 4 | Database (Timescale schema, migrations) | done |
 | 5 | Detection L1–L5, ML, attribution, scenarios, evaluation | done |
 | 6 | Backend APIs (REST, WebSocket, SSE) | done (JWT auth added in Phase 9) |
-| 7 | Mission Control frontend | – |
+| 7 | Mission Control frontend | done (scope cut: no 3D globe/animation library — see `frontend/README.md`) |
 | 8 | AI investigation agent | done (offline fallback tested end-to-end; live LLM path tested against a stub client only) |
 | 9 | Platform security | done (JWT + roles, rate limiting, hash-chained audit log, security headers, CI scanners advisory-only) |
 | 10 | Test suites and coverage gates | – |
@@ -198,12 +198,33 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
   demo-mode read bypass vs. always-authenticated writes, per-role enforcement, audit-chain tamper detection,
   security headers, rate-limit 429). All existing API tests updated to bootstrap and use an admin token.
 
+### Mission Control frontend (this session)
+- `frontend/`: Next.js 16 (App Router, Turbopack), TypeScript strict, Tailwind v4, `zustand` for the auth
+  store, `uplot` for streaming telemetry. No code generation — `lib/types.ts` mirrors
+  `backend/sentinel_api/schemas.py` by hand and `lib/api.ts` is a small typed fetch wrapper.
+- Pages: `/` (readiness + recent incidents), `/login`, `/scenarios` (library + launch, gated to `analyst`),
+  `/sessions/[id]` (live WebSocket telemetry chart, incidents-as-raised, a ground-truth reveal button once
+  finished), `/incidents` (filterable list), `/incidents/[id]` (posterior, signed evidence, detector outputs,
+  and the AI agent's `investigate` button with its offline/live badge and tool-use trace).
+- Verified against the real running API end-to-end in the browser, not just built: signed in, launched the
+  `auth_bruteforce` scenario, watched telemetry stream and an incident get raised live, opened it, ran the
+  agent (offline fallback, no key configured), and confirmed demo-mode read access and the analyst gate on
+  launching a scenario both behave as designed.
+- Cut from the original brief's scope to ship something real rather than a shell: no `react-three-fiber`
+  globe, no Framer Motion, no scored "Attack or Accident?" challenge (the ground-truth reveal button is the
+  honest, unscored version), no Vitest/Playwright suite yet. All stated in `frontend/README.md`.
+- CI gets a `frontend` job (`eslint`, `tsc --noEmit`, `next build`) alongside the Python jobs.
+
 ## Resume here (next session)
 
-1. **Phase 7 frontend** (Next.js) consuming the API, agent and auth above; then Phases 10-12 (Playwright e2e,
-   Docker, docs incl. `DETECTION.md`, demo script).
-2. Security debts (all in `docs/THREAT_MODEL.md`): no MFA or token revocation list; rate limiter and audit log
+1. **Phase 10, test suites and coverage gates:** per-detector property tests are already extensive; still
+   needed: Vitest for frontend units, Playwright e2e (launch a scenario → see an incident → read an agent
+   report, matching what was just verified manually), and an enforced `fail_under` coverage threshold in CI
+   (currently 0, i.e. unenforced).
+2. **Phase 11 Docker/CI hardening:** Dockerfiles + compose (frontend, API, Postgres/Timescale) — unverified
+   locally, no Docker installed; **Phase 12 docs:** `DETECTION.md`, a demo script, README screenshots.
+3. Security debts (all in `docs/THREAT_MODEL.md`): no MFA or token revocation list; rate limiter and audit log
    are single-process/application-enforced only; `bandit`/`pip-audit` are advisory, not blocking.
-3. Other debts: `make demo`; the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`);
-   coverage threshold not enforced; frontend CI job; DONKI cache is local-only (scenarios fall back to
-   `weather_context = unavailable` without it); the agent's live path has no key-based verification.
+4. Other debts: `make demo`; the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`);
+   DONKI cache is local-only (scenarios fall back to `weather_context = unavailable` without it); the agent's
+   live path has no key-based verification; no frontend error boundary polish beyond basic try/catch.

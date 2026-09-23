@@ -293,11 +293,13 @@ instruct the agent. Without an API key a deterministic template report is produc
 
 ## 12. Frontend
 
-Next.js App Router, strict TypeScript. Routes: `/` (landing), `/mission`, `/telemetry`, `/incidents`,
-`/incidents/[id]`, `/simulator`, `/performance`, `/datasets`. **Server data** uses TanStack Query; **live data**
-(WS) lands in fixed-size ring buffers (typed arrays) in a Zustand store and is drawn by uPlot outside React's
-render path to hold 60 fps; the 3D globe (react-three-fiber) is lazy-loaded so it never blocks the landing
-page's Lighthouse budget. Every page has loading/empty/error states; motion respects `prefers-reduced-motion`.
+Next.js App Router, strict TypeScript, Tailwind. **As built** (Phase 7; see `frontend/README.md` for the
+honest diff from the plan below): `/`, `/login`, `/scenarios`, `/sessions/[id]`, `/incidents`,
+`/incidents/[id]`. Live telemetry (WS) is drawn with uPlot; a `zustand` store holds the auth session. Scope
+was cut to ship a working app end-to-end rather than a partial version of everything originally planned here:
+no TanStack Query (plain `fetch` + component state was enough for this page count), no react-three-fiber
+globe, no Framer Motion, no Lighthouse-budget landing page. `prefers-reduced-motion` is still respected
+(there's very little motion to reduce).
 
 ## 13. Security of the platform itself
 

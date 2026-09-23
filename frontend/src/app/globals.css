@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+:root {
+  --background: #05070d;
+  --surface: #0b0f1a;
+  --surface-raised: #111827;
+  --border: #1f2937;
+  --foreground: #e5e9f0;
+  --muted: #8b93a7;
+  --accent: #22d3ee;
+  --accent-dim: #0e7490;
+  --nominal: #34d399;
+  --info: #60a5fa;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --critical: #ef4444;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-nominal: var(--nominal);
+  --color-info: var(--info);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-critical: var(--critical);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Mission Control is a dark, always-on operator surface — it does not follow the OS light/dark
+   preference the way a document-reading app would. */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+.scanline-hairline {
+  background-image: linear-gradient(180deg, transparent, var(--accent), transparent);
+  height: 1px;
+  opacity: 0.35;
+}
+
+.hud-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+
+.hud-glow {
+  box-shadow: 0 0 0 1px var(--accent-dim), 0 0 24px -8px var(--accent);
+}
+
+/* uPlot ships a light theme by default; override for the dark HUD surface. */
+.u-legend {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.u-inline.u-live th::after {
+  content: ":";
+}
+
