@@ -45,3 +45,9 @@ class Settings:
     max_concurrent_sessions: int = field(
         default_factory=lambda: int(os.environ.get("MAX_CONCURRENT_SESSIONS", "4"))
     )
+    anthropic_api_key: str | None = field(
+        default_factory=lambda: os.environ.get("ANTHROPIC_API_KEY") or None
+    )
+    anthropic_model: str = field(
+        default_factory=lambda: os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5")
+    )

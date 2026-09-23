@@ -8,8 +8,9 @@ component that is visibly not built.
 
 | Missing | Consequence |
 |---|---|
-| The Mission Control frontend, the AI investigation agent, platform security (JWT, roles, rate limiting, audit log), Docker images and `docker compose` | The API exists but is **unauthenticated** and must only be run locally; there is no UI or one-command demo yet |
+| The Mission Control frontend, platform security (JWT, roles, rate limiting, audit log), Docker images and `docker compose` | The API exists but is **unauthenticated** and must only be run locally; there is no UI or one-command demo yet |
 | Attribution on real channels | The attribution model was trained on the synthetic bus; the API records real-channel replay incidents as `needs_human` with a note rather than an unvalidated class |
+| The investigation agent's live-LLM path | Unit-tested against a stub Anthropic client only (see `tests/agent/test_client.py`); it has not been run end-to-end against the real API, because doing so requires a paid key. The offline fallback is the only path exercised in CI, and it is also the default without `ANTHROPIC_API_KEY` set — see [API.md](API.md). |
 
 ## What the evaluation can and cannot claim
 
@@ -77,5 +78,5 @@ component that is visibly not built.
 
 - Docker images and `docker compose` are not built or run on the development machine (Docker is not installed).
 - TimescaleDB behavior (hypertables, compression, retention) is verified only in the GitHub Actions `postgres` job.
-- The live LLM path of the investigation agent, once built, can only be verified with an API key; the offline
-  path is the tested one.
+- The investigation agent's live LLM path is built but only tested against a stub client, not a real key (see
+  the table above).

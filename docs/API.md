@@ -55,6 +55,28 @@ synthetic bus and is not validated on anonymized real channels, so those inciden
 note in the evidence. Severity is a documented mapping from the verdict (escalated one level for a saturated,
 sustained `cyberattack`).
 
+## AI investigation agent
+
+| Method | Path | Purpose |
+|---|---|---|
+| `POST` | `/incidents/{id}/investigate` | Run the agent over the incident's stored evidence; persists and returns the report |
+| `GET` | `/incidents/{id}/report` | The most recently generated report, or `404` if none exists yet |
+
+The agent (`backend/sentinel_agent`) is a Claude tool-use loop over eight **read-only** tools —
+`get_incident_summary`, `get_evidence`, `get_detector_outputs`, `get_telemetry_window`,
+`get_channel_baseline`, `get_related_incidents`, `get_space_weather_context`, `get_packet_integrity` — each a
+pure function over a data bundle fetched once before the model sees a token, so a tool call cannot write, send
+a command, or reach the network. The investigation can only end by calling `submit_report`, whose arguments
+are validated against a Pydantic schema before anything is trusted; free text alone never ends it. See
+[ADR 0008](adr/0008-agent-hardening.md).
+
+**Without `ANTHROPIC_API_KEY` set, the agent runs a deterministic offline report** built from the same
+evidence, with no LLM call — this is the default and the only path verified end-to-end without a live key
+(`mode: "offline"` in the response). With a key, `mode` is `"llm"`; any failure of the live call (missing SDK,
+network error, the model never calling `submit_report`, invalid arguments after 6 turns) falls back to the
+offline report rather than erroring. The response also carries a `trace` of every tool call/result for
+audit, and a rendered `markdown` version of the report. PDF export and a live SSE trace are not built.
+
 ## Live streams
 
 | Transport | Path | Carries |
@@ -80,11 +102,13 @@ the run still sees its incidents and completion. Slow consumers drop the oldest 
 
 Environment variables (see `.env.example`): `DATABASE_URL`, `DATA_ROOT`, `SCENARIOS_DIR`, `ATTRIBUTION_MODEL`,
 `L2_MODELS_DIR`, `DOCS_DATA_DIR`, `DONKI_CACHE`, `CORS_ALLOW_ORIGINS`, `CALIBRATION_STEPS`,
-`MAX_CONCURRENT_SESSIONS`. The detection engine is calibrated once, on the first scenario session (about 10 s),
-then copied per session.
+`MAX_CONCURRENT_SESSIONS`, `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` (default `claude-sonnet-5`). The detection
+engine is calibrated once, on the first scenario session (about 10 s), then copied per session. The
+`anthropic` SDK is only installed with the optional `agent` extra (`uv sync --extra agent`); without it the
+platform still runs, just always in the offline report mode.
 
 ## Not implemented
 
-Authentication and roles, rate limiting, audit logging, the investigation-agent endpoints
-(`/incidents/{id}/investigate`, report export), dataset endpoints beyond the two above, and session
-deletion/retention. These are tracked in `docs/PROGRESS.md`.
+Authentication and roles, rate limiting, audit logging, PDF report export, an SSE stream of the agent's
+tool-use trace (the trace is returned in full once the investigation finishes, not incrementally), dataset
+endpoints beyond the two above, and session deletion/retention. These are tracked in `docs/PROGRESS.md`.

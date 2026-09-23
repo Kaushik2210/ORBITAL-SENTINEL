@@ -27,15 +27,18 @@ from fastapi import (
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
-from sqlalchemy import select
+from sqlalchemy import delete, select
 
+from sentinel_agent.client import investigate as run_investigation
 from sentinel_core import __version__
 from sentinel_sim import bus, smap_msl
 from sentinel_sim.donki import DonkiClient
 
-from .db.models import DetectorOutputRow, Incident, Telemetry
+from .db.models import DetectorOutputRow, Incident, InvestigationEvent, Telemetry
 from .db.models import GroundTruth as GroundTruthRow
+from .db.models import Report as ReportRow
 from .db.models import Session as SessionRow
+from .investigate import build_case, report_markdown
 from .runner import create_run, run_session
 from .schemas import (
     ChannelOut,
@@ -45,8 +48,10 @@ from .schemas import (
     GroundTruthOut,
     Health,
     IncidentOut,
+    InvestigateOut,
     Page,
     Ready,
+    ReportOut,
     ScenarioOut,
     SessionCreate,
     SessionOut,
@@ -391,6 +396,82 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 }
                 for o in outs
             ],
+        )
+
+    @r.post("/incidents/{iid}/investigate", response_model=InvestigateOut)
+    async def investigate(request: Request, iid: str) -> InvestigateOut:
+        """Run the AI investigation agent over an incident's stored evidence and persist the report.
+
+        Falls back to the deterministic offline report unless ``ANTHROPIC_API_KEY`` is set; see
+        docs/API.md. Re-running replaces the previously stored report and trace for this incident.
+        """
+        s = _state(request)
+        case = await build_case(s.factory, iid)
+        if case is None:
+            raise HTTPException(404, "unknown incident")
+        report, trace, mode = await asyncio.to_thread(
+            run_investigation,
+            case,
+            api_key=s.settings.anthropic_api_key,
+            model=s.settings.anthropic_model,
+        )
+        model = s.settings.anthropic_model if mode == "llm" else None
+        now = datetime.now(UTC)
+        md = report_markdown(report)
+        async with s.factory() as db:
+            await db.merge(
+                ReportRow(
+                    incident_id=iid,
+                    generated_at=now,
+                    mode=mode,
+                    model=model,
+                    report=report.model_dump(mode="json"),
+                    markdown=md,
+                )
+            )
+            await db.execute(
+                delete(InvestigationEvent).where(InvestigationEvent.incident_id == iid)
+            )
+            for i, ev in enumerate(trace.events):
+                db.add(
+                    InvestigationEvent(incident_id=iid, seq=i, ts=now, kind=ev["kind"], payload=ev)
+                )
+            await db.commit()
+        return InvestigateOut(
+            incident_id=iid,
+            mode=mode,
+            model=model,
+            report=ReportOut(**report.model_dump(mode="json")),
+            markdown=md,
+            trace=trace.events,
+            generated_at=now,
+        )
+
+    @r.get("/incidents/{iid}/report", response_model=InvestigateOut)
+    async def get_report(request: Request, iid: str) -> InvestigateOut:
+        async with _state(request).factory() as db:
+            row = await db.get(ReportRow, iid)
+            if row is None:
+                raise HTTPException(404, "no report yet; POST .../investigate first")
+            events = (
+                (
+                    await db.execute(
+                        select(InvestigationEvent)
+                        .where(InvestigationEvent.incident_id == iid)
+                        .order_by(InvestigationEvent.seq)
+                    )
+                )
+                .scalars()
+                .all()
+            )
+        return InvestigateOut(
+            incident_id=iid,
+            mode=row.mode,
+            model=row.model,
+            report=ReportOut(**row.report),
+            markdown=row.markdown,
+            trace=[e.payload for e in events],
+            generated_at=_utc(row.generated_at),
         )
 
     # ------------------------------------------------------------------ evaluation and datasets

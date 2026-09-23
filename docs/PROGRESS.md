@@ -2,7 +2,7 @@
 
 Newest entry last. Each phase ends with tests green, lint/typecheck clean, a commit, and an entry here.
 
-**Resume pointer:** last completed phase → **Phase 6 (API) and Phase 5 incl. L2**. Next → **Phase 8 (AI investigation agent)**, then Phase 7 (frontend), 9-12.
+**Resume pointer:** last completed phase → **Phase 8 (AI investigation agent)**. Next → **Phase 7 (frontend)**, then 9-12.
 
 ## Phase roadmap
 
@@ -16,7 +16,7 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 | 5 | Detection L1–L5, ML, attribution, scenarios, evaluation | done |
 | 6 | Backend APIs (REST, WebSocket, SSE) | done (unauthenticated; auth is Phase 9) |
 | 7 | Mission Control frontend | – |
-| 8 | AI investigation agent | – |
+| 8 | AI investigation agent | done (offline fallback tested end-to-end; live LLM path tested against a stub client only) |
 | 9 | Platform security | – |
 | 10 | Test suites and coverage gates | – |
 | 11 | Docker and CI hardening | – |
@@ -154,13 +154,35 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
   dataclass serialization bug that failed whole runs.
 - **Deliberately not applied to real channels:** attribution. Replay incidents are `needs_human` with a note.
 
+### AI investigation agent (this session)
+- New package `backend/sentinel_agent`, importing only `sentinel_core` (never the API or a database — ADR 0002
+  extended: api -> agent, agent has no other dependency). `case.py` defines a frozen `Case` data bundle;
+  `tools.py` has eight pure, read-only functions over it (`get_incident_summary`, `get_evidence`,
+  `get_detector_outputs`, `get_telemetry_window`, `get_channel_baseline`, `get_related_incidents`,
+  `get_space_weather_context`, `get_packet_integrity`) plus their Anthropic tool-use JSON schemas.
+- `report.py`: a Pydantic `Report` schema (verdict/confidence/summary/evidence/action/caveats) that is the
+  *only* way an investigation can end — `submit_report`'s arguments are validated against it; free text alone
+  never ends the loop (ADR 0008).
+- `offline.py`: deterministic template report from the same evidence, no LLM. This is the default (no
+  `ANTHROPIC_API_KEY`) and the only path tested end-to-end.
+- `client.py`: the tool-use loop (`claude-sonnet-5` default, 6-turn cap), with the offline report as the
+  fallback at every failure point (no key, SDK missing, network error, model never calling `submit_report`,
+  invalid final arguments). Added `anthropic` as an optional `agent` extra so the default install stays light.
+- `backend/sentinel_api/investigate.py` assembles a `Case` from the DB (incident, evidence, detector outputs,
+  telemetry ± 30 min margin, session baseline, related incidents, cached DONKI overlap, packet/auth integrity
+  counts) and renders the report to Markdown. New endpoints `POST /incidents/{id}/investigate` and
+  `GET /incidents/{id}/report`, persisted to the already-designed `Report`/`InvestigationEvent` tables.
+- 21 agent unit tests (offline determinism, tool whitelist, Pydantic validation, a stub-client tool-use loop
+  covering an unknown-tool call, an invalid `submit_report`, and text-only output — all fall back safely
+  instead of being trusted) plus 3 new API tests. Not built: PDF export, a streaming SSE trace (the full trace
+  is returned once the investigation finishes), and any live-key verification.
+
 ## Resume here (next session)
 
-1. **Phase 8, AI investigation agent** (`sentinel_core/agent` or a new package): Anthropic SDK tool-use loop with the eight read-only
-   tools from the brief, an offline deterministic report from the same evidence, a Pydantic report schema, SSE trace, Markdown/PDF
-   export, and the prompt-injection test (ADR 0008). Add `/incidents/{id}/investigate` and `/report` to the API.
-2. **Phase 9 security:** JWT + roles, rate limiting, audit log (hash-chained), CSP, scanners in CI. Required before any non-local use.
-3. **Phase 7 frontend** (Next.js) consuming the API above; then Phases 10-12 (Playwright e2e, Docker, docs incl. `DETECTION.md`,
-   `THREAT_MODEL.md`, demo script).
-4. Debts: `make demo`; the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`); coverage threshold not enforced;
-   frontend CI job; DONKI cache is local-only (scenarios fall back to `weather_context = unavailable` without it).
+1. **Phase 9 security:** JWT + roles, rate limiting, audit log (hash-chained), CSP, scanners in CI. Required
+   before any non-local use, and before wiring `/investigate` into a public-facing frontend.
+2. **Phase 7 frontend** (Next.js) consuming the API and agent above; then Phases 10-12 (Playwright e2e, Docker,
+   docs incl. `DETECTION.md`, `THREAT_MODEL.md`, demo script).
+3. Debts: `make demo`; the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`); coverage
+   threshold not enforced; frontend CI job; DONKI cache is local-only (scenarios fall back to
+   `weather_context = unavailable` without it); the agent's live path has no key-based verification.

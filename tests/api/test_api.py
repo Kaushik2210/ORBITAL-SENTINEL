@@ -22,6 +22,7 @@ def settings(tmp: Path, **over: Any) -> Settings:
         "l2_models_dir": Path("nonexistent"),
         "donki_cache": tmp / "donki",
         "cors_origins": ["http://localhost:3000"],
+        "anthropic_api_key": None,  # force the offline agent fallback; no network in tests
     }
     base.update(over)
     return Settings(**base)
@@ -265,6 +266,41 @@ def test_websocket_streams_status_and_incidents(
         client.websocket_connect("/api/v1/ws/sessions/unknown"),
     ):
         pass
+
+
+# ------------------------------------------------------------------ investigation agent
+
+
+def test_investigate_runs_offline_without_a_key_and_persists_the_report(
+    client: TestClient, finished: dict[str, Any]
+) -> None:
+    items = client.get("/api/v1/incidents", params={"session_id": finished["id"]}).json()["items"]
+    iid = items[0]["id"]
+    r = client.post(f"/api/v1/incidents/{iid}/investigate")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["mode"] == "offline"
+    assert body["model"] is None
+    assert body["report"]["verdict"]
+    assert 0.0 <= body["report"]["confidence"] <= 1.0
+    assert body["report"]["key_evidence"]
+    assert "# Investigation report" in body["markdown"]
+    assert body["trace"]  # at least the "no API key" note
+
+    fetched = client.get(f"/api/v1/incidents/{iid}/report").json()
+    assert fetched["report"] == body["report"]
+    assert fetched["trace"] == body["trace"]
+
+
+def test_investigate_on_an_unknown_incident_is_404(client: TestClient) -> None:
+    assert client.post("/api/v1/incidents/nope/investigate").status_code == 404
+
+
+def test_report_before_investigating_is_404(client: TestClient, finished: dict[str, Any]) -> None:
+    items = client.get("/api/v1/incidents", params={"session_id": finished["id"]}).json()["items"]
+    if len(items) < 2:
+        pytest.skip("needs a second incident that the earlier investigate test did not touch")
+    assert client.get(f"/api/v1/incidents/{items[-1]['id']}/report").status_code == 404
 
 
 def test_evaluation_endpoint_serves_the_saved_runs(client: TestClient) -> None:

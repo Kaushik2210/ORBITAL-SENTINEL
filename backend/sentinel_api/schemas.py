@@ -126,6 +126,26 @@ class EvidenceOut(BaseModel):
     detector_outputs: list[dict[str, Any]]
 
 
+class ReportOut(BaseModel):
+    verdict: str
+    confidence: float
+    summary: str
+    key_evidence: list[str]
+    reasoning: list[str]
+    recommended_action: str
+    caveats: list[str]
+
+
+class InvestigateOut(BaseModel):
+    incident_id: str
+    mode: Literal["llm", "offline"]
+    model: str | None
+    report: ReportOut
+    markdown: str
+    trace: list[dict[str, Any]]
+    generated_at: datetime
+
+
 class Page[T](BaseModel):
     items: list[T]
     next_cursor: str | None

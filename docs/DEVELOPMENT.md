@@ -25,7 +25,8 @@ PostgreSQL/TimescaleDB tests (`-m postgres`) need `POSTGRES_URL` and run in CI o
 
 ```
 backend/sentinel_core   domain: packets, detectors, attribution      (imports nothing else)
-backend/sentinel_api    FastAPI app, DB, auth                        (imports core)
+backend/sentinel_agent  AI investigation agent, read-only tools      (imports core only, no DB/API)
+backend/sentinel_api    FastAPI app, DB, auth                        (imports core, sim, agent)
 simulator/sentinel_sim  replay engine, side channels, scenarios      (imports core)
 ml/sentinel_ml          training, evaluation, ONNX export            (imports core, sim)
 frontend/               Next.js app (added in the frontend phase)

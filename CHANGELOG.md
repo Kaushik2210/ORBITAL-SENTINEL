@@ -14,4 +14,7 @@ versioning: [SemVer](https://semver.org/).
 - DONKI client with permanent cache; loaders for SMAP/MSL and PCoE with labeled fallbacks.
 - L2 detectors: per-channel LSTM forecaster with ONNX Runtime serving and dynamic thresholding; Isolation Forest baseline.
 - FastAPI service: scenario and real-data replay sessions, incidents with exact evidence, WebSocket and SSE streams.
+- AI investigation agent (`sentinel_agent`): a Claude tool-use loop over eight read-only evidence tools, a
+  Pydantic-validated final report, and a deterministic offline fallback; `/incidents/{id}/investigate` and
+  `/report` endpoints.
 - Incident taxonomy (`sentinel_core.taxonomy`): five classes plus an explicit `needs_human` verdict.

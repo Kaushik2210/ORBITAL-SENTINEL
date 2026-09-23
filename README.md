@@ -26,8 +26,9 @@ The interesting part is the hard part: telling *confusable* cases apart.
 
 ## Where the project stands
 
-This is an honest snapshot. **The detection and attribution engine is built and evaluated; the API, web UI,
-AI agent and Docker packaging are not built yet.** Details and next steps: [`docs/PROGRESS.md`](docs/PROGRESS.md).
+This is an honest snapshot. **The detection engine, API and AI investigation agent are built and evaluated;
+the web UI and platform security are not built yet.** Details and next steps:
+[`docs/PROGRESS.md`](docs/PROGRESS.md).
 
 | Area | State |
 |---|---|
@@ -39,7 +40,8 @@ AI agent and Docker packaging are not built yet.** Details and next steps: [`doc
 | 33-scenario library (7 attack families, faults, degradation, SEU) + explainable attribution | ✅ done |
 | L2 detectors: per-channel LSTM forecaster → ONNX Runtime with dynamic thresholding, Isolation Forest baseline | ✅ done (weaker than L1 alone on real data; see results) |
 | REST / WebSocket / SSE API with live scenario and real-data replay sessions ([API](docs/API.md)) | ✅ done (unauthenticated: local use only) |
-| Mission Control web UI, AI investigation agent, platform security, Docker | ⏳ not built |
+| AI investigation agent: Claude tool-use loop over read-only evidence tools, offline fallback ([API](docs/API.md#ai-investigation-agent)) | ✅ done (offline path tested end-to-end; live path tested against a stub client only) |
+| Mission Control web UI, platform security, Docker | ⏳ not built |
 
 ## Results so far
 
@@ -81,7 +83,8 @@ flowchart LR
   E --> F[Attribution<br/>posterior over 5 classes + needs-human]
   F --> G[Incident store]
   G --> I[FastAPI: REST · WebSocket · SSE]
-  G -.->|not built yet| H[AI investigation agent → Mission Control UI]
+  G --> J[AI investigation agent<br/>read-only tools + offline fallback]
+  I -.->|not built yet| H[Mission Control UI]
 ```
 
 Design: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) and the decision records in [`docs/adr/`](docs/adr/).
@@ -116,8 +119,11 @@ most: **no fabricated numbers** — every metric in code, docs or UI must come f
 
 ## AI agent disclosure
 
-The planned investigation agent will use the Anthropic API when `ANTHROPIC_API_KEY` is set, and a deterministic
-template report otherwise. It is not built yet.
+`POST /incidents/{id}/investigate` uses the Anthropic API (`anthropic` SDK, `claude-sonnet-5` by default) when
+`ANTHROPIC_API_KEY` is set, through a tool-use loop over eight read-only evidence tools (no tool can write or
+reach the network). Without a key it runs a deterministic offline report built from the same evidence — the
+default, and the only path verified end-to-end without a paid key. See
+[`docs/API.md`](docs/API.md#ai-investigation-agent) and [ADR 0008](docs/adr/0008-agent-hardening.md).
 
 ## License
 
