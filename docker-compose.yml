@@ -1,0 +1,87 @@
+# One-command demo: `docker compose up --build` (after `cp .env.example .env` and filling in
+# JWT_SECRET, POSTGRES_PASSWORD, ADMIN_EMAIL/ADMIN_PASSWORD — compose refuses to start without
+# them, on purpose; see .env.example). Brings up Postgres/TimescaleDB, runs migrations, provisions
+# one admin account, then the API (localhost:8000) and the frontend (localhost:3000).
+#
+# Verified in CI (.github/workflows/ci.yml, the `docker` job) on every push — not on the machine
+# this was written on, which has no Docker installed; see docs/PROGRESS.md and docs/LIMITATIONS.md.
+#
+# No real SMAP/MSL data or trained L2 models ship in the images (see backend/Dockerfile); the API
+# runs fully functional scenarios without them. Mount a `data/raw` you've already downloaded at
+# /data on the `api` service if you want the real-data replay endpoints too.
+
+services:
+  db:
+    image: timescale/timescaledb:latest-pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-sentinel}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-sentinel}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-sentinel}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  migrate:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: orbital-sentinel-api:local
+    command: ["alembic", "upgrade", "head"]
+    environment: &api-env
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-sentinel}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-sentinel}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env (python -c "import secrets;print(secrets.token_urlsafe(48))")}
+      CORS_ALLOW_ORIGINS: ${CORS_ALLOW_ORIGINS:-http://localhost:3000}
+      PUBLIC_DEMO_MODE: ${PUBLIC_DEMO_MODE:-true}
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-120}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-sonnet-5}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  bootstrap:
+    image: orbital-sentinel-api:local
+    command:
+      ["python", "-m", "sentinel_api.db.create_user", "--email", "${ADMIN_EMAIL:-admin@example.com}", "--role", "admin"]
+    environment:
+      <<: *api-env
+      USER_PASSWORD: ${ADMIN_PASSWORD:?set ADMIN_PASSWORD in .env}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  api:
+    image: orbital-sentinel-api:local
+    restart: unless-stopped
+    environment: *api-env
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://127.0.0.1:8000/api/v1/health', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 15s
+    depends_on:
+      bootstrap:
+        condition: service_completed_successfully
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE:-http://localhost:8000}
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  db-data:

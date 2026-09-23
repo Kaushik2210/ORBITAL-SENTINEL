@@ -58,7 +58,7 @@ tool surface — not the prompt wording — is the actual safety boundary.
 
 - The (not yet built) Next.js frontend and its own attack surface (XSS, CSRF against the token
   storage strategy it picks, etc.) — out of scope until it exists.
-- Supply-chain attacks on dependencies. Partially addressed by CI's `pip-audit`/`bandit` job
-  (advisory, not yet a blocking gate — see `docs/PROGRESS.md`), Dependabot, and pinned lockfiles.
+- Supply-chain attacks on dependencies. Partially addressed by CI's `pip-audit`/`bandit`/Trivy jobs
+  (all advisory, not yet a blocking gate — see `docs/PROGRESS.md`), Dependabot, and pinned lockfiles.
 - Physical/host security, cloud IAM, TLS termination — this project ships an application, not
   infrastructure; a real deployment needs its own hardening for all of these.

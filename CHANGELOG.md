@@ -27,3 +27,7 @@ versioning: [SemVer](https://semver.org/).
 - Test suites: Vitest units for the frontend, a Playwright e2e suite that runs a real isolated backend and
   drives the real browser through sign-in → launch a scenario → an incident → an agent report, and an
   enforced backend coverage floor (`fail_under = 75`, measured ~82%).
+- Docker: multi-stage, non-root Dockerfiles for the API and frontend, and `docker-compose.yml` bringing up
+  TimescaleDB, migrations, an admin account, the API and the frontend with one command
+  (`docker compose up --build` / `python scripts/tasks.py demo`). Verified by a new CI `docker` job (build +
+  compose up + a real login smoke test) — never run on the development machine, which has no Docker.

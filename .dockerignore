@@ -1,0 +1,29 @@
+# Applies to the backend image's build context (repo root). frontend/.dockerignore covers the
+# frontend image (its own context is ./frontend).
+.git
+.github
+.claude
+frontend/node_modules
+frontend/.next
+frontend/test-results
+frontend/playwright-report
+.venv
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.hypothesis
+__pycache__
+*.pyc
+.coverage
+htmlcov
+coverage.xml
+data/raw
+data/cache
+data/processed/*
+!data/processed/.gitkeep
+ml/runs
+*.sqlite
+*.sqlite3
+*.onnx
+*.pt
+*.pth

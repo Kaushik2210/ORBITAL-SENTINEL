@@ -322,4 +322,5 @@ scanning in CI. Threat model (STRIDE) in `THREAT_MODEL.md` (Phase 9).
 
 1 Record decisions · 2 Package layout · 3 Dataset chain and labeled fallbacks · 4 Two telemetry families ·
 5 Packet layer and authentication tag · 6 Attribution model · 7 Database portability · 8 Agent hardening ·
-9 Live transport (WS + SSE) · 10 Empirical thresholds and calibration · 11 Platform security.
+9 Live transport (WS + SSE) · 10 Empirical thresholds and calibration · 11 Platform security ·
+12 Docker packaging.

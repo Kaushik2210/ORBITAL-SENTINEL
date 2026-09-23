@@ -2,7 +2,7 @@
 
 Newest entry last. Each phase ends with tests green, lint/typecheck clean, a commit, and an entry here.
 
-**Resume pointer:** last completed phase → **Phase 10 (test suites, coverage gates)**. Next → **Phase 11 (Docker/CI hardening)**, then 12.
+**Resume pointer:** last completed phase → **Phase 11 (Docker/CI hardening)**. Next → **Phase 12 (documentation)**.
 
 ## Phase roadmap
 
@@ -19,7 +19,7 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 | 8 | AI investigation agent | done (offline fallback tested end-to-end; live LLM path tested against a stub client only) |
 | 9 | Platform security | done (JWT + roles, rate limiting, hash-chained audit log, security headers, CI scanners advisory-only) |
 | 10 | Test suites and coverage gates | done (Vitest units, Playwright e2e against a real API, backend coverage floor enforced at 75%) |
-| 11 | Docker and CI hardening | – |
+| 11 | Docker and CI hardening | done (`docker compose up --build`; verified in CI only, no Docker on the dev machine) |
 | 12 | Documentation | – |
 
 ## Environment notes (measured on the dev machine)
@@ -236,13 +236,35 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 - CI gets a new `e2e` job (installs Playwright + Chromium, runs the suite against a real backend it starts)
   and the `frontend` job now runs `npm run test:coverage`.
 
+### Docker and CI hardening (this session)
+- **`backend/Dockerfile`:** multi-stage (`uv sync --frozen --no-dev` builder → slim Python 3.12 runtime),
+  non-root user, `HEALTHCHECK`. Deliberately does **not** install the `ml`/`agent` extras (no torch,
+  onnxruntime or anthropic) — the API degrades gracefully without them (no L2 models mounted, offline agent
+  fallback), keeping the image lean; a deployment that wants the live paths adds those extras in its own build
+  (documented in the Dockerfile itself). Build context is the repo root (uv workspace spans
+  `backend`/`simulator`/`ml`), with a root `.dockerignore`.
+- **`frontend/Dockerfile`:** multi-stage using Next.js `output: "standalone"`, non-root, `HEALTHCHECK`.
+  `NEXT_PUBLIC_API_BASE` is a build arg (it's inlined into the JS bundle at build time, so it has to be known
+  before `docker build`, not just at `docker run`).
+- **`docker-compose.yml`:** `db` (TimescaleDB) → `migrate` (alembic, one-shot) → `bootstrap` (provisions one
+  admin account via `create_user`, one-shot) → `api` → `web`, wired with `depends_on: condition:
+  service_healthy` / `service_completed_successfully`. Required secrets (`JWT_SECRET`, `POSTGRES_PASSWORD`,
+  `ADMIN_EMAIL`/`ADMIN_PASSWORD`) have no baked-in defaults — compose refuses to start without a filled-in
+  `.env` (`.env.example` documents each one).
+- **`scripts/tasks.py demo`** / **`make demo`** run `docker compose up --build`.
+- **Verification:** a new CI `docker` job (the only place any of this is actually run — the dev machine has no
+  Docker) builds both images, brings the whole stack up with `docker compose up -d --wait`, then does a real
+  smoke test: health endpoints, a real login against the bootstrap-provisioned admin account, and a real
+  `/auth/me` call with the returned token — not just "did it start."
+
 ## Resume here (next session)
 
-1. **Phase 11 Docker/CI hardening:** Dockerfiles + compose (frontend, API, Postgres/Timescale) — unverified
-   locally, no Docker installed; **Phase 12 docs:** `DETECTION.md`, a demo script, README screenshots.
+1. **Phase 12 docs:** `DETECTION.md` (per-detector writeup), a demo script, README screenshots/GIF.
 2. Security debts (all in `docs/THREAT_MODEL.md`): no MFA or token revocation list; rate limiter and audit log
    are single-process/application-enforced only; `bandit`/`pip-audit` are advisory, not blocking.
-3. Other debts: `make demo`; the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`);
-   DONKI cache is local-only (scenarios fall back to `weather_context = unavailable` without it); the agent's
-   live path has no key-based verification; no frontend error boundary polish beyond basic try/catch; the e2e
-   suite covers one path, not every page/role combination; frontend coverage has no enforced floor yet.
+3. Other debts: the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`) and are not baked
+   into the Docker image either — the containerized API runs L1/L3-L5 + attribution only unless you mount
+   them; DONKI cache is local-only (scenarios fall back to `weather_context = unavailable` without it); the
+   agent's live path has no key-based verification, in Docker or otherwise; no frontend error boundary polish
+   beyond basic try/catch; the e2e suite covers one path, not every page/role combination; frontend coverage
+   has no enforced floor yet; `docker compose up` has never been run outside CI.

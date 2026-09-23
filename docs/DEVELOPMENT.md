@@ -20,8 +20,7 @@ The frontend (`frontend/`) is a separate Node project — see [`frontend/README.
 | Seed | `python scripts/tasks.py seed` | migrate + ingest a replayed mission session |
 | Serve | `python scripts/tasks.py serve` | run the API on localhost:8000 |
 | Create user | `USER_EMAIL=... USER_PASSWORD=... python scripts/tasks.py create-user` | provision/update a login (`USER_ROLE`, default `admin`) — there is no self-registration endpoint |
-
-Targets for training and the demo are added when the code behind them exists.
+| Demo | `python scripts/tasks.py demo` | `docker compose up --build`; needs a filled-in `.env` (see `.env.example`) — **CI-verified only**, no Docker on the dev machine |
 
 PostgreSQL/TimescaleDB tests (`-m postgres`) need `POSTGRES_URL` and run in CI only.
 

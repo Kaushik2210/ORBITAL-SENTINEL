@@ -26,9 +26,8 @@ The interesting part is the hard part: telling *confusable* cases apart.
 
 ## Where the project stands
 
-This is an honest snapshot. **The detection engine, API, AI investigation agent, platform security and a
-Mission Control web UI are built and evaluated; Docker packaging is not built yet.** Details and next steps:
-[`docs/PROGRESS.md`](docs/PROGRESS.md).
+This is an honest snapshot. **Every planned component is built, including a one-command Docker demo.**
+Details and remaining polish: [`docs/PROGRESS.md`](docs/PROGRESS.md).
 
 | Area | State |
 |---|---|
@@ -43,7 +42,8 @@ Mission Control web UI are built and evaluated; Docker packaging is not built ye
 | AI investigation agent: Claude tool-use loop over read-only evidence tools, offline fallback ([API](docs/API.md#ai-investigation-agent)) | ✅ done (offline path tested end-to-end; live path tested against a stub client only) |
 | Platform security: JWT + roles, rate limiting, hash-chained audit log, security headers ([THREAT_MODEL](docs/THREAT_MODEL.md)) | ✅ done (single-process rate limiter/audit log — see the doc for the honest limits) |
 | Mission Control web UI: live telemetry, scenario launcher, incident/evidence viewer, agent reports ([frontend](frontend/README.md)) | ✅ done (no 3D globe or animation library — scope cut to ship a working app) |
-| Docker images, `docker compose` | ⏳ not built |
+| Test suites: Vitest units, Playwright e2e against a real API, enforced backend coverage floor | ✅ done |
+| Docker images and `docker compose up --build` (Postgres/TimescaleDB, API, frontend, one command) | ✅ done — **verified in CI only**, not on the machine that wrote it (no Docker installed there) |
 
 ## Results so far
 
@@ -121,6 +121,14 @@ Run [Mission Control](frontend/README.md) against it:
 
 ```bash
 cd frontend && npm install && cp .env.example .env.local && npm run dev   # http://localhost:3000
+```
+
+Or skip all of the above with Docker — one command brings up Postgres/TimescaleDB, the API and the
+frontend together:
+
+```bash
+cp .env.example .env   # fill in JWT_SECRET, POSTGRES_PASSWORD, ADMIN_EMAIL/ADMIN_PASSWORD
+docker compose up --build   # http://localhost:3000, API at http://localhost:8000
 ```
 
 ## Contributing

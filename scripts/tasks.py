@@ -99,6 +99,12 @@ def check() -> None:
     test()
 
 
+def demo() -> None:
+    """One-command demo: `docker compose up --build` (needs .env; see .env.example). Unverified
+    on this machine (no Docker installed) — verified in CI's `docker` job instead."""
+    run("docker", "compose", "up", "--build")
+
+
 TASKS: dict[str, Callable[[], None]] = {
     "setup": setup,
     "lint": lint,
@@ -111,6 +117,7 @@ TASKS: dict[str, Callable[[], None]] = {
     "serve": serve,
     "create-user": create_user,
     "check": check,
+    "demo": demo,
 }
 
 
