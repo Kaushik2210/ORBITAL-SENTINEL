@@ -3,13 +3,47 @@
 FastAPI application in `backend/sentinel_api`. Run it locally with `python scripts/tasks.py serve`
 (<http://localhost:8000>), interactive docs at `/docs`, OpenAPI at `/openapi.json`.
 
-> **Unauthenticated.** JWT, roles, rate limiting and the audit log are Phase 9 and **not built yet**.
-> Run the API only on localhost or behind a trusted proxy. Input is strictly validated (Pydantic v2, unknown
-> fields rejected), CORS is an explicit allowlist (`CORS_ALLOW_ORIGINS`), and concurrent sessions are capped
-> (`MAX_CONCURRENT_SESSIONS`, default 4).
-
 All REST routes are under `/api/v1`. Timestamps are UTC. Everything derived from the simulator carries
-`synthetic: true`; real SMAP/MSL replays carry `synthetic: false`.
+`synthetic: true`; real SMAP/MSL replays carry `synthetic: false`. Input is strictly validated (Pydantic v2,
+unknown fields rejected), CORS is an explicit allowlist (`CORS_ALLOW_ORIGINS`), and concurrent sessions are
+capped (`MAX_CONCURRENT_SESSIONS`, default 4). See [`THREAT_MODEL.md`](THREAT_MODEL.md) for the full picture.
+
+## Auth
+
+Three roles, `viewer < analyst < admin`, carried in an HS256 JWT:
+
+| Method | Path | Purpose |
+|---|---|---|
+| `POST` | `/auth/login` | `{"email", "password"}` → `{"access_token", "role", "expires_in_seconds"}` (8 h TTL) |
+| `GET` | `/auth/me` | The authenticated principal |
+
+There is **no self-registration endpoint** — accounts are provisioned out of band with
+`python scripts/tasks.py create-user` (env: `USER_EMAIL`, `USER_ROLE`, `USER_PASSWORD`), which is normal for a
+small operator tool. Send the token as `Authorization: Bearer <token>`; a WebSocket or SSE client that cannot
+set headers may instead pass `?token=<token>` in the URL.
+
+**`PUBLIC_DEMO_MODE=true` (the default)** relaxes only unauthenticated `GET` requests to `viewer` level, so the
+platform can be browsed without an account. Everything that starts a session (`POST /sessions`), controls one,
+calls the agent (`POST /incidents/{id}/investigate`), or reads the audit log **always** needs a real `analyst`
+or `admin` token, demo mode or not. With `PUBLIC_DEMO_MODE=false`, every route needs a token.
+
+A per-client-IP, in-memory, per-process rate limiter (`RATE_LIMIT_PER_MINUTE`, default 120; `0` disables it)
+returns `429` once exceeded — see the caveat in [`THREAT_MODEL.md`](THREAT_MODEL.md) about multi-worker
+deployments. Every response carries `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` and a
+`Content-Security-Policy` (exempting `/docs` and `/redoc`, which load their assets from a CDN).
+
+## Audit log
+
+`POST /auth/login` (success or failure), `POST /sessions`, `POST /sessions/{id}/control` and
+`POST /incidents/{id}/investigate` each append a row to a hash-chained audit log (`admin` only to read):
+
+| Method | Path | Purpose |
+|---|---|---|
+| `GET` | `/audit` | Paginated log entries, newest first |
+| `GET` | `/audit/verify` | `{"ok": bool, "first_bad_row": int \| null}` — walks the chain and reports the first row whose hash no longer matches |
+
+The chain is application-enforced (each row commits to a SHA-256 of the previous row's hash), not
+DB-enforced — see [`THREAT_MODEL.md`](THREAT_MODEL.md) for what that does and doesn't protect against.
 
 ## Sessions
 
@@ -26,13 +60,16 @@ exist, plus packet checks).
 | `GET` | `/sessions/{id}/ground-truth` | Scenario truth. **`409` until the session has finished** |
 
 ```bash
+TOKEN=$(curl -s -X POST localhost:8000/api/v1/auth/login -H 'content-type: application/json' \
+  -d '{"email": "you@example.com", "password": "..."}' | python -c 'import sys,json;print(json.load(sys.stdin)["access_token"])')
+
 # a scenario, as fast as possible
 curl -s -X POST localhost:8000/api/v1/sessions -H 'content-type: application/json' \
-  -d '{"scenario_id": "auth_bruteforce", "variant": 0, "speed": 0}'
+  -H "authorization: Bearer $TOKEN" -d '{"scenario_id": "auth_bruteforce", "variant": 0, "speed": 0}'
 
 # a real SMAP/MSL replay (needs `python scripts/tasks.py data`)
 curl -s -X POST localhost:8000/api/v1/sessions -H 'content-type: application/json' \
-  -d '{"kind": "replay", "channels": ["E-2"], "speed": 0}'
+  -H "authorization: Bearer $TOKEN" -d '{"kind": "replay", "channels": ["E-2"], "speed": 0}'
 ```
 
 `speed` is simulated seconds per wall second (`0` = unpaced; `60` = one 60 s step per real second).
@@ -102,13 +139,15 @@ the run still sees its incidents and completion. Slow consumers drop the oldest 
 
 Environment variables (see `.env.example`): `DATABASE_URL`, `DATA_ROOT`, `SCENARIOS_DIR`, `ATTRIBUTION_MODEL`,
 `L2_MODELS_DIR`, `DOCS_DATA_DIR`, `DONKI_CACHE`, `CORS_ALLOW_ORIGINS`, `CALIBRATION_STEPS`,
-`MAX_CONCURRENT_SESSIONS`, `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` (default `claude-sonnet-5`). The detection
-engine is calibrated once, on the first scenario session (about 10 s), then copied per session. The
-`anthropic` SDK is only installed with the optional `agent` extra (`uv sync --extra agent`); without it the
-platform still runs, just always in the offline report mode.
+`MAX_CONCURRENT_SESSIONS`, `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` (default `claude-sonnet-5`), `JWT_SECRET`,
+`PUBLIC_DEMO_MODE`, `RATE_LIMIT_PER_MINUTE`. The detection engine is calibrated once, on the first scenario
+session (about 10 s), then copied per session. The `anthropic` SDK is only installed with the optional `agent`
+extra (`uv sync --extra agent`); without it the platform still runs, just always in the offline report mode.
 
 ## Not implemented
 
-Authentication and roles, rate limiting, audit logging, PDF report export, an SSE stream of the agent's
-tool-use trace (the trace is returned in full once the investigation finishes, not incrementally), dataset
-endpoints beyond the two above, and session deletion/retention. These are tracked in `docs/PROGRESS.md`.
+Self-registration, MFA and token revocation, PDF report export, an SSE stream of the agent's tool-use trace
+(the trace is returned in full once the investigation finishes, not incrementally), dataset endpoints beyond
+the two above, and session deletion/retention. See `docs/THREAT_MODEL.md` for the security gaps that come
+with the design as built (a single-process rate limiter, an application-enforced rather than DB-enforced audit
+chain) and `docs/PROGRESS.md` for what's tracked next.

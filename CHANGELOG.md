@@ -17,4 +17,7 @@ versioning: [SemVer](https://semver.org/).
 - AI investigation agent (`sentinel_agent`): a Claude tool-use loop over eight read-only evidence tools, a
   Pydantic-validated final report, and a deterministic offline fallback; `/incidents/{id}/investigate` and
   `/report` endpoints.
+- Platform security: JWT auth with three roles, PBKDF2 password hashing, a per-IP rate limiter, security
+  response headers, and a hash-chained audit log with tamper detection (`GET /audit/verify`). See
+  `docs/THREAT_MODEL.md`.
 - Incident taxonomy (`sentinel_core.taxonomy`): five classes plus an explicit `needs_human` verdict.

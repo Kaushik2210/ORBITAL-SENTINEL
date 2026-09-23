@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import time
 from collections.abc import Iterator
@@ -10,9 +11,15 @@ import pytest
 from fastapi.testclient import TestClient
 
 from sentinel_api.app import create_app
+from sentinel_api.db.engine import make_engine, make_session_factory
+from sentinel_api.db.repo import upsert_user
+from sentinel_api.security.passwords import hash_password
 from sentinel_api.settings import Settings
 
 pytestmark = pytest.mark.slow
+
+ADMIN_EMAIL = "admin@test.local"
+ADMIN_PASSWORD = "correct-horse-battery-staple"
 
 
 def settings(tmp: Path, **over: Any) -> Settings:
@@ -23,6 +30,7 @@ def settings(tmp: Path, **over: Any) -> Settings:
         "donki_cache": tmp / "donki",
         "cors_origins": ["http://localhost:3000"],
         "anthropic_api_key": None,  # force the offline agent fallback; no network in tests
+        "jwt_secret": "test-only-jwt-secret-at-least-32-bytes-long",
     }
     base.update(over)
     return Settings(**base)
@@ -38,9 +46,29 @@ def wait_done(c: TestClient, sid: str, timeout: float = 180.0) -> dict[str, Any]
     raise AssertionError("session did not finish")
 
 
+async def _bootstrap_admin(cfg: Settings) -> None:
+    engine = make_engine(cfg.database_url)
+    factory = make_session_factory(engine)
+    await upsert_user(
+        factory, email=ADMIN_EMAIL, role="admin", password_hash=hash_password(ADMIN_PASSWORD)
+    )
+    await engine.dispose()
+
+
+def login(c: TestClient, cfg: Settings) -> None:
+    """Provision an admin user directly in the DB (there is no self-registration endpoint) and
+    attach its token to every subsequent request the client makes."""
+    asyncio.run(_bootstrap_admin(cfg))
+    r = c.post("/api/v1/auth/login", json={"email": ADMIN_EMAIL, "password": ADMIN_PASSWORD})
+    assert r.status_code == 200, r.text
+    c.headers["Authorization"] = f"Bearer {r.json()['access_token']}"
+
+
 @pytest.fixture(scope="module")
 def client(tmp_path_factory: pytest.TempPathFactory) -> Iterator[TestClient]:
-    with TestClient(create_app(settings(tmp_path_factory.mktemp("api")))) as c:
+    cfg = settings(tmp_path_factory.mktemp("api"))
+    with TestClient(create_app(cfg)) as c:
+        login(c, cfg)
         yield c
 
 
@@ -313,7 +341,9 @@ def test_evaluation_endpoint_serves_the_saved_runs(client: TestClient) -> None:
 
 
 def test_ground_truth_is_withheld_while_running_and_concurrency_is_limited(tmp_path: Path) -> None:
-    with TestClient(create_app(settings(tmp_path, max_concurrent_sessions=1))) as c:
+    cfg = settings(tmp_path, max_concurrent_sessions=1)
+    with TestClient(create_app(cfg)) as c:
+        login(c, cfg)
         first = c.post("/api/v1/sessions", json={"scenario_id": "nominal_a", "speed": 600}).json()
         assert c.get(f"/api/v1/sessions/{first['id']}/ground-truth").status_code == 409
         second = c.post("/api/v1/sessions", json={"scenario_id": "nominal_b", "speed": 600})

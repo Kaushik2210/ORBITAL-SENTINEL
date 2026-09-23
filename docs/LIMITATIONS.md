@@ -8,7 +8,9 @@ component that is visibly not built.
 
 | Missing | Consequence |
 |---|---|
-| The Mission Control frontend, platform security (JWT, roles, rate limiting, audit log), Docker images and `docker compose` | The API exists but is **unauthenticated** and must only be run locally; there is no UI or one-command demo yet |
+| The Mission Control frontend, Docker images and `docker compose` | The API is usable on its own (see [API.md](API.md)) but there is no UI or one-command demo yet |
+| Self-registration, MFA, token revocation, per-resource ACLs (only three global roles) | Accounts are provisioned with `scripts/tasks.py create-user`; a leaked token is valid until its 8 h expiry; see [THREAT_MODEL.md](THREAT_MODEL.md) |
+| A production-grade rate limiter and a DB-enforced (not just application-enforced) audit log | The shipped versions are correct for one process but documented as insufficient for a multi-worker deployment or a fully compromised database — see [THREAT_MODEL.md](THREAT_MODEL.md) |
 | Attribution on real channels | The attribution model was trained on the synthetic bus; the API records real-channel replay incidents as `needs_human` with a note rather than an unvalidated class |
 | The investigation agent's live-LLM path | Unit-tested against a stub Anthropic client only (see `tests/agent/test_client.py`); it has not been run end-to-end against the real API, because doing so requires a paid key. The offline fallback is the only path exercised in CI, and it is also the default without `ANTHROPIC_API_KEY` set — see [API.md](API.md). |
 
@@ -80,3 +82,4 @@ component that is visibly not built.
 - TimescaleDB behavior (hypertables, compression, retention) is verified only in the GitHub Actions `postgres` job.
 - The investigation agent's live LLM path is built but only tested against a stub client, not a real key (see
   the table above).
+- `bandit`/`pip-audit` run in CI but are advisory (`continue-on-error: true`), not a merge gate yet.

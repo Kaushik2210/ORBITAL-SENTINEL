@@ -6,11 +6,12 @@ import uuid
 from datetime import UTC, datetime
 from typing import Any
 
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from sentinel_sim.mission import ChannelSpec
 
-from .models import Channel
+from .models import Channel, User
 from .models import Session as SessionRow
 
 
@@ -63,3 +64,37 @@ async def create_session(
         )
         await s.commit()
     return sid
+
+
+async def get_user_by_email(factory: async_sessionmaker[AsyncSession], email: str) -> User | None:
+    async with factory() as s:
+        return (await s.execute(select(User).where(User.email == email))).scalar_one_or_none()
+
+
+async def upsert_user(
+    factory: async_sessionmaker[AsyncSession],
+    *,
+    email: str,
+    role: str,
+    password_hash: str,
+) -> str:
+    """Create the user if new, otherwise update their role and password. Returns the user id."""
+    async with factory() as s:
+        existing = (await s.execute(select(User).where(User.email == email))).scalar_one_or_none()
+        if existing is not None:
+            existing.role = role
+            existing.password_hash = password_hash
+            await s.commit()
+            return existing.id
+        uid = str(uuid.uuid4())
+        s.add(
+            User(
+                id=uid,
+                email=email,
+                role=role,
+                password_hash=password_hash,
+                created_at=datetime.now(UTC),
+            )
+        )
+        await s.commit()
+        return uid

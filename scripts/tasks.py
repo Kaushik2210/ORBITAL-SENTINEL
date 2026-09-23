@@ -72,8 +72,24 @@ def seed() -> None:
 
 
 def serve() -> None:
-    """Run the API locally (unauthenticated: development only)."""
+    """Run the API locally."""
     uv("run", "uvicorn", "sentinel_api.main:app", "--host", "127.0.0.1", "--port", "8000")
+
+
+def create_user() -> None:
+    """Create/update a user (env: USER_EMAIL, USER_ROLE=admin, USER_PASSWORD)."""
+    import os
+
+    uv(
+        "run",
+        "python",
+        "-m",
+        "sentinel_api.db.create_user",
+        "--email",
+        os.environ.get("USER_EMAIL", ""),
+        "--role",
+        os.environ.get("USER_ROLE", "admin"),
+    )
 
 
 def check() -> None:
@@ -93,6 +109,7 @@ TASKS: dict[str, Callable[[], None]] = {
     "migrate": migrate,
     "seed": seed,
     "serve": serve,
+    "create-user": create_user,
     "check": check,
 }
 

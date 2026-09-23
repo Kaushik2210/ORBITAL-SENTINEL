@@ -2,7 +2,7 @@
 
 Newest entry last. Each phase ends with tests green, lint/typecheck clean, a commit, and an entry here.
 
-**Resume pointer:** last completed phase → **Phase 8 (AI investigation agent)**. Next → **Phase 7 (frontend)**, then 9-12.
+**Resume pointer:** last completed phase → **Phase 9 (platform security)**. Next → **Phase 7 (frontend)**, then 10-12.
 
 ## Phase roadmap
 
@@ -14,10 +14,10 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 | 3 | Data ingestion, packet layer, replay engine | done |
 | 4 | Database (Timescale schema, migrations) | done |
 | 5 | Detection L1–L5, ML, attribution, scenarios, evaluation | done |
-| 6 | Backend APIs (REST, WebSocket, SSE) | done (unauthenticated; auth is Phase 9) |
+| 6 | Backend APIs (REST, WebSocket, SSE) | done (JWT auth added in Phase 9) |
 | 7 | Mission Control frontend | – |
 | 8 | AI investigation agent | done (offline fallback tested end-to-end; live LLM path tested against a stub client only) |
-| 9 | Platform security | – |
+| 9 | Platform security | done (JWT + roles, rate limiting, hash-chained audit log, security headers, CI scanners advisory-only) |
 | 10 | Test suites and coverage gates | – |
 | 11 | Docker and CI hardening | – |
 | 12 | Documentation | – |
@@ -177,12 +177,33 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
   instead of being trusted) plus 3 new API tests. Not built: PDF export, a streaming SSE trace (the full trace
   is returned once the investigation finishes), and any live-key verification.
 
+### Platform security (this session)
+- **Auth:** `backend/sentinel_api/security/`: `passwords.py` (PBKDF2-HMAC-SHA256, 600k iterations, random salt,
+  stdlib only), `tokens.py` (HS256 JWTs via `pyjwt`, three roles `viewer < analyst < admin`), `deps.py`
+  (`require_role(...)` FastAPI dependency; `PUBLIC_DEMO_MODE` only ever relaxes an anonymous `GET` at `viewer`
+  level — every mutating or admin route always needs a real token). `POST /auth/login`, `GET /auth/me`; no
+  self-registration endpoint — `scripts/tasks.py create-user` provisions accounts directly in the DB.
+- **Audit log:** `audit.py`'s `AuditLedger` — each row's hash commits to the previous row's hash plus its own
+  fields (login attempts, session create/control, investigate calls are recorded); `GET /audit` and
+  `GET /audit/verify` (admin only). Application-enforced, not DB-enforced — documented honestly in
+  `docs/THREAT_MODEL.md`.
+- **Rate limiting:** `ratelimit.py`, a per-client-IP in-memory sliding window (`RATE_LIMIT_PER_MINUTE`); explicitly
+  documented as not correct across multiple worker processes.
+- **Headers:** `headers.py` adds CSP (exempting `/docs`/`/redoc`), `X-Frame-Options`, `X-Content-Type-Options`,
+  `Referrer-Policy` to every response.
+- **`docs/THREAT_MODEL.md`**: a full STRIDE table plus a dedicated section on the agent's prompt-injection surface.
+- **CI:** a new `security` job runs `bandit` and `pip-audit` (`continue-on-error: true` — advisory, not a merge
+  gate yet).
+- 19 new tests in `tests/api/test_security.py` (password hashing, token round-trip/tampering, login, `/me`,
+  demo-mode read bypass vs. always-authenticated writes, per-role enforcement, audit-chain tamper detection,
+  security headers, rate-limit 429). All existing API tests updated to bootstrap and use an admin token.
+
 ## Resume here (next session)
 
-1. **Phase 9 security:** JWT + roles, rate limiting, audit log (hash-chained), CSP, scanners in CI. Required
-   before any non-local use, and before wiring `/investigate` into a public-facing frontend.
-2. **Phase 7 frontend** (Next.js) consuming the API and agent above; then Phases 10-12 (Playwright e2e, Docker,
-   docs incl. `DETECTION.md`, `THREAT_MODEL.md`, demo script).
-3. Debts: `make demo`; the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`); coverage
-   threshold not enforced; frontend CI job; DONKI cache is local-only (scenarios fall back to
+1. **Phase 7 frontend** (Next.js) consuming the API, agent and auth above; then Phases 10-12 (Playwright e2e,
+   Docker, docs incl. `DETECTION.md`, demo script).
+2. Security debts (all in `docs/THREAT_MODEL.md`): no MFA or token revocation list; rate limiter and audit log
+   are single-process/application-enforced only; `bandit`/`pip-audit` are advisory, not blocking.
+3. Other debts: `make demo`; the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`);
+   coverage threshold not enforced; frontend CI job; DONKI cache is local-only (scenarios fall back to
    `weather_context = unavailable` without it); the agent's live path has no key-based verification.

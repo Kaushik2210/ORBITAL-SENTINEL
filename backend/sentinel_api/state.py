@@ -19,6 +19,7 @@ from sentinel_sim.replay import ReplayEngine
 from sentinel_sim.scenarios.spec import GroundTruth, ScenarioSpec, load_all
 
 from .db.engine import create_all, make_engine, make_session_factory
+from .security.audit import AuditLedger
 from .settings import Settings
 
 
@@ -72,6 +73,7 @@ class AppState:
         self.settings = settings
         self.db: AsyncEngine = make_engine(settings.database_url)
         self.factory: async_sessionmaker[AsyncSession] = make_session_factory(self.db)
+        self.audit = AuditLedger(self.factory)
         self.specs: dict[str, ScenarioSpec] = {s.id: s for s in load_all(settings.scenarios_dir)}
         self.model: AttributionModel | None = (
             AttributionModel.load(settings.attribution_model)

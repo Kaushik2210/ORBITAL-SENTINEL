@@ -51,3 +51,14 @@ class Settings:
     anthropic_model: str = field(
         default_factory=lambda: os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5")
     )
+    jwt_secret: str = field(
+        default_factory=lambda: os.environ.get(
+            "JWT_SECRET", "change-me-in-real-deployments-this-default-is-not-a-secret"
+        )
+    )
+    public_demo_mode: bool = field(
+        default_factory=lambda: os.environ.get("PUBLIC_DEMO_MODE", "true").lower() == "true"
+    )
+    rate_limit_per_minute: int = field(
+        default_factory=lambda: int(os.environ.get("RATE_LIMIT_PER_MINUTE", "120"))
+    )

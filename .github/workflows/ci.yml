@@ -32,6 +32,23 @@ jobs:
       - name: Test
         run: uv run pytest --cov --cov-report=term-missing:skip-covered
 
+  security:
+    name: Security scanners (bandit, pip-audit) — advisory
+    runs-on: ubuntu-latest
+    # Findings are surfaced, not yet a merge gate (see docs/THREAT_MODEL.md and docs/PROGRESS.md);
+    # a network-dependent vulnerability-DB lookup failing should not block unrelated work.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv sync --all-groups --extra ml
+      - name: Bandit (static security lint)
+        run: uv run --with bandit bandit -q -r backend simulator ml scripts -c pyproject.toml
+      - name: pip-audit (known-vulnerability scan of installed packages)
+        run: uv run --with pip-audit pip-audit --strict
+
   postgres:
     name: PostgreSQL + TimescaleDB
     runs-on: ubuntu-latest

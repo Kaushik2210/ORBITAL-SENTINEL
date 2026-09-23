@@ -126,6 +126,37 @@ class EvidenceOut(BaseModel):
     detector_outputs: list[dict[str, Any]]
 
 
+class LoginRequest(Strict):
+    email: str = Field(max_length=254)
+    password: str = Field(min_length=1, max_length=256)
+
+
+class TokenOut(BaseModel):
+    access_token: str
+    token_type: Literal["bearer"] = "bearer"  # noqa: S105 - a token *kind* label, not a secret
+    role: str
+    expires_in_seconds: int
+
+
+class MeOut(BaseModel):
+    email: str
+    role: str
+
+
+class AuditLogOut(BaseModel):
+    id: int
+    ts: datetime
+    actor: str
+    action: str
+    target: str
+    detail: dict[str, Any]
+
+
+class AuditVerifyOut(BaseModel):
+    ok: bool
+    first_bad_row: int | None
+
+
 class ReportOut(BaseModel):
     verdict: str
     confidence: float

@@ -15,6 +15,8 @@ from sentinel_api.app import create_app
 from sentinel_api.settings import Settings
 from sentinel_sim.scenarios.spec import QUIET_START
 
+from .test_api import login
+
 ROOT = Path("data/raw")
 ONNX = Path("ml/runs/l2-v1/onnx")
 pytestmark = [
@@ -36,6 +38,7 @@ def client(tmp_path_factory: pytest.TempPathFactory) -> Iterator[TestClient]:
         donki_cache=tmp / "donki",
     )
     with TestClient(create_app(cfg)) as c:
+        login(c, cfg)
         yield c
 
 

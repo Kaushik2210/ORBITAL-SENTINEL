@@ -1,9 +1,11 @@
 """The FastAPI application: REST + WebSocket + SSE over the detection core.
 
-Not yet implemented (Phase 9): authentication, roles, rate limiting, audit logging. Until then every
-endpoint is unauthenticated and the API must only be run locally or behind a trusted proxy.
-Ground truth is withheld until a session has finished (``409`` before that), so a "guess the cause"
-front end cannot leak the answer through the API.
+Authentication is a JWT bearer token (``POST /auth/login``) with three roles (viewer < analyst <
+admin); see ``security/deps.py``. With ``PUBLIC_DEMO_MODE=true`` (the default), unauthenticated
+``GET`` requests are allowed at the ``viewer`` level so the platform can be browsed without an
+account — everything that starts a session, calls the agent, or reads the audit log always needs a
+real token. Ground truth is withheld until a session has finished (``409`` before that), so a
+"guess the cause" front end cannot leak the answer through the API.
 """
 
 from __future__ import annotations
@@ -18,6 +20,7 @@ from typing import Any
 
 from fastapi import (
     APIRouter,
+    Depends,
     FastAPI,
     HTTPException,
     Query,
@@ -34,13 +37,16 @@ from sentinel_core import __version__
 from sentinel_sim import bus, smap_msl
 from sentinel_sim.donki import DonkiClient
 
-from .db.models import DetectorOutputRow, Incident, InvestigationEvent, Telemetry
+from .db.models import AuditLog, DetectorOutputRow, Incident, InvestigationEvent, Telemetry
 from .db.models import GroundTruth as GroundTruthRow
 from .db.models import Report as ReportRow
 from .db.models import Session as SessionRow
+from .db.repo import get_user_by_email
 from .investigate import build_case, report_markdown
 from .runner import create_run, run_session
 from .schemas import (
+    AuditLogOut,
+    AuditVerifyOut,
     ChannelOut,
     ContributionOut,
     Control,
@@ -49,6 +55,8 @@ from .schemas import (
     Health,
     IncidentOut,
     InvestigateOut,
+    LoginRequest,
+    MeOut,
     Page,
     Ready,
     ReportOut,
@@ -57,9 +65,19 @@ from .schemas import (
     SessionOut,
     TelemetryPoint,
     TelemetrySeries,
+    TokenOut,
 )
+from .security.deps import optional_principal, principal_from, require_role
+from .security.headers import security_headers
+from .security.passwords import verify_password
+from .security.ratelimit import RateLimitMiddleware
+from .security.tokens import DEFAULT_TTL, Principal, issue_token
 from .settings import Settings
 from .state import AppState, SessionRun
+
+_view = require_role("viewer")
+_analyst = require_role("analyst")
+_admin = require_role("admin")
 
 API = "/api/v1"
 
@@ -139,11 +157,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         description="Defensive spacecraft-cybersecurity simulation. All attacks are synthetic.",
         lifespan=lifespan,
     )
+    app.middleware("http")(security_headers)
+    app.add_middleware(RateLimitMiddleware, limit_per_minute=cfg.rate_limit_per_minute)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=cfg.cors_origins,
         allow_methods=["GET", "POST"],
-        allow_headers=["Content-Type"],
+        allow_headers=["Content-Type", "Authorization"],
     )
     r = APIRouter(prefix=API)
 
@@ -164,9 +184,33 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             real_data=(cfg.data_root / "smap_msl" / "labeled_anomalies.csv").is_file(),
         )
 
+    # ------------------------------------------------------------------ auth
+    @r.post("/auth/login", response_model=TokenOut)
+    async def login(request: Request, body: LoginRequest) -> TokenOut:
+        s = _state(request)
+        user = await get_user_by_email(s.factory, body.email)
+        ok = user is not None and verify_password(body.password, user.password_hash)
+        await s.audit.record(
+            actor=body.email, action="login", target="auth", detail={"success": ok}
+        )
+        if not ok or user is None:
+            raise HTTPException(401, "invalid email or password")
+        token = issue_token(user.email, user.role, s.settings.jwt_secret)
+        return TokenOut(
+            access_token=token,
+            role=user.role,
+            expires_in_seconds=int(DEFAULT_TTL.total_seconds()),
+        )
+
+    @r.get("/auth/me", response_model=MeOut)
+    async def me(principal: Principal | None = Depends(optional_principal)) -> MeOut:
+        if principal is None:
+            raise HTTPException(401, "authentication required")
+        return MeOut(email=principal.email, role=principal.role)
+
     # ------------------------------------------------------------------ catalog
     @r.get("/channels", response_model=list[ChannelOut])
-    async def channels() -> list[ChannelOut]:
+    async def channels(_p: Principal = Depends(_view)) -> list[ChannelOut]:
         return [
             ChannelOut(
                 id=c,
@@ -180,11 +224,15 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         ]
 
     @r.get("/scenarios", response_model=list[ScenarioOut], response_model_exclude_none=True)
-    async def scenarios(request: Request, reveal: bool = False) -> list[ScenarioOut]:
+    async def scenarios(
+        request: Request, reveal: bool = False, _p: Principal = Depends(_view)
+    ) -> list[ScenarioOut]:
         return [_scenario_out(s, reveal) for s in _state(request).specs.values()]
 
     @r.get("/scenarios/{sid}", response_model=ScenarioOut, response_model_exclude_none=True)
-    async def scenario(request: Request, sid: str, reveal: bool = False) -> ScenarioOut:
+    async def scenario(
+        request: Request, sid: str, reveal: bool = False, _p: Principal = Depends(_view)
+    ) -> ScenarioOut:
         spec = _state(request).specs.get(sid)
         if spec is None:
             raise HTTPException(404, "unknown scenario")
@@ -192,7 +240,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     # ------------------------------------------------------------------ sessions
     @r.post("/sessions", response_model=SessionOut, status_code=202)
-    async def create_session_ep(request: Request, body: SessionCreate) -> SessionOut:
+    async def create_session_ep(
+        request: Request, body: SessionCreate, principal: Principal = Depends(_analyst)
+    ) -> SessionOut:
         s = _state(request)
         try:
             run = await create_run(s, body)
@@ -207,19 +257,28 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 409, "real SMAP/MSL data is not downloaded (run `make data`)"
             ) from exc
         run.task = asyncio.create_task(run_session(s, run, body))
+        await s.audit.record(
+            actor=principal.email,
+            action="session.create",
+            target=run.id,
+            detail={"kind": run.kind, "scenario_id": run.scenario_id},
+        )
         return _session_out(run)
 
     @r.get("/sessions", response_model=list[SessionOut])
-    async def sessions(request: Request) -> list[SessionOut]:
+    async def sessions(request: Request, _p: Principal = Depends(_view)) -> list[SessionOut]:
         return [_session_out(x) for x in _state(request).sessions.values()]
 
     @r.get("/sessions/{sid}", response_model=SessionOut)
-    async def session(request: Request, sid: str) -> SessionOut:
+    async def session(request: Request, sid: str, _p: Principal = Depends(_view)) -> SessionOut:
         return _session_out(_run(_state(request), sid))
 
     @r.post("/sessions/{sid}/control", response_model=SessionOut)
-    async def control(request: Request, sid: str, body: Control) -> SessionOut:
-        run = _run(_state(request), sid)
+    async def control(
+        request: Request, sid: str, body: Control, principal: Principal = Depends(_analyst)
+    ) -> SessionOut:
+        s = _state(request)
+        run = _run(s, sid)
         if run.replay is None or run.status not in ("running", "paused"):
             raise HTTPException(409, "session is not running")
         if body.action == "pause":
@@ -234,6 +293,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             run.replay.set_speed(body.speed)
             run.speed = body.speed
         run.publish({"type": "status", "status": run.status, "speed": run.speed})
+        await s.audit.record(
+            actor=principal.email,
+            action="session.control",
+            target=sid,
+            detail={"action": body.action},
+        )
         return _session_out(run)
 
     @r.get("/sessions/{sid}/telemetry", response_model=list[TelemetrySeries])
@@ -242,6 +307,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         sid: str,
         channels: str = Query(max_length=400),
         max_points: int = Query(1500, ge=10, le=10000),
+        _p: Principal = Depends(_view),
     ) -> list[TelemetrySeries]:
         s = _state(request)
         _run(s, sid)
@@ -282,7 +348,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @r.get(
         "/sessions/{sid}/ground-truth", response_model=GroundTruthOut, response_model_by_alias=True
     )
-    async def ground_truth(request: Request, sid: str) -> GroundTruthOut:
+    async def ground_truth(
+        request: Request, sid: str, _p: Principal = Depends(_view)
+    ) -> GroundTruthOut:
         s = _state(request)
         run = _run(s, sid)
         if run.kind != "scenario":
@@ -320,6 +388,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         min_confidence: float = Query(0.0, ge=0.0, le=1.0),
         limit: int = Query(50, ge=1, le=200),
         cursor: str | None = None,
+        _p: Principal = Depends(_view),
     ) -> Page[IncidentOut]:
         s = _state(request)
         offset = _cursor(cursor)
@@ -346,7 +415,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return Page(items=page, next_cursor=str(offset + limit) if len(rows) > limit else None)
 
     @r.get("/incidents/{iid}", response_model=IncidentOut)
-    async def incident(request: Request, iid: str) -> IncidentOut:
+    async def incident(request: Request, iid: str, _p: Principal = Depends(_view)) -> IncidentOut:
         async with _state(request).factory() as db:
             row = await db.get(Incident, iid)
         if row is None:
@@ -355,7 +424,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @r.get("/incidents/{iid}/evidence", response_model=EvidenceOut)
     async def evidence(
-        request: Request, iid: str, limit: int = Query(100, ge=1, le=300)
+        request: Request,
+        iid: str,
+        limit: int = Query(100, ge=1, le=300),
+        _p: Principal = Depends(_view),
     ) -> EvidenceOut:
         async with _state(request).factory() as db:
             row = await db.get(Incident, iid)
@@ -399,7 +471,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         )
 
     @r.post("/incidents/{iid}/investigate", response_model=InvestigateOut)
-    async def investigate(request: Request, iid: str) -> InvestigateOut:
+    async def investigate(
+        request: Request, iid: str, principal: Principal = Depends(_analyst)
+    ) -> InvestigateOut:
         """Run the AI investigation agent over an incident's stored evidence and persist the report.
 
         Falls back to the deterministic offline report unless ``ANTHROPIC_API_KEY`` is set; see
@@ -437,6 +511,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                     InvestigationEvent(incident_id=iid, seq=i, ts=now, kind=ev["kind"], payload=ev)
                 )
             await db.commit()
+        await s.audit.record(
+            actor=principal.email, action="incident.investigate", target=iid, detail={"mode": mode}
+        )
         return InvestigateOut(
             incident_id=iid,
             mode=mode,
@@ -448,7 +525,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         )
 
     @r.get("/incidents/{iid}/report", response_model=InvestigateOut)
-    async def get_report(request: Request, iid: str) -> InvestigateOut:
+    async def get_report(
+        request: Request, iid: str, _p: Principal = Depends(_view)
+    ) -> InvestigateOut:
         async with _state(request).factory() as db:
             row = await db.get(ReportRow, iid)
             if row is None:
@@ -476,7 +555,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     # ------------------------------------------------------------------ evaluation and datasets
     @r.get("/evaluation")
-    async def evaluation() -> dict[str, Any]:
+    async def evaluation(_p: Principal = Depends(_view)) -> dict[str, Any]:
         out: dict[str, Any] = {}
         for name in ("evaluation_v1", "smap_msl_l1_v1", "smap_msl_l2_v1"):
             p = cfg.docs_data_dir / f"{name}.json"
@@ -487,7 +566,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return out
 
     @r.get("/datasets/smap-msl")
-    async def smap_msl_labels() -> list[dict[str, Any]]:
+    async def smap_msl_labels(_p: Principal = Depends(_view)) -> list[dict[str, Any]]:
         try:
             labels = smap_msl.load_labels(cfg.data_root)
         except smap_msl.DataUnavailableError as exc:
@@ -511,16 +590,62 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         kind: str = Query(pattern="^(FLR|CME|GST|SEP|IPS)$"),
         start: date = Query(),
         end: date = Query(),
+        _p: Principal = Depends(_view),
     ) -> list[dict[str, Any]]:
         client = DonkiClient(cfg.donki_cache)
         if not client.has_coverage(kind, start, end):
             raise HTTPException(404, "that range is not in the local DONKI cache")
         return client.get_events(kind, start, end, allow_network=False)
 
+    # ------------------------------------------------------------------ audit log (admin only)
+    @r.get("/audit", response_model=Page[AuditLogOut])
+    async def audit_log(
+        request: Request,
+        limit: int = Query(50, ge=1, le=200),
+        cursor: str | None = None,
+        _p: Principal = Depends(_admin),
+    ) -> Page[AuditLogOut]:
+        s = _state(request)
+        offset = _cursor(cursor)
+        async with s.factory() as db:
+            rows = (
+                (
+                    await db.execute(
+                        select(AuditLog)
+                        .order_by(AuditLog.id.desc())
+                        .offset(offset)
+                        .limit(limit + 1)
+                    )
+                )
+                .scalars()
+                .all()
+            )
+        page = [
+            AuditLogOut(
+                id=x.id,
+                ts=_utc(x.ts),
+                actor=x.actor,
+                action=x.action,
+                target=x.target,
+                detail=x.detail,
+            )
+            for x in rows[:limit]
+        ]
+        return Page(items=page, next_cursor=str(offset + limit) if len(rows) > limit else None)
+
+    @r.get("/audit/verify", response_model=AuditVerifyOut)
+    async def audit_verify(request: Request, _p: Principal = Depends(_admin)) -> AuditVerifyOut:
+        ok, bad = await _state(request).audit.verify()
+        return AuditVerifyOut(ok=ok, first_bad_row=bad)
+
     # ------------------------------------------------------------------ live streams
     @app.websocket(f"{API}/ws/sessions/{{sid}}")
     async def ws_session(ws: WebSocket, sid: str) -> None:
         state: AppState = ws.app.state.sentinel
+        principal = principal_from(ws, state.settings.jwt_secret)
+        if principal is None and not state.settings.public_demo_mode:
+            await ws.close(code=4401)  # policy violation: authentication required
+            return
         run = state.sessions.get(sid)
         if run is None:
             await ws.close(code=4404)
@@ -542,7 +667,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @r.get("/sse/sessions/{sid}")
     async def sse_session(request: Request, sid: str) -> StreamingResponse:
-        run = _run(_state(request), sid)
+        s = _state(request)
+        principal = principal_from(request, s.settings.jwt_secret)
+        if principal is None and not s.settings.public_demo_mode:
+            raise HTTPException(401, "authentication required")
+        run = _run(s, sid)
 
         async def gen() -> AsyncIterator[str]:
             q = run.subscribe()
