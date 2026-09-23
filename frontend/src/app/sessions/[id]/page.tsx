@@ -66,7 +66,10 @@ export default function SessionDetailPage({ params }: { params: Promise<{ id: st
     <div className="space-y-6">
       <div className="flex flex-wrap items-center gap-3">
         <h1 className="mono text-lg font-semibold">{session.id}</h1>
-        <span className="mono rounded border border-border bg-surface-raised px-2 py-0.5 text-xs uppercase">
+        <span
+          data-testid="session-status"
+          className="mono rounded border border-border bg-surface-raised px-2 py-0.5 text-xs uppercase"
+        >
           {stream.status ?? session.status}
         </span>
         <SyntheticBadge synthetic={session.synthetic} />
@@ -127,7 +130,11 @@ export default function SessionDetailPage({ params }: { params: Promise<{ id: st
               const iid = String((inc as Record<string, unknown>).id ?? "");
               return (
                 <li key={i}>
-                  <Link href={`/incidents/${iid}`} className="mono text-accent hover:underline">
+                  <Link
+                    href={`/incidents/${iid}`}
+                    data-testid="incident-link"
+                    className="mono text-accent hover:underline"
+                  >
                     {iid}
                   </Link>
                 </li>

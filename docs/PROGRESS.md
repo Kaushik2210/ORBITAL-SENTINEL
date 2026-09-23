@@ -2,7 +2,7 @@
 
 Newest entry last. Each phase ends with tests green, lint/typecheck clean, a commit, and an entry here.
 
-**Resume pointer:** last completed phase → **Phase 7 (frontend)**. Next → **Phase 10 (test suites, coverage gates)**, then 11-12.
+**Resume pointer:** last completed phase → **Phase 10 (test suites, coverage gates)**. Next → **Phase 11 (Docker/CI hardening)**, then 12.
 
 ## Phase roadmap
 
@@ -18,7 +18,7 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 | 7 | Mission Control frontend | done (scope cut: no 3D globe/animation library — see `frontend/README.md`) |
 | 8 | AI investigation agent | done (offline fallback tested end-to-end; live LLM path tested against a stub client only) |
 | 9 | Platform security | done (JWT + roles, rate limiting, hash-chained audit log, security headers, CI scanners advisory-only) |
-| 10 | Test suites and coverage gates | – |
+| 10 | Test suites and coverage gates | done (Vitest units, Playwright e2e against a real API, backend coverage floor enforced at 75%) |
 | 11 | Docker and CI hardening | – |
 | 12 | Documentation | – |
 
@@ -212,19 +212,37 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
   launching a scenario both behave as designed.
 - Cut from the original brief's scope to ship something real rather than a shell: no `react-three-fiber`
   globe, no Framer Motion, no scored "Attack or Accident?" challenge (the ground-truth reveal button is the
-  honest, unscored version), no Vitest/Playwright suite yet. All stated in `frontend/README.md`.
-- CI gets a `frontend` job (`eslint`, `tsc --noEmit`, `next build`) alongside the Python jobs.
+  honest, unscored version). All stated in `frontend/README.md`.
+- CI gets a `frontend` job (`eslint`, `vitest`, `next build` — `next build` type-checks itself, so a
+  standalone `tsc --noEmit` step was tried and dropped: it fails before Next.js has generated its own route
+  types).
+
+### Test suites and coverage gates (this session)
+- **Frontend units** (`vitest` + Testing Library, jsdom): `lib/auth-store.ts` (`hasRole` role ordering),
+  `lib/api.ts` (success/error/query/bearer-token behavior of the fetch wrapper, mocked `fetch`),
+  `components/badges.tsx` and `components/posterior-bars.tsx` (label text, sort order, percentages).
+- **End-to-end** (`frontend/e2e/`, Playwright): `global-setup.ts` runs a real, isolated backend for the suite
+  — a fresh temp SQLite DB, migrated, one seeded admin user, `RATE_LIMIT_PER_MINUTE=0` and no Anthropic key —
+  on port 8123; Playwright's `webServer` starts the Next.js dev server on port 3100 against it.
+  `mission-control.spec.ts` signs in for real, launches the `auth_bruteforce` scenario, waits for it to
+  actually complete, opens the incident it actually raised, runs the (offline-fallback) agent against it, and
+  reveals ground truth — plus a second spec confirming the signed-out demo-mode read/write boundary. Both
+  processes are torn down afterward (`global-teardown.ts`). Found and fixed two real bugs along the way: a
+  dev-mode cross-origin guard blocking the frontend when bound to `127.0.0.1` (`allowedDevOrigins` in
+  `next.config.ts`), and the rate limiter tripping on the API test suite's own fast polling loops (test
+  fixtures now set `rate_limit_per_minute=0`).
+- **Coverage gate:** `fail_under = 75` in `pyproject.toml` (measured ~82% on 2026-09-23), enforced directly by
+  `pytest --cov` — previously `0`, i.e. unenforced.
+- CI gets a new `e2e` job (installs Playwright + Chromium, runs the suite against a real backend it starts)
+  and the `frontend` job now runs `npm run test:coverage`.
 
 ## Resume here (next session)
 
-1. **Phase 10, test suites and coverage gates:** per-detector property tests are already extensive; still
-   needed: Vitest for frontend units, Playwright e2e (launch a scenario → see an incident → read an agent
-   report, matching what was just verified manually), and an enforced `fail_under` coverage threshold in CI
-   (currently 0, i.e. unenforced).
-2. **Phase 11 Docker/CI hardening:** Dockerfiles + compose (frontend, API, Postgres/Timescale) — unverified
+1. **Phase 11 Docker/CI hardening:** Dockerfiles + compose (frontend, API, Postgres/Timescale) — unverified
    locally, no Docker installed; **Phase 12 docs:** `DETECTION.md`, a demo script, README screenshots.
-3. Security debts (all in `docs/THREAT_MODEL.md`): no MFA or token revocation list; rate limiter and audit log
+2. Security debts (all in `docs/THREAT_MODEL.md`): no MFA or token revocation list; rate limiter and audit log
    are single-process/application-enforced only; `bandit`/`pip-audit` are advisory, not blocking.
-4. Other debts: `make demo`; the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`);
+3. Other debts: `make demo`; the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`);
    DONKI cache is local-only (scenarios fall back to `weather_context = unavailable` without it); the agent's
-   live path has no key-based verification; no frontend error boundary polish beyond basic try/catch.
+   live path has no key-based verification; no frontend error boundary polish beyond basic try/catch; the e2e
+   suite covers one path, not every page/role combination; frontend coverage has no enforced floor yet.

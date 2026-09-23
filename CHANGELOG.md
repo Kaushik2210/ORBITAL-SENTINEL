@@ -24,3 +24,6 @@ versioning: [SemVer](https://semver.org/).
 - Mission Control frontend (`frontend/`, Next.js + TypeScript strict + Tailwind): live scenario launcher,
   streaming telemetry (uPlot over the session WebSocket), incident/evidence browser, and the AI investigation
   agent's report with its offline-vs-live badge and tool-use trace. Verified end-to-end against a running API.
+- Test suites: Vitest units for the frontend, a Playwright e2e suite that runs a real isolated backend and
+  drives the real browser through sign-in → launch a scenario → an incident → an agent report, and an
+  enforced backend coverage floor (`fail_under = 75`, measured ~82%).

@@ -36,6 +36,7 @@ def client(tmp_path_factory: pytest.TempPathFactory) -> Iterator[TestClient]:
         data_root=ROOT,
         l2_models_dir=ONNX,
         donki_cache=tmp / "donki",
+        rate_limit_per_minute=0,  # this fixture polls a real replay to completion; don't self-block
     )
     with TestClient(create_app(cfg)) as c:
         login(c, cfg)

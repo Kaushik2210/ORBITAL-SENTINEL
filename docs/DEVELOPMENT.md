@@ -4,7 +4,8 @@
 
 Everything goes through `scripts/tasks.py`; the `Makefile` is a thin wrapper (Windows has no `make` by default).
 The frontend (`frontend/`) is a separate Node project — see [`frontend/README.md`](../frontend/README.md) for
-`npm install` / `npm run dev` / `npm run lint` / `npm run build`.
+`npm install` / `npm run dev` / `npm run lint` / `npm run build` / `npm run test` (Vitest) / `npm run e2e`
+(Playwright, against a real API it starts itself — no mocks).
 
 | Task | Command | What it does |
 |---|---|---|

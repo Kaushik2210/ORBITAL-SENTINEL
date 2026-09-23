@@ -78,6 +78,7 @@ export default function ScenariosPage() {
               <button
                 onClick={() => launch(s.id)}
                 disabled={!canLaunch || launching !== null}
+                data-testid={`launch-${s.id}`}
                 className="rounded bg-accent px-3 py-1 text-xs font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-40"
               >
                 {launching === s.id ? "starting…" : "launch"}

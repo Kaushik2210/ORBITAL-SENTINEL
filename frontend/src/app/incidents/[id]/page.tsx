@@ -120,6 +120,7 @@ export default function IncidentDetailPage({ params }: { params: Promise<{ id: s
           <button
             onClick={investigate}
             disabled={!canInvestigate || investigating}
+            data-testid="investigate-button"
             className="rounded bg-accent px-3 py-1 text-xs font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-40"
           >
             {investigating ? "investigating…" : report ? "re-run" : "investigate"}
@@ -133,6 +134,7 @@ export default function IncidentDetailPage({ params }: { params: Promise<{ id: s
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-xs text-muted">
               <span
+                data-testid="report-mode"
                 className={`mono rounded border px-1.5 py-0.5 uppercase ${
                   report.mode === "llm"
                     ? "border-accent/40 text-accent"

@@ -31,6 +31,7 @@ def settings(tmp: Path, **over: Any) -> Settings:
         "cors_origins": ["http://localhost:3000"],
         "anthropic_api_key": None,  # force the offline agent fallback; no network in tests
         "jwt_secret": "test-only-jwt-secret-at-least-32-bytes-long",
+        "rate_limit_per_minute": 0,  # tests poll fast; not what this limit guards against
     }
     base.update(over)
     return Settings(**base)

@@ -51,6 +51,7 @@ frontend/coverage/
 next-env.d.ts
 playwright-report/
 test-results/
+frontend/e2e/.backend-meta.json
 blob-report/
 
 # --- editors / OS ---
