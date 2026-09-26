@@ -18,7 +18,11 @@ COPY pyproject.toml uv.lock README.md ./
 COPY backend backend
 COPY simulator simulator
 COPY ml ml
-RUN --mount=type=cache,id=uv-cache,target=/root/.cache/uv uv sync --frozen --no-dev
+# No BuildKit cache mount here: Railway's own builder has undocumented requirements for the
+# mount `id` (an anonymous one is rejected; a plain custom one is rejected too, for "missing a
+# cacheKey prefix") that aren't worth chasing for a build-speed optimization. Slower rebuilds, but
+# portable across BuildKit-based builders.
+RUN uv sync --frozen --no-dev
 
 FROM python:3.12-slim-bookworm AS runtime
 RUN groupadd --system sentinel && useradd --system --create-home --gid sentinel sentinel
