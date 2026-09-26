@@ -17,9 +17,12 @@ export default defineRailway((ctx) => {
       healthcheckTimeout: 30,
     },
     networking: {
-      serviceDomains: { default: {} },
+      serviceDomains: { default: { port: 8000 } },
     },
     env: {
+      // Pinned rather than left to Railway's own default (observed: 8080), so this number and
+      // the domain's target port above can never drift apart. The Dockerfile's CMD reads $PORT.
+      PORT: "8000",
       DATABASE_URL:
         "postgresql+asyncpg://${{db.PGUSER}}:${{db.PGPASSWORD}}@${{db.PGHOST}}:${{db.PGPORT}}/${{db.PGDATABASE}}",
       JWT_SECRET: ctx.randomString("jwt-secret", 48),
@@ -38,9 +41,11 @@ export default defineRailway((ctx) => {
       dockerfilePath: "Dockerfile",
     },
     networking: {
-      serviceDomains: { default: {} },
+      serviceDomains: { default: { port: 3000 } },
     },
     env: {
+      // Pinned rather than left to Railway's own default (observed: 8080) — see the api service.
+      PORT: "3000",
       NEXT_PUBLIC_API_BASE: "https://${{api.RAILWAY_PUBLIC_DOMAIN}}",
     },
   });
