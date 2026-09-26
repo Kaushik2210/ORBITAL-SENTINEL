@@ -18,7 +18,7 @@ COPY pyproject.toml uv.lock README.md ./
 COPY backend backend
 COPY simulator simulator
 COPY ml ml
-RUN --mount=type=cache,target=/root/.cache/uv uv sync --frozen --no-dev
+RUN --mount=type=cache,id=uv-cache,target=/root/.cache/uv uv sync --frozen --no-dev
 
 FROM python:3.12-slim-bookworm AS runtime
 RUN groupadd --system sentinel && useradd --system --create-home --gid sentinel sentinel
@@ -42,9 +42,11 @@ ENV PATH="/app/.venv/bin:$PATH" \
     PUBLIC_DEMO_MODE=true
 
 # Real SMAP/MSL data and the L2 ONNX models are never baked into the image (they're either
-# gitignored, licensed third-party data, or reproducible artifacts) — mount them at /data and
-# L2_MODELS_DIR if a deployment has them; the API degrades gracefully without either.
-VOLUME ["/data"]
+# gitignored, licensed third-party data, or reproducible artifacts) — mount a Railway Volume (or a
+# docker-compose bind mount) at /data and set L2_MODELS_DIR if a deployment has them; the API
+# degrades gracefully without either. No `VOLUME` instruction here: Railway's builder rejects it
+# (use a platform-native volume instead), and plain `docker run` needs no declaration to bind-mount
+# a host path over /data.
 
 USER sentinel
 EXPOSE 8000
