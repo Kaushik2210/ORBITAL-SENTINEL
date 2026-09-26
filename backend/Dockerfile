@@ -55,6 +55,8 @@ ENV PATH="/app/.venv/bin:$PATH" \
 USER sentinel
 EXPOSE 8000
 HEALTHCHECK --interval=10s --timeout=3s --start-period=15s --retries=5 \
-    CMD python -c "import urllib.request as u; u.urlopen('http://127.0.0.1:8000/api/v1/health', timeout=2)"
+    CMD python -c "import os,urllib.request as u; u.urlopen(f'http://127.0.0.1:{os.environ.get(\"PORT\",8000)}/api/v1/health', timeout=2)"
 
-CMD ["uvicorn", "sentinel_api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Platforms that assign their own port (Railway, etc.) inject $PORT at runtime, overriding the
+# plain default of 8000 used by docker-compose/local `docker run`.
+CMD ["sh", "-c", "uvicorn sentinel_api.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

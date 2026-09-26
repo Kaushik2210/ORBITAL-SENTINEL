@@ -17,7 +17,7 @@ export default defineRailway((ctx) => {
       healthcheckTimeout: 30,
     },
     networking: {
-      serviceDomains: { default: { port: 8000 } },
+      serviceDomains: { default: {} },
     },
     env: {
       DATABASE_URL:
@@ -38,7 +38,7 @@ export default defineRailway((ctx) => {
       dockerfilePath: "Dockerfile",
     },
     networking: {
-      serviceDomains: { default: { port: 3000 } },
+      serviceDomains: { default: {} },
     },
     env: {
       NEXT_PUBLIC_API_BASE: "https://${{api.RAILWAY_PUBLIC_DOMAIN}}",
