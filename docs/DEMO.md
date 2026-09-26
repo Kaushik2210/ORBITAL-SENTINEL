@@ -6,6 +6,10 @@ not aspirational. `frontend/e2e/mission-control.spec.ts` automates the same path
 
 ## Setup (~2 minutes, once)
 
+Fastest: open the live deployment, <https://web-production-ddd02.up.railway.app> — read-only browsing
+(steps 1 and the first half of 3) needs no account; ask whoever's presenting for sign-in credentials to
+launch a scenario, or run the platform yourself:
+
 ```bash
 cp .env.example .env   # fill in JWT_SECRET, POSTGRES_PASSWORD, ADMIN_EMAIL, ADMIN_PASSWORD
 docker compose up --build

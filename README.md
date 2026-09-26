@@ -6,6 +6,11 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Python 3.12](https://img.shields.io/badge/python-3.12-blue)
 ![Status: demo-ready](https://img.shields.io/badge/status-demo--ready-brightgreen)
+[![Live demo](https://img.shields.io/badge/demo-live-blueviolet)](https://web-production-ddd02.up.railway.app)
+
+**[Try the live demo →](https://web-production-ddd02.up.railway.app)** — read-only browsing needs no account
+(demo mode); API at <https://api-production-b3be.up.railway.app>. Single free-tier instance, not a production
+SLA — see "Live deployment" below.
 
 Orbital Sentinel treats a spacecraft as a distributed system. It ingests a telemetry stream, runs a layered
 detection engine, and decides which of five things is going on: a **mechanical failure**, an **environmental
@@ -142,6 +147,16 @@ frontend together:
 cp .env.example .env   # fill in JWT_SECRET, POSTGRES_PASSWORD, ADMIN_EMAIL/ADMIN_PASSWORD
 docker compose up --build   # http://localhost:3000, API at http://localhost:8000
 ```
+
+## Live deployment
+
+<https://web-production-ddd02.up.railway.app> runs the same images as `docker compose`, on
+[Railway](https://railway.com): Postgres (plain, not TimescaleDB — Railway's managed Postgres image doesn't
+ship the extension; the migration detects that and falls back to ordinary tables, per ADR 0007), the API, and
+the frontend, wired up by [`.railway/railway.ts`](.railway/railway.ts) (Railway's infrastructure-as-code).
+Read this as a **demo**, not a production deployment: a single instance on a free/trial plan, no custom
+domain, no monitoring beyond Railway's own, and no `ANTHROPIC_API_KEY` configured (the agent runs its offline
+fallback there, same as everywhere without a key). Redeploys automatically on every push to `main`.
 
 ## Contributing
 

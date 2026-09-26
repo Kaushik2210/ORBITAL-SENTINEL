@@ -33,3 +33,7 @@ versioning: [SemVer](https://semver.org/).
   compose up + a real login smoke test) — never run on the development machine, which has no Docker.
 - `docs/DETECTION.md` (the as-built detector reference) and `docs/DEMO.md` (a real walkthrough script); real
   README screenshots of the running platform, captured against the actual dev servers.
+- **Live deployment** on Railway (`.railway/railway.ts`, infrastructure-as-code), auto-deploying from `main`:
+  <https://web-production-ddd02.up.railway.app>. Verified against the live instance itself, not just its
+  build: signed in, launched a scenario, watched it complete, and confirmed the incident and AI report it
+  produced.

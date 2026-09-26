@@ -14,7 +14,8 @@ component that is visibly not built.
 | Attribution on real channels | The attribution model was trained on the synthetic bus; the API records real-channel replay incidents as `needs_human` with a note rather than an unvalidated class |
 | The investigation agent's live-LLM path | Unit-tested against a stub Anthropic client only (see `tests/agent/test_client.py`); it has not been run end-to-end against the real API, because doing so requires a paid key. The offline fallback is the only path exercised in CI, and it is also the default without `ANTHROPIC_API_KEY` set — see [API.md](API.md). |
 | Frontend test coverage beyond `lib/` and `components/`, and beyond one e2e path | Page components aren't unit-tested; `frontend/e2e/mission-control.spec.ts` covers one full flow and the demo-mode read/write boundary, not every page or role combination |
-| `docker compose up --build` (Postgres/TimescaleDB, API, frontend) is only run by CI | Never run on the development machine — it has no Docker installed. CI's `docker` job builds both images, brings the stack up with health checks, and curls the API through a real login before tearing it down; see `docs/PROGRESS.md` |
+| `docker compose up --build` is only run by CI, not on the development machine | It has no Docker installed. CI's `docker` job builds both images, brings the stack up with health checks, and curls the API through a real login before tearing it down. The images themselves *are* live in production, though — see the next row. |
+| TimescaleDB in the live deployment | Railway's managed Postgres doesn't ship the extension; the migration detects that and falls back to plain tables (ADR 0007) — hypertables/compression/retention are still verified only in CI's `postgres` job, not live |
 
 ## What the evaluation can and cannot claim
 
@@ -80,9 +81,13 @@ component that is visibly not built.
 
 ## Verification gaps
 
-- Docker images and `docker compose up --build` are built and run, but only by CI — never on the development
-  machine, which has no Docker installed.
-- TimescaleDB behavior (hypertables, compression, retention) is verified only in the GitHub Actions `postgres` job.
+- `docker compose up --build` itself is only run by CI — never on the development machine, which has no
+  Docker installed. The same two Dockerfiles are what runs the live deployment, though (Railway, not compose).
+- TimescaleDB behavior (hypertables, compression, retention) is verified only in the GitHub Actions `postgres`
+  job — the live deployment's Postgres doesn't have the extension at all (see the table above).
+- The live deployment is a single free/trial-plan Railway instance: no custom domain, no monitoring or
+  alerting beyond Railway's own dashboard, no backup verification on the database, and it will follow
+  whatever that plan's usage limits are over time — this is a demo, not an SLA.
 - The investigation agent's live LLM path is built but only tested against a stub client, not a real key (see
   the table above).
 - `bandit`/`pip-audit`/Trivy run in CI but are advisory (`continue-on-error: true`), not a merge gate yet.

@@ -2,8 +2,9 @@
 
 Newest entry last. Each phase ends with tests green, lint/typecheck clean, a commit, and an entry here.
 
-**Resume pointer:** last completed phase → **Phase 12 (documentation)**. All 12 phases of the original brief are
-now done — see "What's left" at the bottom of this file for the honest remaining polish (deployment, debts).
+**Resume pointer:** all 12 phases of the original brief are done and the platform is **live**:
+<https://web-production-ddd02.up.railway.app>. See "What's left" at the bottom of this file for the honest
+remaining polish.
 
 ## Phase roadmap
 
@@ -269,20 +270,42 @@ now done — see "What's left" at the bottom of this file for the honest remaini
   incident's evidence, the agent's report), captured with a throwaway Playwright script driving the actual dev
   servers — not mockups. `docs/img/`.
 
+### Live deployment (this session)
+- Deployed to [Railway](https://railway.com) via `.railway/railway.ts` (their infrastructure-as-code): a
+  Postgres database, the `api` service (`backend/Dockerfile`), and the `web` service (`frontend/Dockerfile`),
+  auto-deploying from `main` on every push. Live: <https://web-production-ddd02.up.railway.app> (frontend),
+  <https://api-production-b3be.up.railway.app> (API).
+- Found and fixed three real, Railway-specific build/runtime bugs no other environment surfaced (plain
+  `docker`/`docker compose`, already verified in CI, never hit any of them):
+  1. Railway's builder rejects an anonymous BuildKit cache mount, and a named one too without an
+     undocumented "cacheKey prefix" — dropped the cache mount from `backend/Dockerfile` entirely (a
+     build-speed loss, not a correctness one).
+  2. Railway's builder rejects a Dockerfile `VOLUME` instruction outright (platform volumes are configured
+     separately) — removed it; `/data` still works as a plain path or a bind/volume mount elsewhere.
+  3. Railway assigns its own port (observed default: 8080) independent of what a Dockerfile `EXPOSE`s or
+     hardcodes, and the public domain, the container's actual listen port, and the healthcheck can each end
+     up targeting a different number — both services now read `$PORT` at runtime, and `railway.ts` pins an
+     explicit `PORT` variable so the container and the domain config can never drift apart again.
+- Migrations run via `railway ssh` into the `api` service (so `DATABASE_URL`'s private `railway.internal`
+  hostname resolves — it isn't reachable from outside Railway's network) rather than a public Postgres proxy,
+  which this Postgres instance doesn't expose. TimescaleDB isn't installed on Railway's managed Postgres
+  image, so the migration's Timescale-guarded sections no-op (ADR 0007) — plain tables, not hypertables.
+  Verified end-to-end against the **live** deployment, not just "it started": signed in, launched
+  `auth_bruteforce`, watched it run to completion, confirmed the incident it raised (`cyberattack`, 99.3%),
+  and ran the AI agent on it (offline fallback, no key configured there either).
+
 ## What's left
 
-Every phase in the original brief is built. What remains is honestly-stated polish and one thing outside this
-repo's control:
+Every phase in the original brief is built and now genuinely live. What remains is honestly-stated polish:
 
-- **A public deployment.** `docker compose up --build` is verified in CI; it has never been pointed at a real
-  host. Doing so needs an account on a hosting platform (Railway/Render/Fly.io/a VPS/etc.) — an actual
-  decision and actual credentials the account owner provides, not something to invent silently. See whichever
-  session picks this up next for the specific platform chosen and what's now live.
 - Security debts (all in `docs/THREAT_MODEL.md`): no MFA or token revocation list; rate limiter and audit log
   are single-process/application-enforced only; `bandit`/`pip-audit`/Trivy are advisory, not blocking.
+- The live deployment is a demo, not a production target: a single free/trial-plan instance, no custom
+  domain, plain Postgres (no TimescaleDB), no monitoring/alerting beyond Railway's own, and no
+  `ANTHROPIC_API_KEY` (offline agent fallback there too). Stated in the README, not hidden.
 - Other debts: the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`) and are not baked
   into the Docker image either — the containerized API runs L1/L3-L5 + attribution only unless you mount
   them; DONKI cache is local-only (scenarios fall back to `weather_context = unavailable` without it); the
-  agent's live path has no key-based verification, in Docker or otherwise; no frontend error boundary polish
-  beyond basic try/catch; the e2e suite covers one path, not every page/role combination; frontend coverage
-  has no enforced floor yet; `docker compose up` has never been run outside CI.
+  agent's live path has no key-based verification anywhere, Docker or otherwise; no frontend error boundary
+  polish beyond basic try/catch; the e2e suite covers one path, not every page/role combination; frontend
+  coverage has no enforced floor yet.
