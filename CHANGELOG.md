@@ -31,3 +31,5 @@ versioning: [SemVer](https://semver.org/).
   TimescaleDB, migrations, an admin account, the API and the frontend with one command
   (`docker compose up --build` / `python scripts/tasks.py demo`). Verified by a new CI `docker` job (build +
   compose up + a real login smoke test) — never run on the development machine, which has no Docker.
+- `docs/DETECTION.md` (the as-built detector reference) and `docs/DEMO.md` (a real walkthrough script); real
+  README screenshots of the running platform, captured against the actual dev servers.

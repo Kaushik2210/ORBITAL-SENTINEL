@@ -5,7 +5,7 @@
 [![CI](https://github.com/Kaushik2210/ORBITAL-SENTINEL/actions/workflows/ci.yml/badge.svg)](https://github.com/Kaushik2210/ORBITAL-SENTINEL/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Python 3.12](https://img.shields.io/badge/python-3.12-blue)
-![Status: early development](https://img.shields.io/badge/status-early%20development-orange)
+![Status: demo-ready](https://img.shields.io/badge/status-demo--ready-brightgreen)
 
 Orbital Sentinel treats a spacecraft as a distributed system. It ingests a telemetry stream, runs a layered
 detection engine, and decides which of five things is going on: a **mechanical failure**, an **environmental
@@ -35,7 +35,7 @@ Details and remaining polish: [`docs/PROGRESS.md`](docs/PROGRESS.md).
 | CCSDS-like packet layer with HMAC tag, async ingestion, mission replay engine | ✅ done |
 | Synthetic physics bus driven by real PCoE battery / IMS bearing trajectories | ✅ done |
 | Database schema, Alembic migrations, TimescaleDB hypertables (verified in CI) | ✅ done |
-| Detectors: L1 statistical, L3 physics/redundancy, L4 protocol/security, L5 environment | ✅ done |
+| Detectors: L1 statistical, L3 physics/redundancy, L4 protocol/security, L5 environment ([DETECTION](docs/DETECTION.md)) | ✅ done |
 | 33-scenario library (7 attack families, faults, degradation, SEU) + explainable attribution | ✅ done |
 | L2 detectors: per-channel LSTM forecaster → ONNX Runtime with dynamic thresholding, Isolation Forest baseline | ✅ done (weaker than L1 alone on real data; see results) |
 | REST / WebSocket / SSE API with live scenario and real-data replay sessions ([API](docs/API.md)) | ✅ done |
@@ -44,6 +44,18 @@ Details and remaining polish: [`docs/PROGRESS.md`](docs/PROGRESS.md).
 | Mission Control web UI: live telemetry, scenario launcher, incident/evidence viewer, agent reports ([frontend](frontend/README.md)) | ✅ done (no 3D globe or animation library — scope cut to ship a working app) |
 | Test suites: Vitest units, Playwright e2e against a real API, enforced backend coverage floor | ✅ done |
 | Docker images and `docker compose up --build` (Postgres/TimescaleDB, API, frontend, one command) | ✅ done — **verified in CI only**, not on the machine that wrote it (no Docker installed there) |
+
+## See it
+
+Real screenshots of the running platform — a launched attack scenario streaming live, the incident
+it raised with its exact evidence, and the AI agent's report on it. A 3-minute walkthrough script
+(what to click, what to say) is in [`docs/DEMO.md`](docs/DEMO.md).
+
+<p align="center">
+  <img src="docs/img/scenarios.png" width="32%" alt="Scenario library: 33 seeded attack and fault scenarios">
+  <img src="docs/img/session-done.png" width="32%" alt="A finished session: live telemetry, the incident it raised, ground truth hidden until asked">
+  <img src="docs/img/agent-report.png" width="32%" alt="An incident's evidence and the AI investigation agent's report">
+</p>
 
 ## Results so far
 

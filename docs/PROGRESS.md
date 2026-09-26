@@ -2,7 +2,8 @@
 
 Newest entry last. Each phase ends with tests green, lint/typecheck clean, a commit, and an entry here.
 
-**Resume pointer:** last completed phase → **Phase 11 (Docker/CI hardening)**. Next → **Phase 12 (documentation)**.
+**Resume pointer:** last completed phase → **Phase 12 (documentation)**. All 12 phases of the original brief are
+now done — see "What's left" at the bottom of this file for the honest remaining polish (deployment, debts).
 
 ## Phase roadmap
 
@@ -20,7 +21,7 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
 | 9 | Platform security | done (JWT + roles, rate limiting, hash-chained audit log, security headers, CI scanners advisory-only) |
 | 10 | Test suites and coverage gates | done (Vitest units, Playwright e2e against a real API, backend coverage floor enforced at 75%) |
 | 11 | Docker and CI hardening | done (`docker compose up --build`; verified in CI only, no Docker on the dev machine) |
-| 12 | Documentation | – |
+| 12 | Documentation | done (`DETECTION.md`, `DEMO.md`, real README screenshots) |
 
 ## Environment notes (measured on the dev machine)
 
@@ -257,14 +258,31 @@ Newest entry last. Each phase ends with tests green, lint/typecheck clean, a com
   smoke test: health endpoints, a real login against the bootstrap-provisioned admin account, and a real
   `/auth/me` call with the returned token — not just "did it start."
 
-## Resume here (next session)
+### Documentation (this session)
+- **`docs/DETECTION.md`**: the as-built detector reference — every real detector class/name in
+  `backend/sentinel_core/detection/`, what each one catches (grounded in the actual code, not the Phase-2
+  design doc), and the confusable-pair table, cross-linked to `EVALUATION.md` for every number rather than
+  restating any of them.
+- **`docs/DEMO.md`**: a ~3-minute walkthrough script — the same path `frontend/e2e/mission-control.spec.ts`
+  automates — with a section on what to say when asked "what's real here."
+- **README screenshots**: real PNGs of the running platform (scenario library, a finished session, an
+  incident's evidence, the agent's report), captured with a throwaway Playwright script driving the actual dev
+  servers — not mockups. `docs/img/`.
 
-1. **Phase 12 docs:** `DETECTION.md` (per-detector writeup), a demo script, README screenshots/GIF.
-2. Security debts (all in `docs/THREAT_MODEL.md`): no MFA or token revocation list; rate limiter and audit log
-   are single-process/application-enforced only; `bandit`/`pip-audit` are advisory, not blocking.
-3. Other debts: the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`) and are not baked
-   into the Docker image either — the containerized API runs L1/L3-L5 + attribution only unless you mount
-   them; DONKI cache is local-only (scenarios fall back to `weather_context = unavailable` without it); the
-   agent's live path has no key-based verification, in Docker or otherwise; no frontend error boundary polish
-   beyond basic try/catch; the e2e suite covers one path, not every page/role combination; frontend coverage
-   has no enforced floor yet; `docker compose up` has never been run outside CI.
+## What's left
+
+Every phase in the original brief is built. What remains is honestly-stated polish and one thing outside this
+repo's control:
+
+- **A public deployment.** `docker compose up --build` is verified in CI; it has never been pointed at a real
+  host. Doing so needs an account on a hosting platform (Railway/Render/Fly.io/a VPS/etc.) — an actual
+  decision and actual credentials the account owner provides, not something to invent silently. See whichever
+  session picks this up next for the specific platform chosen and what's now live.
+- Security debts (all in `docs/THREAT_MODEL.md`): no MFA or token revocation list; rate limiter and audit log
+  are single-process/application-enforced only; `bandit`/`pip-audit`/Trivy are advisory, not blocking.
+- Other debts: the L2 models are not committed (train with `python -m sentinel_ml.l2_eval`) and are not baked
+  into the Docker image either — the containerized API runs L1/L3-L5 + attribution only unless you mount
+  them; DONKI cache is local-only (scenarios fall back to `weather_context = unavailable` without it); the
+  agent's live path has no key-based verification, in Docker or otherwise; no frontend error boundary polish
+  beyond basic try/catch; the e2e suite covers one path, not every page/role combination; frontend coverage
+  has no enforced floor yet; `docker compose up` has never been run outside CI.
