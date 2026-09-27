@@ -48,7 +48,7 @@ dev = [
   "mypy>=1.11",
   "types-PyYAML",
   "pre-commit>=3.8",
-  "scipy-stubs>=1.18.1.0",
+  "scipy-stubs>=1.18.1.1",
   "psycopg[binary]>=3.3.6",
 ]
 
