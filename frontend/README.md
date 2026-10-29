@@ -25,6 +25,7 @@ account provisioned by `python scripts/tasks.py create-user` to launch scenarios
 | `/scenarios` | The 33-scenario library; launching one needs the `analyst` role |
 | `/sessions/[id]` | Live telemetry (WebSocket, uPlot), incidents as they're raised, ground truth revealed on request once the session finishes |
 | `/incidents` | Filterable incident list |
+| `/audit` | Admin only: the hash-chained audit log, with a button that verifies the chain |
 | `/incidents/[id]` | Posterior, signed evidence, detector outputs, and the AI investigation agent (`investigate` button, offline-vs-live badge, tool-use trace) |
 
 ## Testing
@@ -47,10 +48,12 @@ processes are torn down after the run (`e2e/global-teardown.ts`).
 - No 3D globe, no `react-three-fiber`, no Framer Motion — the original brief's more decorative
   pieces were cut to ship something that actually works end-to-end within scope. What's here is
   functional: live streaming, real auth, real agent calls, no mocked data.
-- No "Attack or Accident?" scored challenge mode; `/sessions/[id]`'s ground-truth reveal button is
-  the honest, unscored version of that idea (hidden until asked, so a live client can't peek — the
-  API enforces the actual withholding, this is just the UI for it).
-- No offline/error boundary polish beyond basic try/catch-to-message.
+- The "Attack or Accident?" challenge is built (guess a finished scenario's class before seeing the
+  answer; the tally compares you against the platform), but it is unscored across devices — the
+  tally lives in `localStorage`, not the server. The API still enforces the actual withholding of
+  ground truth until a run finishes.
+- Errors: a route-level boundary (`error.tsx`) and a styled 404 (`not-found.tsx`) exist; there is no
+  offline mode or retry/backoff on individual requests.
 - No dark/light toggle — Mission Control is an always-on operator surface, not a document, so it
   doesn't follow the OS theme preference.
 - The e2e suite covers one path end-to-end, not every page or role combination; the unit tests

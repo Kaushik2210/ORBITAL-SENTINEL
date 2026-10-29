@@ -8,7 +8,7 @@ component that is visibly not built.
 
 | Missing | Consequence |
 |---|---|
-| The frontend's decorative scope (3D globe, animation library, a scored "Attack or Accident?" mode) | Cut to ship a working app within scope; see [frontend/README.md](../frontend/README.md) for exactly what was cut |
+| The frontend's decorative scope (3D globe, animation library) | Cut to ship a working app within scope; the "Attack or Accident?" challenge was later built (tally is per-browser); see [frontend/README.md](../frontend/README.md) for exactly what was cut |
 | Self-registration, MFA, token revocation, per-resource ACLs (only three global roles) | Accounts are provisioned with `scripts/tasks.py create-user`; a leaked token is valid until its 8 h expiry; see [THREAT_MODEL.md](THREAT_MODEL.md) |
 | A production-grade rate limiter and a DB-enforced (not just application-enforced) audit log | The shipped versions are correct for one process but documented as insufficient for a multi-worker deployment or a fully compromised database — see [THREAT_MODEL.md](THREAT_MODEL.md) |
 | Attribution on real channels | The attribution model was trained on the synthetic bus; the API records real-channel replay incidents as `needs_human` with a note rather than an unvalidated class |
