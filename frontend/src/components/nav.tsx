@@ -22,7 +22,7 @@ export function Nav() {
           <span className="mono text-sm">ORBITAL SENTINEL</span>
         </Link>
         <nav className="flex gap-4 text-sm text-muted">
-          {LINKS.map((l) => (
+          {(role === "admin" ? [...LINKS, { href: "/audit", label: "Audit" }] : LINKS).map((l) => (
             <Link
               key={l.href}
               href={l.href}
