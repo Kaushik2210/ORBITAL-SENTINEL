@@ -46,6 +46,13 @@ test("sign in, launch a scenario, watch it finish, and investigate the incident 
   // Ground truth stays hidden on the session page until asked for, even after the run finishes.
   await page.goBack();
   await expect(page.getByText("What actually happened is hidden until you ask")).toBeVisible();
+
+  // Attack-or-Accident challenge: auth_bruteforce is a cyberattack, so this guess is right.
+  await page.getByText("Cyberattack", { exact: true }).click();
+  await page.getByRole("button", { name: "Lock in guess" }).click();
+  await expect(page.getByText("Correct.")).toBeVisible();
+  await expect(page.getByText(/1 played/)).toBeVisible();
+
   await page.getByRole("button", { name: "reveal" }).click();
   await expect(page.getByText("abnormal_authentication")).toBeVisible();
 });
