@@ -7,6 +7,7 @@ import { hasRole, useAuth } from "@/lib/auth-store";
 import { useSessionStream } from "@/lib/use-session-stream";
 import type { GroundTruthOut, SessionOut } from "@/lib/types";
 import { SyntheticBadge } from "@/components/badges";
+import { ChallengePanel } from "@/components/challenge-panel";
 import { TelemetryChart, type ChartSeries } from "@/components/telemetry-chart";
 
 const PALETTE = ["#22d3ee", "#fbbf24", "#34d399", "#f87171", "#60a5fa", "#c084fc"];
@@ -18,6 +19,7 @@ export default function SessionDetailPage({ params }: { params: Promise<{ id: st
   const canControl = hasRole(role, "analyst");
   const [session, setSession] = useState<SessionOut | null>(null);
   const [truth, setTruth] = useState<GroundTruthOut | null>(null);
+  const [platformVerdict, setPlatformVerdict] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const stream = useSessionStream(id, token);
@@ -38,6 +40,10 @@ export default function SessionDetailPage({ params }: { params: Promise<{ id: st
   useEffect(() => {
     if (!finished || session?.kind !== "scenario" || truth) return;
     api.groundTruth(id, token).then(setTruth).catch(() => undefined);
+    api
+      .incidents(token, { session_id: id, limit: 1 })
+      .then((p) => setPlatformVerdict(p.items[0]?.verdict ?? null))
+      .catch(() => undefined);
   }, [finished, id, session?.kind, token, truth]);
 
   const chartedChannels = useMemo(
@@ -143,6 +149,10 @@ export default function SessionDetailPage({ params }: { params: Promise<{ id: st
           </ul>
         )}
       </section>
+
+      {finished && session.kind === "scenario" && truth && (
+        <ChallengePanel sessionId={id} truth={truth.class} platformVerdict={platformVerdict} />
+      )}
 
       {finished && session.kind === "scenario" && (
         <section className="hud-panel rounded-lg border p-4">
