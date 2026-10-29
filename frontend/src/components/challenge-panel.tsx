@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   accuracy,
-  EMPTY_TALLY,
   GUESS_OPTIONS,
   loadTally,
   record,
@@ -27,11 +26,11 @@ export function ChallengePanel({
 }) {
   const [choice, setChoice] = useState<string>("");
   const [locked, setLocked] = useState<string | null>(null);
-  const [tally, setTally] = useState<Tally>(EMPTY_TALLY);
-
-  useEffect(() => {
-    setTally(loadTally(typeof window === "undefined" ? undefined : window.localStorage));
-  }, []);
+  // Lazy init, not an effect: this panel only mounts after client-side data has loaded, so there is
+  // no server render to mismatch, and it avoids a synchronous setState-in-effect.
+  const [tally, setTally] = useState<Tally>(() =>
+    loadTally(typeof window === "undefined" ? undefined : window.localStorage)
+  );
 
   function lockIn() {
     if (!choice) return;
