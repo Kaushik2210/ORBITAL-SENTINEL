@@ -235,6 +235,10 @@ remaining polish.
   fixtures now set `rate_limit_per_minute=0`).
 - **Coverage gate:** `fail_under = 75` in `pyproject.toml` (measured ~82% on 2026-09-23), enforced directly by
   `pytest --cov` — previously `0`, i.e. unenforced.
+- **Frontend coverage floor:** Vitest `coverage.thresholds` (statements 48 / branches 60 / functions 40 /
+  lines 50), set a few points under a measured 51.1 / 65.4 / 44.9 / 54.2 over `src/lib` and
+  `src/components`. Verified to fail when raised above the measurement. The uPlot chart and the
+  WebSocket hook are not unit-tested (covered by the e2e suite instead).
 - CI gets a new `e2e` job (installs Playwright + Chromium, runs the suite against a real backend it starts)
   and the `frontend` job now runs `npm run test:coverage`.
 
@@ -307,5 +311,5 @@ Every phase in the original brief is built and now genuinely live. What remains 
   into the Docker image either — the containerized API runs L1/L3-L5 + attribution only unless you mount
   them; DONKI cache is local-only (scenarios fall back to `weather_context = unavailable` without it); the
   agent's live path has no key-based verification anywhere, Docker or otherwise; no frontend error boundary
-  polish beyond basic try/catch; the e2e suite covers one path, not every page/role combination; frontend
-  coverage has no enforced floor yet.
+  polish beyond basic try/catch; the e2e suite covers one path, not every page/role combination; the frontend
+  coverage floor is low (~51%) because the chart and stream hook are only e2e-tested.

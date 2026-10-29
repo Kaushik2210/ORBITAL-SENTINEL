@@ -6,6 +6,8 @@ versioning: [SemVer](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- Frontend: an enforced Vitest coverage floor (measured ~51% statements; floor set just under it), with
+  new component tests for the challenge panel and the nav, and automatic test cleanup.
 - Frontend: the scored "Attack or Accident?" challenge, an admin audit-log page with hash-chain
   verification, a route error boundary and 404 page, and an always-visible keyboard focus ring.
 - Project bootstrap: monorepo layout, tooling (ruff, mypy strict, pytest, pre-commit), CI, contributor docs.
